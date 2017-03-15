@@ -35,11 +35,11 @@ public class InterfaceInicial extends JFrame {
 	JComboBox<String> iconeCombobox;
 	
 	public InterfaceInicial(){
-		getContentPane().setBackground(new Color(153, 0, 0));
+		getContentPane().setBackground(new Color(139, 0, 0));
 		getContentPane().setLayout(null);
 
 		JPanel informacoes = new JPanel();
-		informacoes.setBackground(new Color(153, 0, 0));
+		informacoes.setBackground(new Color(139, 0, 0));
 		informacoes.setBounds(222, 145, 262, 299);
 		getContentPane().add(informacoes);
 		informacoes.setLayout(null);
@@ -121,6 +121,7 @@ public class InterfaceInicial extends JFrame {
 		// actions listeners
 		botaoLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				loginFlag = true;
 				nome.setVisible(true);
 				senha.setVisible(true);
 				nomeLabel.setVisible(true);
@@ -130,12 +131,12 @@ public class InterfaceInicial extends JFrame {
 				botaoCadastro.setEnabled(false);
 				botaoLogin.setEnabled(false);
 				icone.setVisible(false);
-				loginFlag = true;
 			}
 		});
 		
 		botaoCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				loginFlag = false;
 				nome.setVisible(true);
 				senha.setVisible(true);
 				nomeLabel.setVisible(true);
@@ -148,7 +149,6 @@ public class InterfaceInicial extends JFrame {
 				botaoCadastro.setEnabled(false);
 				botaoLogin.setEnabled(false);
 				icone.setVisible(true);
-				loginFlag = false;
 			}
 		});
 
@@ -172,17 +172,23 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario user = new Usuario();
-				user.setNome(nome.getText());
-				String senhaTxt = String.valueOf(senha.getPassword());
-				user.setSenha(senhaTxt);
+				if (loginFlag == true){
+					dispose();
+					new InterfaceMenu();
+				} else {
+					Usuario user = new Usuario();
+					user.setNome(nome.getText());
+					String senhaTxt = String.valueOf(senha.getPassword());
+					user.setSenha(senhaTxt);
+					System.out.println("cadastro");
+				}
 			}
 		});
 		
 		iconeCombobox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String comboSelecionado = (String) iconeCombobox.getSelectedItem();
-				icone.setIcon(new ImageIcon(".\\icon\\" + comboSelecionado + ".png"));
+				icone.setIcon(new ImageIcon(".\\image\\icon\\" + comboSelecionado + ".png"));
 			}
 		});
 		
