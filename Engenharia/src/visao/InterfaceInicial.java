@@ -183,8 +183,8 @@ public class InterfaceInicial extends JFrame {
 					dispose();
 					new InterfaceMenu();
 				} else {
-					if (nome.getText().equals("") || senhaTxt.equals("")){
-						JOptionPane.showMessageDialog(null,"Campo é obrigatório");
+					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
+						JOptionPane.showMessageDialog(null,"Campo obrigatório");
 					}else{
 						user.setNome(nome.getText());
 						user.setSenha(senhaTxt);
