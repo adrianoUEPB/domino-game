@@ -173,6 +173,7 @@ public class InterfaceInicial extends JFrame {
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (loginFlag == true){
+					
 					dispose();
 					new InterfaceMenu();
 				} else {
