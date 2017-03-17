@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
@@ -23,6 +24,8 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
+
+import controle.DAO;
 
 public class InterfaceInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -172,16 +175,25 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (loginFlag == true){
-					
+				Usuario user = new Usuario();
+				DAO dao = new DAO();
+				String senhaTxt = String.valueOf(senha.getPassword());
+
+				if (loginFlag == true){					
 					dispose();
 					new InterfaceMenu();
 				} else {
-					Usuario user = new Usuario();
-					user.setNome(nome.getText());
-					String senhaTxt = String.valueOf(senha.getPassword());
-					user.setSenha(senhaTxt);
-					System.out.println("cadastro");
+					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
+						JOptionPane.showMessageDialog(null,"Campo obrigatório");
+					}else{
+						user.setNome(nome.getText());
+						user.setSenha(senhaTxt);
+						user.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+"png");
+						dao.insert(user);
+						
+						System.out.println("cadastro");
+					}
+
 				}
 			}
 		});
