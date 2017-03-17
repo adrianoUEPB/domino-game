@@ -184,11 +184,11 @@ public class InterfaceInicial extends JFrame {
 					new InterfaceMenu();
 				} else {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
-						JOptionPane.showMessageDialog(null,"Campo obrigatório");
+						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
 					}else{
 						user.setNome(nome.getText());
 						user.setSenha(senhaTxt);
-						user.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+"png");
+						user.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
 						dao.insert(user);
 						
 						System.out.println("cadastro");
