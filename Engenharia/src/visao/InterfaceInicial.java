@@ -17,7 +17,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
-import modelo.Usuario;
+import modelo.Jogador;
 
 import java.awt.Color;
 
@@ -175,7 +175,7 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario user = new Usuario();
+				Jogador jogador = new Jogador();
 				DAO dao = new DAO();
 				String senhaTxt = String.valueOf(senha.getPassword());
 
@@ -186,10 +186,10 @@ public class InterfaceInicial extends JFrame {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
 					}else{
-						user.setNome(nome.getText());
-						user.setSenha(senhaTxt);
-						user.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
-						dao.insert(user);
+						jogador.setNome(nome.getText());
+						jogador.setSenha(senhaTxt);
+						jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
+						dao.insert(jogador);
 						
 						System.out.println("cadastro");
 					}
