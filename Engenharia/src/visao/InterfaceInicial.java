@@ -179,9 +179,10 @@ public class InterfaceInicial extends JFrame {
 				DAO dao = new DAO();
 				String senhaTxt = String.valueOf(senha.getPassword());
 
-				if (loginFlag == true){					
+				if (loginFlag == true){	
 					dispose();
 					new InterfaceMenu();
+
 				} else {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
@@ -190,7 +191,7 @@ public class InterfaceInicial extends JFrame {
 							jogador.setNome(nome.getText());
 							jogador.setSenha(senhaTxt);
 							jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
-							dao.insert(jogador);					
+							dao.insert(jogador);							
 						}else{
 							JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
 

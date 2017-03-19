@@ -103,25 +103,31 @@ public class DAO {
 	}
 	
 	public boolean checkLogin(Jogador jogador) {
+		con = new Conexao().conexao();
+		Statement stmt;
+		ResultSet rs;
 		try {
-			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ 
-					jogador.getNome() +"AND senha = "+jogador.getSenha()+"';");
-			if (rs.next())
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ 
+					jogador.getNome() +"';");
+			if (jogador.getSenha().equals(rs.getString("senha"))){
+				rs.close();
+				stmt.close();
+				con.close();
 				return true;
-			
-			rs.close();
-			stmt.close();
-			con.close();
+			}
+
 				
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return false;
+
 	}
 	
 	public static int buscaId(Statement stmt) {
