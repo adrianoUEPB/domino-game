@@ -182,6 +182,7 @@ public class InterfaceInicial extends JFrame {
 				if (loginFlag == true){	
 					dispose();
 					new InterfaceMenu();
+					
 
 				} else {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
