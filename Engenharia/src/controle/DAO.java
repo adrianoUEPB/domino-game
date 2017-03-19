@@ -86,13 +86,12 @@ public class DAO {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ nome +"';");
 			//se existir um proximo
-			if(rs.next())
+			if(rs.next()) {
+				rs.close();
+				stmt.close();
+				con.close();
 				return true;
-			
-			rs.close();
-			stmt.close();
-			con.close();	
-	
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
