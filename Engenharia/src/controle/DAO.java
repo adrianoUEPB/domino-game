@@ -84,11 +84,15 @@ public class DAO {
 			con.setAutoCommit(false);
 			
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT nome FROM jogador WHERE nome = '"+ nome +"';");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ nome +"';");
 			//se existir um proximo
 			if(rs.next())
 				return true;
 			
+			rs.close();
+			stmt.close();
+			con.close();	
+	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,24 +103,31 @@ public class DAO {
 	}
 	
 	public boolean checkLogin(Jogador jogador) {
+		con = new Conexao().conexao();
+		Statement stmt;
+		ResultSet rs;
 		try {
-			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT nome, senha FROM jogador WHERE nome = '"+ jogador.getNome() +"';");
-			if (jogador.getSenha().equals(rs.getString("senha")))
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ 
+					jogador.getNome() +"';");
+			if (jogador.getSenha().equals(rs.getString("senha"))){
+				rs.close();
+				stmt.close();
+				con.close();
 				return true;
-			
+			}
+
+				
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		return true;
+
+		return false;
+
 	}
 	
 	public static int buscaId(Statement stmt) {
@@ -127,6 +138,7 @@ public class DAO {
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next())
 				lastId = rs.getInt(1);
+			
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID");
 		}

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
@@ -23,6 +24,8 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
+
+import controle.DAO;
 
 public class InterfaceInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -56,7 +59,7 @@ public class InterfaceInicial extends JFrame {
 		senha.setColumns(10);
 		senha.setVisible(false);
 				
-		nomeLabel = new JLabel("Nome do usuï¿½rio:");
+		nomeLabel = new JLabel("Nome do usuário:");
 		nomeLabel.setForeground(Color.WHITE);
 		nomeLabel.setBounds(10, 11, 154, 14);
 		informacoes.add(nomeLabel);
@@ -79,7 +82,7 @@ public class InterfaceInicial extends JFrame {
 		informacoes.add(iconeCombobox);
 		iconeCombobox.setVisible(false);
 		
-		iconeLabel = new JLabel("ï¿½cone:");
+		iconeLabel = new JLabel("Ícone:");
 		iconeLabel.setForeground(Color.WHITE);
 		iconeLabel.setBounds(10, 123, 154, 14);
 		informacoes.add(iconeLabel);
@@ -111,7 +114,7 @@ public class InterfaceInicial extends JFrame {
 		botaoSair.setBounds(39, 275, 120, 35);
 		getContentPane().add(botaoSair);
 		
-		JLabel labelDomino = new JLabel("Dominï¿½");
+		JLabel labelDomino = new JLabel("Dominó");
 		labelDomino.setForeground(Color.WHITE);
 		labelDomino.setHorizontalAlignment(SwingConstants.CENTER);
 		labelDomino.setFont(new Font("Brush Script MT", Font.PLAIN, 120));
@@ -172,15 +175,30 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (loginFlag == true){
+				Jogador jogador = new Jogador();
+				DAO dao = new DAO();
+				String senhaTxt = String.valueOf(senha.getPassword());
+
+				if (loginFlag == true){	
 					dispose();
 					new InterfaceMenu();
+
 				} else {
-					Jogador user = new Jogador();
-					user.setNome(nome.getText());
-					String senhaTxt = String.valueOf(senha.getPassword());
-					user.setSenha(senhaTxt);
-					System.out.println("cadastro");
+					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
+						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
+					}else{
+						if(!dao.searchJogador(nome.getText())){
+							jogador.setNome(nome.getText());
+							jogador.setSenha(senhaTxt);
+							jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
+							dao.insert(jogador);							
+						}else{
+							JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
+
+						}
+
+					}
+
 				}
 			}
 		});
