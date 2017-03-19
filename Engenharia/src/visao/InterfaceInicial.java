@@ -186,12 +186,16 @@ public class InterfaceInicial extends JFrame {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
 					}else{
-						jogador.setNome(nome.getText());
-						jogador.setSenha(senhaTxt);
-						jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
-						dao.insert(jogador);
-						
-						System.out.println("cadastro");
+						if(!dao.searchJogador(nome.getText())){
+							jogador.setNome(nome.getText());
+							jogador.setSenha(senhaTxt);
+							jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
+							dao.insert(jogador);					
+						}else{
+							JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
+
+						}
+
 					}
 
 				}

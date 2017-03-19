@@ -84,11 +84,15 @@ public class DAO {
 			con.setAutoCommit(false);
 			
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT nome FROM jogador WHERE nome = '"+ nome +"';");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ nome +"';");
 			//se existir um proximo
 			if(rs.next())
 				return true;
 			
+			rs.close();
+			stmt.close();
+			con.close();	
+	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,10 +108,15 @@ public class DAO {
 			con.setAutoCommit(false);
 			
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT nome, senha FROM jogador WHERE nome = '"+ jogador.getNome() +"';");
-			if (jogador.getSenha().equals(rs.getString("senha")))
+			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ 
+					jogador.getNome() +"AND senha = "+jogador.getSenha()+"';");
+			if (rs.next())
 				return true;
 			
+			rs.close();
+			stmt.close();
+			con.close();
+				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,6 +132,7 @@ public class DAO {
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next())
 				lastId = rs.getInt(1);
+			
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID");
 		}
