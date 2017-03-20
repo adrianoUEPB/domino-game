@@ -191,14 +191,15 @@ public class InterfaceInicial extends JFrame {
 							jogador.setNome(nome.getText());
 							jogador.setSenha(senhaTxt);
 							jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
-							dao.insert(jogador);							
+							dao.insert(jogador);
+							nome.setText("");
+							senha.setText("");
+							iconeCombobox.setSelectedIndex(0);
+
 						}else{
 							JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
-
 						}
-
 					}
-
 				}
 			}
 		});
