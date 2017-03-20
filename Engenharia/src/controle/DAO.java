@@ -29,13 +29,12 @@ public class DAO {
 			sql = "INSERT INTO jogador (nome, icone, senha)"
 					+ "VALUES ('"+jogador.getNome()+"','"+jogador.getIcone()+"','"+ jogador.getSenha() +"');";			
 			stmt.executeUpdate(sql);
-			
-			
 			stmt.close();
 			con.commit();
 			con.close();
-			System.out.println("jogador cadastrado com sucesso!");
+			JOptionPane.showMessageDialog(null,"Jogador cadastrado com sucesso!");
 		} catch (SQLException e) {
+			System.out.println("CAdastro "+e.getMessage());
 			System.err.println("Erro ao cadastrar jogador!");
 		}
 	}
@@ -71,7 +70,7 @@ public class DAO {
 			con.close();
 			
 		} catch (SQLException e) {
-			System.err.println("Erro ao buscar jogadors!");
+			System.err.println("Erro ao buscar jogadores!");
 		}
 
 		return jogadores;		
@@ -87,13 +86,11 @@ public class DAO {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ nome +"';");
 			//se existir um proximo
 			if(rs.next()) {
-				rs.close();
-				stmt.close();
 				con.close();
-				return true;
+				return true;			
 			}
+			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -110,18 +107,14 @@ public class DAO {
 			
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ 
-					jogador.getNome() +"';");
-			if (jogador.getSenha().equals(rs.getString("senha"))){
-				rs.close();
-				stmt.close();
+					jogador.getNome() +"' AND senha = '"+ jogador.getSenha() +"';");
+			if (rs.next()){
 				con.close();
 				return true;
 			}
+			con.close();
 
-				
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -144,6 +137,4 @@ public class DAO {
 		
 		return lastId;
 	}
-	
-	
 }
