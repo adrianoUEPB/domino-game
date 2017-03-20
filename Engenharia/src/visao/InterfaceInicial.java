@@ -180,9 +180,17 @@ public class InterfaceInicial extends JFrame {
 				String senhaTxt = String.valueOf(senha.getPassword());
 
 				if (loginFlag == true){	
-					dispose();
-					new InterfaceMenu();
-
+					jogador.setNome(nome.getText());
+					jogador.setSenha(senhaTxt);
+					if(dao.checkLogin(jogador)){
+						dispose();
+						new InterfaceMenu();							
+					}else{
+						JOptionPane.showMessageDialog(null,"Login ou senha incorreta!");
+						nome.setText("");
+						senha.setText("");
+						iconeCombobox.setSelectedIndex(0);
+					}
 				} else {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
