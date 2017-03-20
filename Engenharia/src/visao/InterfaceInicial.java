@@ -17,7 +17,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
-import modelo.Usuario;
+import modelo.Jogador;
 
 import java.awt.Color;
 
@@ -175,28 +175,30 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario user = new Usuario();
+				Jogador jogador = new Jogador();
 				DAO dao = new DAO();
 				String senhaTxt = String.valueOf(senha.getPassword());
 
-				if (loginFlag == true){					
-					if (nome.getText().equals("") || senhaTxt.equals("")){
-						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
-					}else{
-						dispose();
-						new InterfaceMenu();
-					}
+				if (loginFlag == true){	
+					dispose();
+					new InterfaceMenu();
+
 				} else {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
 					}else{
-						user.setNome(nome.getText());
-						user.setSenha(senhaTxt);
-						user.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
-						dao.insert(user);
-						
-						System.out.println("cadastro");
+						if(!dao.searchJogador(nome.getText())){
+							jogador.setNome(nome.getText());
+							jogador.setSenha(senhaTxt);
+							jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
+							dao.insert(jogador);							
+						}else{
+							JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
+
+						}
+
 					}
+
 				}
 			}
 		});
