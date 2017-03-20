@@ -71,8 +71,10 @@ public class InterfaceInicial extends JFrame {
 		informacoes.add(senhaLabel);
 		senhaLabel.setVisible(false);
 		
-		botaoEntrar = new JButton("Entrar");
-		botaoEntrar.setBounds(135, 242, 100, 32);
+		botaoEntrar = new JButton("");
+		botaoEntrar.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoEntrar.setBorder(null);
+		botaoEntrar.setBounds(139, 242, 113, 35);
 		informacoes.add(botaoEntrar);
 		botaoEntrar.setVisible(false);
 		
@@ -88,30 +90,59 @@ public class InterfaceInicial extends JFrame {
 		informacoes.add(iconeLabel);
 		iconeLabel.setVisible(false);
 		
-		botaoCancelar = new JButton("Cancelar");
-		botaoCancelar.setBounds(27, 242, 89, 32);
+		botaoCancelar = new JButton();
+		botaoCancelar.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-pressed.png"));
+		botaoCancelar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
+		botaoCancelar.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
+		botaoCancelar.setIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-normal.png"));
+		botaoCancelar.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-disabled.png"));
+		botaoCancelar.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-disabled.png"));
+		botaoCancelar.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoCancelar.setBorder(null);
+		botaoCancelar.setBounds(15, 242, 113, 35);
 		informacoes.add(botaoCancelar);
 		botaoCancelar.setVisible(false);
 		
-		icone = new JLabel("");
+		icone = new JLabel();
 		icone.setBorder(new LineBorder(new Color(0, 0, 0)));
 		icone.setBounds(135, 128, 100, 100);
 		informacoes.add(icone);
 		icone.setVisible(false);
 
-		botaoCadastro = new JButton("Cadastrar");
-		botaoCadastro.setBackground(Color.WHITE);
+		botaoCadastro = new JButton();
+		botaoCadastro.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-disabled.png"));
+		botaoCadastro.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-rollover.png"));
+		botaoCadastro.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-rollover.png"));
+		botaoCadastro.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-pressed.png"));
+		botaoCadastro.setIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-normal.png"));
+		botaoCadastro.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-disabled.png"));
+		botaoCadastro.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoCadastro.setBorder(null);
 		botaoCadastro.setBounds(39, 207, 120, 35);
 		getContentPane().add(botaoCadastro);
 		
-		botaoLogin = new JButton("Login");
-		botaoLogin.setBackground(Color.WHITE);
-		botaoLogin.setBounds(39, 241, 120, 35);
+		botaoLogin = new JButton();
+		botaoLogin.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-login-rollover.png"));
+		botaoLogin.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-login-rollover.png"));
+		botaoLogin.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-login-pressed.png"));
+		botaoLogin.setIcon(new ImageIcon(".\\image\\graphics\\Bt-login-normal.png"));
+		botaoLogin.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-login-disabled.png"));
+		botaoLogin.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-login-disabled.png"));
+		botaoLogin.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoLogin.setBorder(null);
+		botaoLogin.setBounds(39, 246, 120, 35);
 		getContentPane().add(botaoLogin);
 		
-		JButton botaoSair = new JButton("Sair");
-		botaoSair.setBackground(Color.WHITE);
-		botaoSair.setBounds(39, 275, 120, 35);
+		JButton botaoSair = new JButton();
+		botaoSair.setBorder(null);
+		botaoSair.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-disabled.png"));
+		botaoSair.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-disabled.png"));
+		botaoSair.setIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-normal.png"));
+		botaoSair.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-pressed.png"));
+		botaoSair.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-rollover.png"));
+		botaoSair.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-rollover.png"));
+		botaoSair.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoSair.setBounds(39, 285, 120, 35);
 		getContentPane().add(botaoSair);
 		
 		JLabel labelDomino = new JLabel("Dominó");
@@ -134,6 +165,13 @@ public class InterfaceInicial extends JFrame {
 				botaoCadastro.setEnabled(false);
 				botaoLogin.setEnabled(false);
 				icone.setVisible(false);
+				
+				botaoEntrar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-entrar-rollover.png"));
+				botaoEntrar.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-entrar-rollover.png"));
+				botaoEntrar.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-entrar-pressed.png"));
+				botaoEntrar.setIcon(new ImageIcon(".\\image\\graphics\\Bt-entrar-normal.png"));
+				botaoEntrar.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-entrar-disabled.png"));
+				botaoEntrar.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-entrar-disabled.png"));
 			}
 		});
 		
@@ -144,7 +182,6 @@ public class InterfaceInicial extends JFrame {
 				senha.setVisible(true);
 				nomeLabel.setVisible(true);
 				senhaLabel.setVisible(true);
-				botaoEntrar.setText("Cadastrar");
 				botaoEntrar.setVisible(true);
 				iconeLabel.setVisible(true);
 				iconeCombobox.setVisible(true);
@@ -152,6 +189,13 @@ public class InterfaceInicial extends JFrame {
 				botaoCadastro.setEnabled(false);
 				botaoLogin.setEnabled(false);
 				icone.setVisible(true);
+
+				botaoEntrar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-concluir-rollover.png"));
+				botaoEntrar.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-concluir-rollover.png"));
+				botaoEntrar.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-concluir-pressed.png"));
+				botaoEntrar.setIcon(new ImageIcon(".\\image\\graphics\\Bt-concluir-normal.png"));
+				botaoEntrar.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-concluir-disabled.png"));
+				botaoEntrar.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-concluir-disabled.png"));
 			}
 		});
 
@@ -161,7 +205,6 @@ public class InterfaceInicial extends JFrame {
 				senha.setVisible(false);
 				nomeLabel.setVisible(false);
 				senhaLabel.setVisible(false);
-				botaoEntrar.setText("Entrar");
 				botaoEntrar.setVisible(false);
 				iconeLabel.setVisible(false);
 				iconeCombobox.setVisible(false);
