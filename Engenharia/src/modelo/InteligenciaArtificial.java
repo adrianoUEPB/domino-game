@@ -32,7 +32,4 @@ public class InteligenciaArtificial {
 	public void setDificuldade(int dificuldade) {
 		this.dificuldade = dificuldade;
 	}
-	
-	
-	
 }

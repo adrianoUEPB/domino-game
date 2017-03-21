@@ -67,7 +67,4 @@ public class Jogador {
 	public void setPecas(int pecas) {
 		this.pecas = pecas;
 	}
-	
-	
-	
 }

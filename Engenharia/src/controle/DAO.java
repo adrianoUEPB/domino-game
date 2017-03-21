@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 
 import modelo.Jogador;
 
-
-
 public class DAO {
 	
 	private Connection con;
@@ -76,7 +74,6 @@ public class DAO {
 		} catch (SQLException e) {
 			System.err.println("Erro ao buscar jogadores!");
 		}
-
 		return jogadores;		
 	}
 	
@@ -99,7 +96,6 @@ public class DAO {
 		}
 		
 		return false;
-		
 	}
 	
 	public boolean checkLogin(Jogador jogador) {
@@ -123,7 +119,6 @@ public class DAO {
 		}
 
 		return false;
-
 	}
 	
 	public static int buscaId(Statement stmt) {
