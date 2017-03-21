@@ -39,6 +39,10 @@ public class DAO {
 		}
 	}
 	
+	public void insertPartida() {
+		
+	}
+	
 	public List<Jogador> searchJogador() {
 		
 		List<Jogador> jogadores = new ArrayList<>();
