@@ -1,6 +1,7 @@
 package controle;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,8 +25,8 @@ public class DAO {
 			int id = buscaId(nome);
 
 			JOptionPane.showMessageDialog(null, id);
-			Statement stmt = con.createStatement();
-			String sql = "DELETE FROM jogador WHERE id_jogador = "+ id +";";
+			PreparedStatement stmt = con.prepareStatement("DELETE FROM jogador WHERE id_jogador = ?;");
+			stmt.setString(1, nome);
 			stmt.executeUpdate(sql);
 			con.commit();
 			stmt.close();			
