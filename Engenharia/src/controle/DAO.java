@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import modelo.Jogador;
 
 
@@ -16,14 +14,34 @@ import modelo.Jogador;
 public class DAO {
 	
 	private Connection con;
+	private String sql = null;
+	
+	public void deleteJogador(String nome) {
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			
+			int id = buscaId(nome);
+
+			JOptionPane.showMessageDialog(null, id);
+			Statement stmt = con.createStatement();
+			String sql = "DELETE FROM jogador WHERE id_jogador = "+ id +";";
+			stmt.executeUpdate(sql);
+			con.commit();
+			stmt.close();			
+			con.close();
+			JOptionPane.showMessageDialog(null,"Jogador deletado com sucesso!");
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao deletar jogador!");
+			e.printStackTrace();
+		}
+	}
 	
 	public void insert(Jogador jogador) {		
 		
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			String sql = null;
-			
 			Statement stmt = con.createStatement();
 
 			sql = "INSERT INTO jogador (nome, icone, senha)"
@@ -39,10 +57,29 @@ public class DAO {
 		}
 	}
 	
-	public void insertPartida() {
+	public void updateJogador(Jogador novo, Jogador antigo) {
 		
+		
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+
+			Statement stmt = con.createStatement();
+			
+			stmt.executeUpdate("UPDATE jogador "
+					+ "SET nome= '"+novo.getNome()+"', senha='"+ novo.getSenha() +"', icone= '"+ novo.getIcone()+"'"
+							+ " WHERE id_jogador="+antigo.getId());
+			con.commit();
+			stmt.close();
+			con.close();			
+			JOptionPane.showMessageDialog(null, "Jogador atualizado com sucesso!");
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar jogador!");
+			e.printStackTrace();
+		}
 	}
 	
+
 	public List<Jogador> searchJogador() {
 		
 		List<Jogador> jogadores = new ArrayList<>();
@@ -80,6 +117,38 @@ public class DAO {
 		return jogadores;		
 	}
 	
+	public Jogador findJogador(String nome) {
+		
+		Jogador jogador = null;
+		
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+					
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ nome +"';");
+
+			if(!rs.next())
+				throw new SQLException();
+				
+			jogador = new Jogador();
+			jogador.setId(rs.getInt("id_jogador"));
+			jogador.setNome(rs.getString("nome"));
+			jogador.setSenha(rs.getString("senha"));
+			jogador.setIcone(rs.getString("icone"));
+			
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
+		} 		
+		
+		
+		return jogador;
+		
+	}
+	
 	public boolean searchJogador(String nome) {
 		
 		try {
@@ -103,10 +172,11 @@ public class DAO {
 	}
 	
 	public boolean checkLogin(Jogador jogador) {
-		con = new Conexao().conexao();
+
 		Statement stmt;
 		ResultSet rs;
 		try {
+			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
 			stmt = con.createStatement();
@@ -126,10 +196,30 @@ public class DAO {
 
 	}
 	
+	public int buscaId(String nome) {
+		int id = 0;
+		
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT id_jogador FROM jogador WHERE nome = '"
+					+ nome + "'");
+		
+			if (rs.next())
+				id = rs.getInt(1);
+			
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID");
+		}
+		
+		return id;
+		
+	}
+	
 	public static int buscaId(Statement stmt) {
 		int lastId = 0;
 		
-		System.out.println("entrou no lastId");
 		try {
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next())
