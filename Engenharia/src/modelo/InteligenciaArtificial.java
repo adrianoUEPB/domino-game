@@ -1,12 +1,13 @@
 package modelo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class InteligenciaArtificial {
 	private int id_ia;
 	private String nome;
-	private List<Peca> pecas;
-	private int dificuldade;
+	private String icone;
+	private ArrayList<Peca> pecas_mao;
+	private boolean dificil;
 	
 	public int getId_ia() {
 		return id_ia;
@@ -20,19 +21,16 @@ public class InteligenciaArtificial {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<Peca> getPecas() {
-		return pecas;
+	public ArrayList<Peca> getPecas() {
+		return pecas_mao;
 	}
-	public void setPecas(List<Peca> pecas) {
-		this.pecas = pecas;
+	public void setPecas(ArrayList<Peca> pecas) {
+		this.pecas_mao = pecas;
 	}
-	public int getDificuldade() {
-		return dificuldade;
-	}
-	public void setDificuldade(int dificuldade) {
-		this.dificuldade = dificuldade;
-	}
-	
-	
-	
+//	public int getDificuldade() {
+//		return dificuldade;
+//	}
+//	public void setDificuldade(int dificuldade) {
+//		this.dificuldade = dificuldade;
+//	}
 }
