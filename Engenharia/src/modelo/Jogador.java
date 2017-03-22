@@ -1,17 +1,18 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Jogador {
 	private int id;
 	private String nome;
 	private String senha;
-	private int pontuacao;
 	private String icone;
+	private ArrayList<Peca> pecas_mao;
+	private int pontuacao;
 	private double tempo_rodadas;
 	private Date ultima_partida;
 	private int partidas_vencidas;
-	private int pecas;
 	
 	public int getId() {
 		return id;
@@ -61,13 +62,10 @@ public class Jogador {
 	public void setPartidas_vencidas(int partidas_vencidas) {
 		this.partidas_vencidas = partidas_vencidas;
 	}
-	public int getPecas() {
-		return pecas;
-	}
-	public void setPecas(int pecas) {
-		this.pecas = pecas;
-	}
-	
-	
-	
+//	public int getPecas() {
+//		return pecas;
+//	}
+//	public void setPecas(int pecas) {
+//		this.pecas = pecas;
+//	}
 }

@@ -5,11 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Jogador;
-
-
 
 public class DAO {
 	
@@ -80,9 +77,9 @@ public class DAO {
 	}
 	
 
-	public List<Jogador> searchJogador() {
+	public ArrayList<Jogador> searchJogador() {
 		
-		List<Jogador> jogadores = new ArrayList<>();
+		ArrayList<Jogador> jogadores = new ArrayList<>();
 		Jogador jogador;
 		
 		try {
@@ -100,7 +97,7 @@ public class DAO {
 				jogador.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
 				jogador.setUltima_partida(rs.getDate("ultima_partida"));
 				jogador.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
-				jogador.setPecas(rs.getInt("pecas"));
+//				jogador.setPecas(rs.getInt("pecas"));
 //				tem que colocar pra pegar o id da partida
 				
 				jogadores.add(jogador);				
