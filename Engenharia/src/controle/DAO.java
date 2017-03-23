@@ -101,7 +101,7 @@ public class DAO {
 				jogador.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
 				jogador.setUltima_partida(rs.getDate("ultima_partida"));
 				jogador.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
-				jogador.setPecas(rs.getInt("pecas"));
+//				jogador.setPecas(rs.getInt("pecas"));
 //				tem que colocar pra pegar o id da partida
 				
 				jogadores.add(jogador);				
