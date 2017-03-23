@@ -135,9 +135,11 @@ public class InterfaceMenu extends JFrame {
 		// nova partida Fácil
 		jogoNormal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				ArrayList<InteligenciaArtificial> ias = null; // ALTERAR ESSA LINHA
-				Partida part = new Partida(jogador_logado, ias);
+				//Wendell, analisa essa nova forma de colocação dos usuários, pq achei melhor para criar os metodos gerais dos participantes
+//				ArrayList<InteligenciaArtificial> ias = null; // ALTERAR ESSA LINHA
+				ArrayList<Participante> participantes = null;
+//				Partida part = new Partida(jogador_logado, ias);
+				Partida part = new Partida(participantes);
 				
 				for (int valor1 = 6; valor1 >= 0; valor1--) {
 					for (int valor2 = valor1; valor2 >= 0; valor2--) {

@@ -1,12 +1,13 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Partida {
 	private int id_partida;
 //	private List<Jogada> jogadas;
-	private Jogador jogador;
-	private ArrayList<InteligenciaArtificial> ias;
+	private Participante lastWin; //flag para identificar ultimo participante ganhador
+	private List<Participante> participantes;
 	private int[] pontuacao_jogadores;
 	public ArrayList<Peca> pecas_campo;
 	public ArrayList<Peca> pecas_dormidas;
@@ -14,22 +15,46 @@ public class Partida {
 	int extremidade2;
 	int rodada;
 	
-	public Partida(Jogador jogador, ArrayList<InteligenciaArtificial> ias){
-		this.jogador = jogador;
-		this.ias = ias;
+	public Partida(List<Participante> participantes){
+		
+		this.participantes = participantes;
 		pontuacao_jogadores = new int[]{0,0,0,0};
 		rodada = 0;
 		pecas_dormidas = new ArrayList<Peca>();
 		pecas_campo = new ArrayList<Peca>();
 	}
 	
+	/**
+	 * firstBegin() é o método reponsável pelo inicio do jogo sem peças dormidas. O metodo irá verificar qual jogador que possui o carroção de 6
+	 * O jogador que possuir este carroção irá começar jogando
+	 * @return Participante
+	 */
+	
+	public Participante firtBegin() {
+		
+		for (Participante participante : participantes) {
+			if(participante.verificaCarrocao())
+				return participante;
+		}
+		
+		return null;		
+	}
+		
 	public int getId_partida() {
 		return id_partida;
 	}
 	public void setId_partida(int id_partida) {
 		this.id_partida = id_partida;
 	}
-//	public List<Jogada> getJogadas() {
+	public Participante getLastWin() {
+		return lastWin;
+	}
+
+	public void setLastWin(Participante lastWin) {
+		this.lastWin = lastWin;
+	}
+
+	//	public List<Jogada> getJogadas() {
 //		return jogadas;
 //	}
 //	public void setJogadas(List<Jogada> jogadas) {
