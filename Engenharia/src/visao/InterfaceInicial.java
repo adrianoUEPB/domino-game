@@ -33,6 +33,7 @@ public class InterfaceInicial extends JFrame {
 	boolean loginFlag;
 	JTextField nome;
 	JPasswordField senha;
+	JPanel informacoes;
 	JLabel nomeLabel, senhaLabel, iconeLabel, icone;
 	JButton botaoEntrar, botaoCadastro, botaoCancelar, botaoLogin;
 	JComboBox<String> iconeCombobox;
@@ -41,7 +42,7 @@ public class InterfaceInicial extends JFrame {
 		getContentPane().setBackground(new Color(139, 0, 0));
 		getContentPane().setLayout(null);
 
-		JPanel informacoes = new JPanel();
+		informacoes = new JPanel();
 		informacoes.setBackground(new Color(139, 0, 0));
 		informacoes.setBounds(222, 145, 262, 299);
 		getContentPane().add(informacoes);
@@ -51,44 +52,37 @@ public class InterfaceInicial extends JFrame {
 		nome.setBounds(27, 36, 208, 20);
 		informacoes.add(nome);
 		nome.setColumns(10);
-		nome.setVisible(false);
 
 		senha = new JPasswordField();
 		senha.setBounds(27, 92, 208, 20);
 		informacoes.add(senha);
 		senha.setColumns(10);
-		senha.setVisible(false);
 				
 		nomeLabel = new JLabel("Nome do usuário:");
 		nomeLabel.setForeground(Color.WHITE);
 		nomeLabel.setBounds(10, 11, 154, 14);
 		informacoes.add(nomeLabel);
-		nomeLabel.setVisible(false);
 		
 		senhaLabel = new JLabel("Senha:");
 		senhaLabel.setForeground(Color.WHITE);
 		senhaLabel.setBounds(10, 67, 154, 14);
 		informacoes.add(senhaLabel);
-		senhaLabel.setVisible(false);
 		
 		botaoEntrar = new JButton("");
 		botaoEntrar.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoEntrar.setBorder(null);
 		botaoEntrar.setBounds(139, 242, 113, 35);
 		informacoes.add(botaoEntrar);
-		botaoEntrar.setVisible(false);
 		
 		iconeCombobox = new JComboBox<String>();
 		iconeCombobox.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Pernalonga", "Lola", "Eufrazino", "Patolino", "Marvin", "Frajola", "Piu Piu", "Gaguinho", "Taz"}));
 		iconeCombobox.setBounds(27, 148, 89, 20);
 		informacoes.add(iconeCombobox);
-		iconeCombobox.setVisible(false);
 		
 		iconeLabel = new JLabel("Ícone:");
 		iconeLabel.setForeground(Color.WHITE);
 		iconeLabel.setBounds(10, 123, 154, 14);
 		informacoes.add(iconeLabel);
-		iconeLabel.setVisible(false);
 		
 		botaoCancelar = new JButton();
 		botaoCancelar.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-pressed.png"));
@@ -101,13 +95,14 @@ public class InterfaceInicial extends JFrame {
 		botaoCancelar.setBorder(null);
 		botaoCancelar.setBounds(15, 242, 113, 35);
 		informacoes.add(botaoCancelar);
-		botaoCancelar.setVisible(false);
 		
 		icone = new JLabel();
 		icone.setBorder(new LineBorder(new Color(0, 0, 0)));
 		icone.setBounds(135, 128, 100, 100);
 		informacoes.add(icone);
-		icone.setVisible(false);
+		
+		// coloca o painel do login e cadastro para iniciar invisível
+		informacoes.setVisible(false);
 
 		botaoCadastro = new JButton();
 		botaoCadastro.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-disabled.png"));
@@ -156,14 +151,11 @@ public class InterfaceInicial extends JFrame {
 		botaoLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loginFlag = true;
-				nome.setVisible(true);
-				senha.setVisible(true);
-				nomeLabel.setVisible(true);
-				senhaLabel.setVisible(true);
-				botaoEntrar.setVisible(true);
-				botaoCancelar.setVisible(true);
+				informacoes.setVisible(true);
 				botaoCadastro.setEnabled(false);
 				botaoLogin.setEnabled(false);
+				iconeLabel.setVisible(false);
+				iconeCombobox.setVisible(false);
 				icone.setVisible(false);
 				
 				botaoEntrar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-entrar-rollover.png"));
@@ -178,14 +170,9 @@ public class InterfaceInicial extends JFrame {
 		botaoCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loginFlag = false;
-				nome.setVisible(true);
-				senha.setVisible(true);
-				nomeLabel.setVisible(true);
-				senhaLabel.setVisible(true);
-				botaoEntrar.setVisible(true);
+				informacoes.setVisible(true);
 				iconeLabel.setVisible(true);
 				iconeCombobox.setVisible(true);
-				botaoCancelar.setVisible(true);
 				botaoCadastro.setEnabled(false);
 				botaoLogin.setEnabled(false);
 				icone.setVisible(true);
@@ -201,18 +188,15 @@ public class InterfaceInicial extends JFrame {
 
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nome.setVisible(false);
-				senha.setVisible(false);
-				nomeLabel.setVisible(false);
-				senhaLabel.setVisible(false);
-				botaoEntrar.setVisible(false);
+				informacoes.setVisible(false);
 				iconeLabel.setVisible(false);
 				iconeCombobox.setVisible(false);
-				botaoCancelar.setVisible(false);
 				botaoCadastro.setEnabled(true);
 				botaoLogin.setEnabled(true);
 				icone.setVisible(false);
 				iconeCombobox.setSelectedIndex(0);
+				nome.setText("");
+				senha.setText("");
 			}
 		});
 		
@@ -226,8 +210,9 @@ public class InterfaceInicial extends JFrame {
 					jogador.setNome(nome.getText());
 					jogador.setSenha(senhaTxt);
 					if(dao.checkLogin(jogador)){
-						dispose();
-						new InterfaceMenu();							
+						Jogador jogador_logado = dao.findJogador(nome.getText());
+						new InterfaceMenu(jogador_logado);
+						dispose();			
 					}else{
 						JOptionPane.showMessageDialog(null,"Login ou senha incorreta!");
 						nome.setText("");

@@ -1,15 +1,27 @@
 package modelo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Partida {
 	private int id_partida;
-	private List<Jogada> jogadas;
+//	private List<Jogada> jogadas;
 	private Jogador jogador;
-	private List<InteligenciaArtificial> ias;
-	private List<Peca> pecas_campo;
-	private List<Peca> pecas_dormidas;
-	private int pontuacao;
+	private ArrayList<InteligenciaArtificial> ias;
+	private int[] pontuacao_jogadores;
+	public ArrayList<Peca> pecas_campo;
+	public ArrayList<Peca> pecas_dormidas;
+	int extremidade1;
+	int extremidade2;
+	int rodada;
+	
+	public Partida(Jogador jogador, ArrayList<InteligenciaArtificial> ias){
+		this.jogador = jogador;
+		this.ias = ias;
+		pontuacao_jogadores = new int[]{0,0,0,0};
+		rodada = 0;
+		pecas_dormidas = new ArrayList<Peca>();
+		pecas_campo = new ArrayList<Peca>();
+	}
 	
 	public int getId_partida() {
 		return id_partida;
@@ -17,43 +29,40 @@ public class Partida {
 	public void setId_partida(int id_partida) {
 		this.id_partida = id_partida;
 	}
-	public List<Jogada> getJogadas() {
-		return jogadas;
-	}
-	public void setJogadas(List<Jogada> jogadas) {
-		this.jogadas = jogadas;
-	}
-	public Jogador getJogador() {
-		return jogador;
-	}
-	public void setJogador(Jogador jogador) {
-		this.jogador = jogador;
-	}
-	public List<InteligenciaArtificial> getIas() {
-		return ias;
-	}
-	public void setIas(List<InteligenciaArtificial> ias) {
-		this.ias = ias;
-	}
-	public List<Peca> getPecas_campo() {
+//	public List<Jogada> getJogadas() {
+//		return jogadas;
+//	}
+//	public void setJogadas(List<Jogada> jogadas) {
+//		this.jogadas = jogadas;
+//	}
+//	public Jogador getJogador() {
+//		return jogador;
+//	}
+//	public void setJogador(Jogador jogador) {
+//		this.jogador = jogador;
+//	}
+//	public List<InteligenciaArtificial> getIas() {
+//		return ias;
+//	}
+//	public void setIas(List<InteligenciaArtificial> ias) {
+//		this.ias = ias;
+//	}
+	public ArrayList<Peca> getPecas_campo() {
 		return pecas_campo;
 	}
-	public void setPecas_campo(List<Peca> pecas_campo) {
+	public void setPecas_campo(ArrayList<Peca> pecas_campo) {
 		this.pecas_campo = pecas_campo;
 	}
-	public List<Peca> getPecas_dormidas() {
+	public ArrayList<Peca> getPecas_dormidas() {
 		return pecas_dormidas;
 	}
-	public void setPecas_dormidas(List<Peca> pecas_dormidas) {
+	public void setPecas_dormidas(ArrayList<Peca> pecas_dormidas) {
 		this.pecas_dormidas = pecas_dormidas;
 	}
-	public int getPontuacao() {
-		return pontuacao;
+	public int[] getPontuacao() {
+		return pontuacao_jogadores;
 	}
-	public void setPontuacao(int pontuacao) {
-		this.pontuacao = pontuacao;
+	public void setPontuacao(int[] pontuacao) {
+		this.pontuacao_jogadores = pontuacao;
 	}
-	
-	
-	
 }

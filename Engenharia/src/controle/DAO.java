@@ -6,11 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Jogador;
-
-
 
 public class DAO {
 	
@@ -81,9 +78,9 @@ public class DAO {
 	}
 	
 
-	public List<Jogador> searchJogador() {
+	public ArrayList<Jogador> searchJogador() {
 		
-		List<Jogador> jogadores = new ArrayList<>();
+		ArrayList<Jogador> jogadores = new ArrayList<>();
 		Jogador jogador;
 		
 		try {
