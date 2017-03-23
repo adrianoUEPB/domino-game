@@ -2,7 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Jogador {
 	private int id;
@@ -13,7 +12,7 @@ public class Jogador {
 	private double tempo_rodadas;
 	private Date ultima_partida;
 	private int partidas_vencidas;
-	private List<Peca> pecas;
+	private ArrayList<Peca> pecas;
 
 	public Jogador() {
 		if(pecas == null)
@@ -80,10 +79,10 @@ public class Jogador {
 	public void setPartidas_vencidas(int partidas_vencidas) {
 		this.partidas_vencidas = partidas_vencidas;
 	}	
-	public List<Peca> getPecas() {
+	public ArrayList<Peca> getPecas() {
 		return pecas;
 	}
-	public void setPecas(List<Peca> pecas) {
+	public void setPecas(ArrayList<Peca> pecas) {
 		this.pecas = pecas;
 	}	
 }
