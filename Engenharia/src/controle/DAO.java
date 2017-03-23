@@ -1,15 +1,13 @@
 package controle;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Jogador;
-
-
 
 public class DAO {
 	
@@ -24,8 +22,8 @@ public class DAO {
 			int id = buscaId(nome);
 
 			JOptionPane.showMessageDialog(null, id);
-			Statement stmt = con.createStatement();
-			String sql = "DELETE FROM jogador WHERE id_jogador = "+ id +";";
+			PreparedStatement stmt = con.prepareStatement("DELETE FROM jogador WHERE id_jogador = ?;");
+			stmt.setString(1, nome);
 			stmt.executeUpdate(sql);
 			con.commit();
 			stmt.close();			
@@ -80,9 +78,9 @@ public class DAO {
 	}
 	
 
-	public List<Jogador> searchJogador() {
+	public ArrayList<Jogador> searchJogador() {
 		
-		List<Jogador> jogadores = new ArrayList<>();
+		ArrayList<Jogador> jogadores = new ArrayList<>();
 		Jogador jogador;
 		
 		try {
@@ -100,7 +98,7 @@ public class DAO {
 				jogador.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
 				jogador.setUltima_partida(rs.getDate("ultima_partida"));
 				jogador.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
-				jogador.setPecas(rs.getInt("pecas"));
+//				jogador.setPecas(rs.getInt("pecas"));
 //				tem que colocar pra pegar o id da partida
 				
 				jogadores.add(jogador);				

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Jogador {
@@ -11,7 +12,24 @@ public class Jogador {
 	private double tempo_rodadas;
 	private Date ultima_partida;
 	private int partidas_vencidas;
-	private int pecas;
+	private ArrayList<Peca> pecas;
+
+	public Jogador() {
+		if(pecas == null)
+			pecas = new ArrayList<>();
+	}
+	
+	public Peca verificaCarroca() {
+		for (Peca peca : pecas) {
+			if(peca.getValor1() == peca.getValor2() && peca.getValor1() == 6)
+				return peca;
+		}		
+		return null;
+	}
+	
+	public boolean possuiPecas() {
+		return !pecas.isEmpty();
+	}
 	
 	public int getId() {
 		return id;
@@ -60,14 +78,11 @@ public class Jogador {
 	}
 	public void setPartidas_vencidas(int partidas_vencidas) {
 		this.partidas_vencidas = partidas_vencidas;
-	}
-	public int getPecas() {
+	}	
+	public ArrayList<Peca> getPecas() {
 		return pecas;
 	}
-	public void setPecas(int pecas) {
+	public void setPecas(ArrayList<Peca> pecas) {
 		this.pecas = pecas;
-	}
-	
-	
-	
+	}	
 }
