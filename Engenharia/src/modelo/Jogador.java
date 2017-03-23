@@ -2,17 +2,35 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Jogador {
 	private int id;
 	private String nome;
 	private String senha;
-	private String icone;
-	private ArrayList<Peca> pecas_mao;
 	private int pontuacao;
+	private String icone;
 	private double tempo_rodadas;
 	private Date ultima_partida;
 	private int partidas_vencidas;
+	private List<Peca> pecas;
+
+	public Jogador() {
+		if(pecas == null)
+			pecas = new ArrayList<>();
+	}
+	
+	public Peca verificaCarroca() {
+		for (Peca peca : pecas) {
+			if(peca.getValor1() == peca.getValor2() && peca.getValor1() == 6)
+				return peca;
+		}		
+		return null;
+	}
+	
+	public boolean possuiPecas() {
+		return !pecas.isEmpty();
+	}
 	
 	public int getId() {
 		return id;
@@ -61,11 +79,11 @@ public class Jogador {
 	}
 	public void setPartidas_vencidas(int partidas_vencidas) {
 		this.partidas_vencidas = partidas_vencidas;
+	}	
+	public List<Peca> getPecas() {
+		return pecas;
 	}
-//	public int getPecas() {
-//		return pecas;
-//	}
-//	public void setPecas(int pecas) {
-//		this.pecas = pecas;
-//	}
+	public void setPecas(List<Peca> pecas) {
+		this.pecas = pecas;
+	}	
 }
