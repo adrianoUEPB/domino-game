@@ -24,12 +24,12 @@ public class Participante {
 		return false;
 	}
 	
-	public Peca pegaPeca(int valor1, int valor2) {
+	public Peca pegaPeca(Peca jogar) {
 		if(pecas.isEmpty())
 			return null;
 		
 		for (Peca peca : pecas) {
-			if (peca.getValor1() == valor1 && peca.getValor2() == valor2)
+			if (jogar.equals(peca))
 				return peca;
 		}
 		
