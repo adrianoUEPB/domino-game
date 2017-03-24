@@ -27,7 +27,7 @@ public class InterfaceMenu extends JFrame {
 		getContentPane().setBackground(new Color(139, 0, 0));
 		getContentPane().setLayout(null);
 		
-		JLabel labelDomino = new JLabel("Dominó");
+		JLabel labelDomino = new JLabel("Dominï¿½");
 		labelDomino.setForeground(Color.WHITE);
 		labelDomino.setHorizontalAlignment(SwingConstants.CENTER);
 		labelDomino.setFont(new Font("Brush Script MT", Font.PLAIN, 180));
@@ -132,20 +132,15 @@ public class InterfaceMenu extends JFrame {
 			}
 		});
 		
-		// nova partida Fácil
+		// nova partida Fï¿½cil
 		jogoNormal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-<<<<<<< HEAD
-				//Wendell, analisa essa nova forma de colocação dos usuários, pq achei melhor para criar os metodos gerais dos participantes
-//				ArrayList<InteligenciaArtificial> ias = null; // ALTERAR ESSA LINHA
+// O jogador tbm vai entrar no array list de parcticipantes
+				//Wendell, analisa essa nova forma de colocaï¿½ï¿½o dos usuï¿½rios, pq achei melhor para criar os metodos gerais dos participantes
+
 				ArrayList<Participante> participantes = null;
-//				Partida part = new Partida(jogador_logado, ias);
 				Partida part = new Partida(participantes);
-=======
-				
-				ArrayList<InteligenciaArtificial> ias = null; // ALTERAR ESSA LINHA
-				Partida part = new Partida(jogador_logado, ias);
->>>>>>> refs/remotes/origin/principal
+
 				
 				for (int valor1 = 6; valor1 >= 0; valor1--) {
 					for (int valor2 = valor1; valor2 >= 0; valor2--) {
