@@ -1,14 +1,31 @@
 package modelo;
 
+<<<<<<< HEAD
+=======
 import java.util.ArrayList;
+>>>>>>> refs/remotes/origin/principal
 
+<<<<<<< HEAD
+
+public class InteligenciaArtificial extends Participante {
+
+	private boolean dificuldade;
+=======
 public class InteligenciaArtificial {
 	private int id_ia;
 	private String nome;
 	private String icone;
 	private ArrayList<Peca> pecas_mao;
 	private boolean dificil;
+>>>>>>> refs/remotes/origin/principal
 	
+<<<<<<< HEAD
+	public InteligenciaArtificial() {
+		super();
+	}
+	
+}
+=======
 	public int getId_ia() {
 		return id_ia;
 	}
@@ -34,3 +51,4 @@ public class InteligenciaArtificial {
 //		this.dificuldade = dificuldade;
 //	}
 }
+>>>>>>> refs/remotes/origin/principal
