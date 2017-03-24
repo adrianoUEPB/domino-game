@@ -111,7 +111,6 @@ public class DAO {
 		} catch (SQLException e) {
 			System.err.println("Erro ao buscar jogadores!");
 		}
-
 		return jogadores;		
 	}
 	
@@ -166,7 +165,6 @@ public class DAO {
 		}
 		
 		return false;
-		
 	}
 	
 	public boolean checkLogin(Jogador jogador) {
@@ -191,7 +189,6 @@ public class DAO {
 		}
 
 		return false;
-
 	}
 	
 	public int buscaId(String nome) {
