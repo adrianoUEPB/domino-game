@@ -2,51 +2,59 @@ package modelo;
 
 import java.util.ArrayList;
 
+
 public class Partida {
 	private int id_partida;
-//	private List<Jogada> jogadas;
-	private Jogador jogador;
-	private ArrayList<InteligenciaArtificial> ias;
+	private Participante lastWin; //flag para identificar ultimo participante ganhador
+	private ArrayList<Participante> participantes;
 	private int[] pontuacao_jogadores;
 	public ArrayList<Peca> pecas_campo;
 	public ArrayList<Peca> pecas_dormidas;
 	int extremidade1;
 	int extremidade2;
 	int rodada;
+
 	
-	public Partida(Jogador jogador, ArrayList<InteligenciaArtificial> ias){
-		this.jogador = jogador;
-		this.ias = ias;
+	public Partida(ArrayList<Participante> participantes){
+		
+		this.participantes = participantes;
 		pontuacao_jogadores = new int[]{0,0,0,0};
 		rodada = 0;
 		pecas_dormidas = new ArrayList<Peca>();
 		pecas_campo = new ArrayList<Peca>();
 	}
 	
+	/**
+	 * firstBegin() � o m�todo repons�vel pelo inicio do jogo sem pe�as dormidas. O metodo ir� verificar qual jogador que possui o carro��o de 6
+	 * O jogador que possuir este carro��o ir� come�ar jogando
+	 * @return Participante
+	 */
+	
+	public Participante firtBegin() {
+		
+		for (Participante participante : participantes) {
+			if(participante.verificaCarrocao())
+				return participante;
+		}
+		
+		return null;		
+	}
+		
 	public int getId_partida() {
 		return id_partida;
 	}
 	public void setId_partida(int id_partida) {
 		this.id_partida = id_partida;
 	}
-//	public List<Jogada> getJogadas() {
-//		return jogadas;
-//	}
-//	public void setJogadas(List<Jogada> jogadas) {
-//		this.jogadas = jogadas;
-//	}
-//	public Jogador getJogador() {
-//		return jogador;
-//	}
-//	public void setJogador(Jogador jogador) {
-//		this.jogador = jogador;
-//	}
-//	public List<InteligenciaArtificial> getIas() {
-//		return ias;
-//	}
-//	public void setIas(List<InteligenciaArtificial> ias) {
-//		this.ias = ias;
-//	}
+
+	public Participante getLastWin() {
+		return lastWin;
+	}
+
+	public void setLastWin(Participante lastWin) {
+		this.lastWin = lastWin;
+	}
+
 	public ArrayList<Peca> getPecas_campo() {
 		return pecas_campo;
 	}
