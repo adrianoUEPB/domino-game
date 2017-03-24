@@ -9,13 +9,21 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
+
+import modelo.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 
 public class InterfaceMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	JPanel opcoes;
+	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking;
 
-	public InterfaceMenu() {
+	public InterfaceMenu(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
 		getContentPane().setLayout(null);
 		
@@ -26,7 +34,7 @@ public class InterfaceMenu extends JFrame {
 		labelDomino.setBounds(36, 11, 527, 202);
 		getContentPane().add(labelDomino);
 		
-		JButton botaoNovaPartida = new JButton();
+		botaoNovaPartida = new JButton();
 		botaoNovaPartida.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-pressed.png"));
 		botaoNovaPartida.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-rollover.png"));
 		botaoNovaPartida.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-rollover.png"));
@@ -35,10 +43,10 @@ public class InterfaceMenu extends JFrame {
 		botaoNovaPartida.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-disabled.png"));
 		botaoNovaPartida.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoNovaPartida.setBorder(null);
-		botaoNovaPartida.setBounds(36, 224, 240, 70);
+		botaoNovaPartida.setBounds(10, 251, 240, 70);
 		getContentPane().add(botaoNovaPartida);
 		
-		JButton botaoContinuarPartida = new JButton();
+		botaoContinuarPartida = new JButton();
 		botaoContinuarPartida.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-pressed.png"));
 		botaoContinuarPartida.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-rollover.png"));
 		botaoContinuarPartida.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-rollover.png"));
@@ -47,10 +55,10 @@ public class InterfaceMenu extends JFrame {
 		botaoContinuarPartida.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-disabled.png"));
 		botaoContinuarPartida.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoContinuarPartida.setBorder(null);
-		botaoContinuarPartida.setBounds(36, 305, 240, 70);
+		botaoContinuarPartida.setBounds(10, 332, 240, 70);
 		getContentPane().add(botaoContinuarPartida);
 		
-		JButton botaoRanking = new JButton();
+		botaoRanking = new JButton();
 		botaoRanking.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-pressed.png"));
 		botaoRanking.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-rollover.png"));
 		botaoRanking.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-rollover.png"));
@@ -59,7 +67,7 @@ public class InterfaceMenu extends JFrame {
 		botaoRanking.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-disabled.png"));
 		botaoRanking.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoRanking.setBorder(null);
-		botaoRanking.setBounds(36, 386, 240, 70);
+		botaoRanking.setBounds(10, 413, 240, 70);
 		getContentPane().add(botaoRanking);
 		
 		JButton botaoLogout = new JButton();
@@ -71,19 +79,90 @@ public class InterfaceMenu extends JFrame {
 		botaoLogout.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-logout-disabled.png"));
 		botaoLogout.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoLogout.setBorder(null);
-		botaoLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				new InterfaceInicial();
-			}
-		});
-		botaoLogout.setBounds(36, 467, 240, 70);
+		botaoLogout.setBounds(10, 494, 240, 70);
 		getContentPane().add(botaoLogout);
 		
 		JLabel imagemLabel = new JLabel("");
 		imagemLabel.setBounds(521, 11, 263, 227);
 		imagemLabel.setIcon(new ImageIcon(".\\image\\peca\\pecasMenu.png"));
 		getContentPane().add(imagemLabel);
+		
+		JLabel bemVindo = new JLabel("Bem vindo, "+ jogador_logado.getNome() +"! Divirta-se! ");
+		bemVindo.setHorizontalAlignment(SwingConstants.RIGHT);
+		bemVindo.setForeground(Color.WHITE);
+		bemVindo.setFont(new Font("Brush Script MT", Font.PLAIN, 36));
+		bemVindo.setBounds(260, 224, 524, 70);
+		getContentPane().add(bemVindo);
+		
+		opcoes = new JPanel();
+		opcoes.setBackground(new Color(139, 0, 0));
+		opcoes.setBounds(260, 305, 524, 259);
+		opcoes.setLayout(null);
+		opcoes.setVisible(false);
+		getContentPane().add(opcoes);
+		
+		JButton jogoNormal = new JButton("f\u00E1cil");
+		jogoNormal.setBounds(128, 11, 240, 70);
+		opcoes.add(jogoNormal);
+		
+		JButton jogoDificil = new JButton("dificil");
+		jogoDificil.setEnabled(false);
+		jogoDificil.setBounds(128, 92, 240, 70);
+		opcoes.add(jogoDificil);
+		
+		JButton botaoCancelar = new JButton("");
+		botaoCancelar.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-disabled.png"));
+		botaoCancelar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
+		botaoCancelar.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
+		botaoCancelar.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-pressed.png"));
+		botaoCancelar.setIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-normal.png"));
+		botaoCancelar.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-disabled.png"));
+		botaoCancelar.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoCancelar.setBorder(null);
+		botaoCancelar.setBounds(190, 193, 120, 35);
+		opcoes.add(botaoCancelar);
+		
+		// aparece painel das partidas
+		botaoNovaPartida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				opcoes.setVisible(true);
+				botaoContinuarPartida.setEnabled(false);
+				botaoNovaPartida.setEnabled(false);
+				botaoRanking.setEnabled(false);
+			}
+		});
+		
+		// nova partida Fácil
+		jogoNormal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ArrayList<InteligenciaArtificial> ias = null; // ALTERAR ESSA LINHA
+				Partida part = new Partida(jogador_logado, ias);
+				
+				for (int valor1 = 6; valor1 >= 0; valor1--) {
+					for (int valor2 = valor1; valor2 >= 0; valor2--) {
+						Peca peca = new Peca(valor1, valor2);
+						part.pecas_dormidas.add(peca);
+					}
+				}
+			}
+		});
+		
+		botaoCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				opcoes.setVisible(false);
+				botaoContinuarPartida.setEnabled(true);
+				botaoNovaPartida.setEnabled(true);
+				botaoRanking.setEnabled(true);
+			}
+		});
+		
+		botaoLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new InterfaceInicial();
+			}
+		});
 		
 		setSize(800, 600);
 		setResizable(false);
