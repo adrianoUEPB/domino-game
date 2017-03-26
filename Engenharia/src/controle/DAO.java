@@ -31,7 +31,6 @@ public class DAO {
 			JOptionPane.showMessageDialog(null,"Jogador deletado com sucesso!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao deletar jogador!");
-			e.printStackTrace();
 		}
 	}
 	
@@ -50,8 +49,7 @@ public class DAO {
 			con.close();
 			JOptionPane.showMessageDialog(null,"Jogador cadastrado com sucesso!");
 		} catch (SQLException e) {
-			System.out.println("CAdastro "+e.getMessage());
-			System.err.println("Erro ao cadastrar jogador!");
+			JOptionPane.showMessageDialog(null, "Erro ao cadastrar jogador!");
 		}
 	}
 	
@@ -73,7 +71,6 @@ public class DAO {
 			JOptionPane.showMessageDialog(null, "Jogador atualizado com sucesso!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao atualizar jogador!");
-			e.printStackTrace();
 		}
 	}
 	
@@ -109,7 +106,7 @@ public class DAO {
 			con.close();
 			
 		} catch (SQLException e) {
-			System.err.println("Erro ao buscar jogadores!");
+			JOptionPane.showMessageDialog(null, "Erro ao buscar jogadores!");
 		}
 
 		return jogadores;		
@@ -139,10 +136,8 @@ public class DAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador n√£o encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador n„o encontrado!");
 		} 		
-		
-		
 		return jogador;
 		
 	}
@@ -162,7 +157,7 @@ public class DAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Jogador n„o encontrado!");
 		}
 		
 		return false;
@@ -189,9 +184,7 @@ public class DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return false;
-
 	}
 	
 	public int buscaId(String nome) {
@@ -208,7 +201,7 @@ public class DAO {
 				id = rs.getInt(1);
 			
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID");
+			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
 		
 		return id;
@@ -224,7 +217,7 @@ public class DAO {
 				lastId = rs.getInt(1);
 			
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID");
+			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
 		
 		return lastId;
