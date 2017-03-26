@@ -23,5 +23,4 @@ public class Jogador extends Participante {
 	public void setUltima_partida(Date ultima_partida) {
 		this.ultima_partida = ultima_partida;
 	}
-
 }

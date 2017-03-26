@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import java.awt.Cursor;
 
 public class InterfaceMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +36,7 @@ public class InterfaceMenu extends JFrame {
 		getContentPane().add(labelDomino);
 		
 		botaoNovaPartida = new JButton();
+		botaoNovaPartida.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoNovaPartida.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-pressed.png"));
 		botaoNovaPartida.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-rollover.png"));
 		botaoNovaPartida.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-rollover.png"));
@@ -47,6 +49,7 @@ public class InterfaceMenu extends JFrame {
 		getContentPane().add(botaoNovaPartida);
 		
 		botaoContinuarPartida = new JButton();
+		botaoContinuarPartida.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoContinuarPartida.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-pressed.png"));
 		botaoContinuarPartida.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-rollover.png"));
 		botaoContinuarPartida.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-rollover.png"));
@@ -59,6 +62,7 @@ public class InterfaceMenu extends JFrame {
 		getContentPane().add(botaoContinuarPartida);
 		
 		botaoRanking = new JButton();
+		botaoRanking.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoRanking.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-pressed.png"));
 		botaoRanking.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-rollover.png"));
 		botaoRanking.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-rollover.png"));
@@ -71,6 +75,7 @@ public class InterfaceMenu extends JFrame {
 		getContentPane().add(botaoRanking);
 		
 		JButton botaoLogout = new JButton();
+		botaoLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoLogout.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-logout-pressed.png"));
 		botaoLogout.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-logout-rollover.png"));
 		botaoLogout.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-logout-rollover.png"));
@@ -102,15 +107,18 @@ public class InterfaceMenu extends JFrame {
 		getContentPane().add(opcoes);
 		
 		JButton jogoNormal = new JButton("f\u00E1cil");
+		jogoNormal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jogoNormal.setBounds(128, 11, 240, 70);
 		opcoes.add(jogoNormal);
 		
 		JButton jogoDificil = new JButton("dificil");
+		jogoDificil.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jogoDificil.setEnabled(false);
 		jogoDificil.setBounds(128, 92, 240, 70);
 		opcoes.add(jogoDificil);
 		
 		JButton botaoCancelar = new JButton("");
+		botaoCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoCancelar.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-disabled.png"));
 		botaoCancelar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
 		botaoCancelar.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
@@ -122,7 +130,7 @@ public class InterfaceMenu extends JFrame {
 		botaoCancelar.setBounds(190, 193, 120, 35);
 		opcoes.add(botaoCancelar);
 		
-		// aparece painel das partidas
+		// actions listeners
 		botaoNovaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				opcoes.setVisible(true);
@@ -132,7 +140,7 @@ public class InterfaceMenu extends JFrame {
 			}
 		});
 		
-		// nova partida F�cil
+		// nova partida facil
 		jogoNormal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				

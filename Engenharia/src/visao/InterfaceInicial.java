@@ -26,6 +26,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
 
 import controle.DAO;
+import java.awt.Cursor;
 
 public class InterfaceInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -69,6 +70,7 @@ public class InterfaceInicial extends JFrame {
 		informacoes.add(senhaLabel);
 		
 		botaoEntrar = new JButton("");
+		botaoEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoEntrar.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoEntrar.setBorder(null);
 		botaoEntrar.setBounds(139, 242, 113, 35);
@@ -85,6 +87,7 @@ public class InterfaceInicial extends JFrame {
 		informacoes.add(iconeLabel);
 		
 		botaoCancelar = new JButton();
+		botaoCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoCancelar.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-pressed.png"));
 		botaoCancelar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
 		botaoCancelar.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
@@ -100,11 +103,10 @@ public class InterfaceInicial extends JFrame {
 		icone.setBorder(new LineBorder(new Color(0, 0, 0)));
 		icone.setBounds(135, 128, 100, 100);
 		informacoes.add(icone);
-		
-		// coloca o painel do login e cadastro para iniciar invisível
 		informacoes.setVisible(false);
 
 		botaoCadastro = new JButton();
+		botaoCadastro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoCadastro.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-disabled.png"));
 		botaoCadastro.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-rollover.png"));
 		botaoCadastro.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-cadastro-rollover.png"));
@@ -117,6 +119,7 @@ public class InterfaceInicial extends JFrame {
 		getContentPane().add(botaoCadastro);
 		
 		botaoLogin = new JButton();
+		botaoLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoLogin.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-login-rollover.png"));
 		botaoLogin.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-login-rollover.png"));
 		botaoLogin.setPressedIcon(new ImageIcon(".\\image\\graphics\\Bt-login-pressed.png"));
@@ -129,6 +132,7 @@ public class InterfaceInicial extends JFrame {
 		getContentPane().add(botaoLogin);
 		
 		JButton botaoSair = new JButton();
+		botaoSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoSair.setBorder(null);
 		botaoSair.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-disabled.png"));
 		botaoSair.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-disabled.png"));

@@ -15,6 +15,7 @@ public class DAO {
 	private String sql = null;
 	
 	public void deleteJogador(String nome) {
+		
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
@@ -55,7 +56,6 @@ public class DAO {
 	
 	public void updateJogador(Jogador novo, Jogador antigo) {
 		
-		
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
@@ -76,7 +76,6 @@ public class DAO {
 	
 
 	public ArrayList<Jogador> searchJogador() {
-		
 		ArrayList<Jogador> jogadores = new ArrayList<>();
 		Jogador jogador;
 		
@@ -108,12 +107,10 @@ public class DAO {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao buscar jogadores!");
 		}
-
 		return jogadores;		
 	}
 	
 	public Jogador findJogador(String nome) {
-		
 		Jogador jogador = null;
 		
 		try {
@@ -139,7 +136,6 @@ public class DAO {
 			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
 		} 		
 		return jogador;
-		
 	}
 	
 	public boolean searchJogador(String nome) {
@@ -159,15 +155,13 @@ public class DAO {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
 		}
-		
 		return false;
-		
 	}
 	
 	public boolean checkLogin(Jogador jogador) {
-
 		Statement stmt;
 		ResultSet rs;
+		
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
@@ -203,9 +197,7 @@ public class DAO {
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
-		
 		return id;
-		
 	}
 	
 	public static int buscaId(Statement stmt) {
@@ -219,7 +211,6 @@ public class DAO {
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
-		
 		return lastId;
 	}
 }
