@@ -27,7 +27,7 @@ public class InterfaceMenu extends JFrame {
 		getContentPane().setBackground(new Color(139, 0, 0));
 		getContentPane().setLayout(null);
 		
-		JLabel labelDomino = new JLabel("Dominï¿½");
+		JLabel labelDomino = new JLabel("Dominó");
 		labelDomino.setForeground(Color.WHITE);
 		labelDomino.setHorizontalAlignment(SwingConstants.CENTER);
 		labelDomino.setFont(new Font("Brush Script MT", Font.PLAIN, 180));
@@ -135,19 +135,45 @@ public class InterfaceMenu extends JFrame {
 		// nova partida Fï¿½cil
 		jogoNormal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-// O jogador tbm vai entrar no array list de parcticipantes
-				//Wendell, analisa essa nova forma de colocaï¿½ï¿½o dos usuï¿½rios, pq achei melhor para criar os metodos gerais dos participantes
-
-				ArrayList<Participante> participantes = null;
+				
+				ArrayList<Participante> participantes = new ArrayList<Participante>();
+				participantes.add(jogador_logado);
+				
+				Participante IA1;
+				if (jogador_logado.getIcone().contains("Pernalonga")){
+					IA1 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+				} else {
+					IA1 = new InteligenciaArtificial("Pernalonga", ".\\image\\icon\\Pernalonga.png", false);
+				}
+				participantes.add(IA1);
+				
+				Participante IA2;
+				if (jogador_logado.getIcone().contains("Lola")){
+					IA2 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+				} else {
+					IA2 = new InteligenciaArtificial("Lola", ".\\image\\icon\\Lola.png", false);
+				}
+				participantes.add(IA2);
+				
+				Participante IA3;
+				if (jogador_logado.getIcone().contains("Patolino")){
+					IA3 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+				} else {
+					IA3 = new InteligenciaArtificial("Patolino", ".\\image\\icon\\Patolino.png", false);
+				}
+				participantes.add(IA3);
+				
 				Partida part = new Partida(participantes);
 
-				
-				for (int valor1 = 6; valor1 >= 0; valor1--) {
-					for (int valor2 = valor1; valor2 >= 0; valor2--) {
-						Peca peca = new Peca(valor1, valor2);
+				for (int valor1 = 0; valor1 <= 6; valor1++) {
+					for (int valor2 = valor1; valor2 <= 6; valor2++) {
+						Peca peca = new Peca(valor1, valor2, false);
 						part.pecas_dormidas.add(peca);
 					}
 				}
+				
+				dispose();
+				new InterfaceJogo(part);
 			}
 		});
 		
