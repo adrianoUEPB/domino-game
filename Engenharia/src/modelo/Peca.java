@@ -1,5 +1,7 @@
 package modelo;
 
+import java.awt.Cursor;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,7 +14,7 @@ public class Peca {
 	public int altura = 85;
 	public int posicaoX;
 	public int posicaoY;
-	boolean virada;
+	public boolean virada;
 	
 	public Peca(int valor1, int valor2, boolean virada){
 		this.valor1 = valor1;
@@ -32,6 +34,7 @@ public class Peca {
 		} else {
 			l.setIcon(new ImageIcon(".\\image\\peca\\pecaOff.png"));
 		}
+		l.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
 		painel.add(l);
 	}

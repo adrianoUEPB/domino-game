@@ -26,9 +26,10 @@ import java.util.Random;
 
 public class InterfaceJogo extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	JPanel jogadorPecas, iaCimaPecas, iaEsquerdaPecas, iaDireitaPecas, tabuleiro;
 
 	public InterfaceJogo(final Partida part){
-
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel iaUpPainel = new JPanel();
@@ -43,7 +44,7 @@ public class InterfaceJogo extends JFrame {
 		blockCimEsq.setMaximumSize(new Dimension(100, 100));
 		iaUpPainel.add(blockCimEsq);
 		
-		JPanel iaCimaPecas = new JPanel();
+		iaCimaPecas = new JPanel();
 		iaCimaPecas.setBackground(new Color(139, 0, 0));
 		iaCimaPecas.setMinimumSize(new Dimension(100, 100));
 		iaCimaPecas.setMaximumSize(new Dimension(494, 100));
@@ -76,7 +77,7 @@ public class InterfaceJogo extends JFrame {
 		inforEsquerda.setMaximumSize(new Dimension(100, 100));
 		iaLeftPainel.add(inforEsquerda);
 		
-		JPanel iaEsquerdaPecas = new JPanel();
+		iaEsquerdaPecas = new JPanel();
 		iaEsquerdaPecas.setBackground(new Color(139, 0, 0));
 		iaEsquerdaPecas.setAlignmentX(Component.LEFT_ALIGNMENT);
 		iaEsquerdaPecas.setMinimumSize(new Dimension(100, 100));
@@ -102,7 +103,7 @@ public class InterfaceJogo extends JFrame {
 		inforBaixo.setMaximumSize(new Dimension(100, 100));
 		jogadorPainel.add(inforBaixo);
 		
-		JPanel jogadorPecas = new JPanel();
+		jogadorPecas = new JPanel();
 		jogadorPecas.setBackground(new Color(139, 0, 0));
 		jogadorPecas.setMinimumSize(new Dimension(100, 100));
 		jogadorPecas.setMaximumSize(new Dimension(494, 100));
@@ -120,9 +121,9 @@ public class InterfaceJogo extends JFrame {
 		getContentPane().add(iaRightPainel, BorderLayout.EAST);
 		iaRightPainel.setLayout(new BoxLayout(iaRightPainel, BoxLayout.PAGE_AXIS));
 		
-		JPanel iaDireitaPecas = new JPanel();
-		iaDireitaPecas.setBackground(new Color(139, 0, 0));
+		iaDireitaPecas = new JPanel();
 		iaDireitaPecas.setAlignmentX(Component.LEFT_ALIGNMENT);
+		iaDireitaPecas.setBackground(new Color(139, 0, 0));
 		iaDireitaPecas.setMinimumSize(new Dimension(100, 100));
 		iaDireitaPecas.setMaximumSize(new Dimension(100, 494));
 		iaRightPainel.add(iaDireitaPecas);
@@ -135,7 +136,7 @@ public class InterfaceJogo extends JFrame {
 		inforDireita.setMaximumSize(new Dimension(100, 100));
 		iaRightPainel.add(inforDireita);
 		
-		JPanel tabuleiro = new JPanel();
+		tabuleiro = new JPanel();
 		tabuleiro.setSize(new Dimension(600, 600));
 		tabuleiro.setMinimumSize(new Dimension(600, 600));
 		tabuleiro.setMaximumSize(new Dimension(600, 600));
@@ -188,6 +189,12 @@ public class InterfaceJogo extends JFrame {
 			c[i].addMouseListener(new MouseAdapter(){
 				@Override
 				public void mousePressed(MouseEvent e){
+					
+					// AINDA POSSUI ALGUNS BUGS QUE IREI CORRIGIR DEPOIS:
+					// - ao remover uma peça, todos os outros IDs são modificados
+					// - quando o erro acima ocorre, a peça não é removida do tabuleiro
+					// - o erro acima faz parecer q existem mais peças do q o normal
+					
 					JLabel lab = (JLabel) e.getSource();
 					String nome = lab.getName();
 					int v1 = Integer.parseInt("" + nome.charAt(0));
@@ -197,7 +204,34 @@ public class InterfaceJogo extends JFrame {
 					int p2 = (v1 * v1/2) - v1/2;
 					int index = p1 - p2;
 					// pegar a peça pelo índice dentre as peças dormidas
-					Peca p = part.pecas_dormidas.get(index);
+					Peca p = part.pecas_dormidas.remove(index);
+					tabuleiro.remove(e.getComponent());
+					part.participantes.get(0).getPecas().add(p);
+					p.virada = true;
+					p.drawPeca(jogadorPecas, 2 + 42*(part.participantes.get(0).getPecas().size()-1), 5);
+
+					Random r = new Random();
+					for (int i = 0; i < 3; i++){
+						int remove = r.nextInt(part.pecas_dormidas.size());
+						tabuleiro.remove(remove);
+						p = part.pecas_dormidas.remove(remove);
+						p.virada = true; // TRUE APENAS PARA TESTAR, DEPOIS APAGAREI ESSA LINHA
+						part.participantes.get(i).getPecas().add(p);
+						if (i == 0){
+							// cima
+							p.drawPeca(iaCimaPecas, 0, 0);
+						}
+						if (i == 1){
+							// direita
+							p.drawPeca(iaDireitaPecas, 0, 0);
+						}
+						if (i == 2){
+							// esquerda
+							p.drawPeca(iaEsquerdaPecas, 0, 0);
+						}
+					}
+					tabuleiro.updateUI();
+					repaint();
 				}
 			});
 		}

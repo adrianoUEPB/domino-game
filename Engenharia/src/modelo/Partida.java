@@ -16,7 +16,6 @@ public class Partida {
 
 	
 	public Partida(ArrayList<Participante> participantes){
-		
 		this.participantes = participantes;
 		pontuacao_jogadores = new int[]{0,0,0,0};
 		rodada = 0;
@@ -25,13 +24,13 @@ public class Partida {
 	}
 	
 	/**
-	 * firstBegin() � o m�todo repons�vel pelo inicio do jogo sem pe�as dormidas. O metodo ir� verificar qual jogador que possui o carro��o de 6
-	 * O jogador que possuir este carro��o ir� come�ar jogando
+	 * firstBegin() eh o metodo reponsavel pelo inicio do jogo sem pecas dormidas.
+	 * O metodo ira verificar qual jogador que possui o carrocao de 6
+	 * O jogador que possuir este carrocao ira comecar jogando
 	 * @return Participante
 	 */
 	
 	public Participante firtBegin() {
-		
 		for (Participante participante : participantes) {
 			if(participante.verificaCarrocao())
 				return participante;

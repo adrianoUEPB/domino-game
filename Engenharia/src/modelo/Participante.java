@@ -32,7 +32,6 @@ public class Participante {
 			if (jogar.equals(peca))
 				return peca;
 		}
-		
 		return null;		
 	}
 	
@@ -63,27 +62,19 @@ public class Participante {
 	public int getPartidas_vencidas() {
 		return partidas_vencidas;
 	}
-
 	public void setPartidas_vencidas(int partidas_vencidas) {
 		this.partidas_vencidas = partidas_vencidas;
 	}
-
 	public double getTempo_rodadas() {
 		return tempo_rodadas;
 	}
-
 	public void setTempo_rodadas(double tempo_rodadas) {
 		this.tempo_rodadas = tempo_rodadas;
 	}
-
 	public ArrayList<Peca> getPecas() {
 		return pecas;
 	}
 	public void setPecas(ArrayList<Peca> pecas) {
 		this.pecas = pecas;
 	}
-	
- 
-	
-	
 }
