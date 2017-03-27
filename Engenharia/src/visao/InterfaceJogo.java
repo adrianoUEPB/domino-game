@@ -83,14 +83,14 @@ public class InterfaceJogo extends JFrame {
 		iaUpPainel.add(inforCimaP);
 		inforCimaP.setLayout(new BoxLayout(inforCimaP, BoxLayout.PAGE_AXIS));
 		
-		JLabel nomeCim = new JLabel(part.participantes.get(1).getNome());
+		JLabel nomeCim = new JLabel(part.participantes.get(2).getNome());
 		nomeCim.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforCimaP.add(nomeCim);
 		nomeCim.setHorizontalAlignment(SwingConstants.RIGHT);
 		nomeCim.setFont(new Font("Brush Script MT", Font.BOLD, 17));
 		nomeCim.setForeground(Color.WHITE);
 		
-		JLabel inforCima = new JLabel(new ImageIcon(part.participantes.get(1).getIcone()));
+		JLabel inforCima = new JLabel(new ImageIcon(part.participantes.get(2).getIcone()));
 		inforCima.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforCimaP.add(inforCima);
 		inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
@@ -133,13 +133,13 @@ public class InterfaceJogo extends JFrame {
 		iaLeftPainel.add(inforEsquerdaP);
 		inforEsquerdaP.setLayout(new BoxLayout(inforEsquerdaP, BoxLayout.PAGE_AXIS));
 		
-		JLabel nomeEsq = new JLabel(part.participantes.get(3).getNome());
+		JLabel nomeEsq = new JLabel(part.participantes.get(1).getNome());
 		nomeEsq.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforEsquerdaP.add(nomeEsq);
 		nomeEsq.setFont(new Font("Brush Script MT", Font.BOLD, 17));
 		nomeEsq.setForeground(Color.WHITE);
 		
-		JLabel inforEsquerda = new JLabel(new ImageIcon(part.participantes.get(3).getIcone()));
+		JLabel inforEsquerda = new JLabel(new ImageIcon(part.participantes.get(1).getIcone()));
 		inforEsquerda.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforEsquerdaP.add(inforEsquerda);
 		inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
@@ -250,14 +250,14 @@ public class InterfaceJogo extends JFrame {
 		iaRightPainel.add(inforDireitaP);
 		inforDireitaP.setLayout(new BoxLayout(inforDireitaP, BoxLayout.PAGE_AXIS));
 		
-		JLabel nomeDir = new JLabel(part.participantes.get(2).getNome());
+		JLabel nomeDir = new JLabel(part.participantes.get(3).getNome());
 		nomeDir.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforDireitaP.add(nomeDir);
 		nomeDir.setHorizontalAlignment(SwingConstants.RIGHT);
 		nomeDir.setFont(new Font("Brush Script MT", Font.BOLD, 17));
 		nomeDir.setForeground(Color.WHITE);
 		
-		JLabel inforDireita = new JLabel(new ImageIcon(part.participantes.get(2).getIcone()));
+		JLabel inforDireita = new JLabel(new ImageIcon(part.participantes.get(3).getIcone()));
 		inforDireita.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforDireitaP.add(inforDireita);
 		inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
@@ -322,7 +322,7 @@ public class InterfaceJogo extends JFrame {
 						tabuleiro.remove(remove);
 						
 						peca = part.pecas_dormidas.remove(remove);
-						peca.virada = true; // TRUE APENAS PARA TESTAR
+						//peca.virada = true; // TRUE APENAS PARA TESTAR
 						part.participantes.get(i).getPecas().add(peca);
 						if (i == 0){	// ia cima
 							peca.drawPeca(iaCimaPecas, 0, 0);

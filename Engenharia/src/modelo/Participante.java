@@ -35,6 +35,16 @@ public class Participante {
 		return null;		
 	}
 	
+	public boolean VerificarJogadaPossivel(int extremidade1, int extremidade2){
+		for(Peca p: this.pecas){
+			if(p.getValor1() == extremidade1 || p.getValor1() == extremidade2 ||
+					p.getValor2() == extremidade1 || p.getValor2() == extremidade2){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean noHasPeca() {
 		return pecas.isEmpty();
 	}
