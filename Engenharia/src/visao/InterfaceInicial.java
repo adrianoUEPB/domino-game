@@ -232,7 +232,7 @@ public class InterfaceInicial extends JFrame {
 					}else{
 						int campoSenha = senha.getText().length();
 						if(campoSenha < 4){
-							JOptionPane.showMessageDialog(null,"A senha não pode ter menos de 4 caracteres");
+							JOptionPane.showMessageDialog(null,"A senha não pode ter menos de 4 caracteres!");
 						}else{
 							if(!dao.searchJogador(nome.getText())){
 								jogador.setNome(nome.getText());
