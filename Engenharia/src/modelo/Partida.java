@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Partida {
 	private int id_partida;
-	public Participante lastWin; //flag para identificar ultimo participante ganhador
+	public int id_lastWin; //flag para identificar ultimo participante ganhador
 	public int[] pontuacao_jogadores;
 	public ArrayList<Participante> participantes;
 	public ArrayList<Peca> pecas_campo;
@@ -50,10 +50,13 @@ public class Partida {
 	 */
 	
 	public Participante checkWinner() {
-		
+		int id = -1;
 		for (Participante participante : participantes) {
-			if(participante.noHasPeca())
+			id++;
+			if(participante.noHasPeca()) {
+				id_lastWin = id;
 				return participante;
+			}
 		}
 		
 		return null;		
