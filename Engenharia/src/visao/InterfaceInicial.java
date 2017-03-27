@@ -230,10 +230,16 @@ public class InterfaceInicial extends JFrame {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
 					}else{
+<<<<<<< HEAD
 						int campoSenha = senha.getText().length();
 						if(campoSenha < 4){
 							JOptionPane.showMessageDialog(null,"A senha não pode ter menos de 4 caracteres!");
 						}else{
+=======
+						if(senhaTxt.length() < 4){
+							JOptionPane.showMessageDialog(null,"Digite uma senha com 4 caracteres ou mais!");
+						} else {
+>>>>>>> refs/remotes/Dellg/master
 							if(!dao.searchJogador(nome.getText())){
 								jogador.setNome(nome.getText());
 								jogador.setSenha(senhaTxt);
@@ -246,7 +252,11 @@ public class InterfaceInicial extends JFrame {
 							}else{
 								JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
 							}
+<<<<<<< HEAD
 						}	
+=======
+						}
+>>>>>>> refs/remotes/Dellg/master
 					}
 						
 				}
