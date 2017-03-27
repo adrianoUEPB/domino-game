@@ -230,17 +230,21 @@ public class InterfaceInicial extends JFrame {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
 					}else{
-						if(!dao.searchJogador(nome.getText())){
-							jogador.setNome(nome.getText());
-							jogador.setSenha(senhaTxt);
-							jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
-							dao.insert(jogador);
-							nome.setText("");
-							senha.setText("");
-							iconeCombobox.setSelectedIndex(0);
-
-						}else{
-							JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
+						if(senhaTxt.length() < 4){
+							JOptionPane.showMessageDialog(null,"Digite uma senha com 4 caracteres ou mais!");
+						} else {
+							if(!dao.searchJogador(nome.getText())){
+								jogador.setNome(nome.getText());
+								jogador.setSenha(senhaTxt);
+								jogador.setIcone(".\\image\\icon\\"+((String)iconeCombobox.getSelectedItem())+".png");
+								dao.insert(jogador);
+								nome.setText("");
+								senha.setText("");
+								iconeCombobox.setSelectedIndex(0);
+	
+							}else{
+								JOptionPane.showMessageDialog(null,"Jogador já cadastrado, escolha outro nome.");
+							}
 						}
 					}
 				}
