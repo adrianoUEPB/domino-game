@@ -36,7 +36,7 @@ public class Partida {
 				return participante;
 		}
 		return null;		
-	}	
+	}
 	
 	public int getId_partida() {
 		return id_partida;
