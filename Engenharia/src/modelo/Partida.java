@@ -37,6 +37,35 @@ public class Partida {
 		}
 		return null;		
 	}
+<<<<<<< HEAD
+=======
+	
+	/**
+	 * Verifica na lista de participantes o que nao possui pecas
+	 * Aquele que nao possuir sera o vencedor
+	 * Se ainda possuir pecas retorna null
+	 * @param participantes
+	 * @return Participante
+	 * @return null
+	 */
+	
+	public Participante checkWinner() {
+		
+		for (Participante participante : participantes) {
+			if(participante.noHasPeca())
+				return participante;
+		}
+		
+		return null;		
+	}
+	
+	public int checkNext(int id) {
+		if (id == 3)
+			return 0;
+		
+		return ++id;
+	}
+>>>>>>> refs/remotes/Dellg/master
 	
 	public int getId_partida() {
 		return id_partida;

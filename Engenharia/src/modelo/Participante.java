@@ -35,6 +35,7 @@ public class Participante {
 		return null;		
 	}
 	
+<<<<<<< HEAD
 	public boolean VerificarJogadaPossivel(int extremidade1, int extremidade2){
 		for(Peca p: this.pecas){
 			if(p.getValor1() == extremidade1 || p.getValor1() == extremidade2 ||
@@ -43,6 +44,10 @@ public class Participante {
 			}
 		}
 		return false;
+=======
+	public boolean noHasPeca() {
+		return pecas.isEmpty();
+>>>>>>> refs/remotes/Dellg/master
 	}
 	
 	public int getId() {
