@@ -35,6 +35,10 @@ public class Participante {
 		return null;		
 	}
 	
+	public boolean noHasPeca() {
+		return pecas.isEmpty();
+	}
+	
 	public int getId() {
 		return id;
 	}
