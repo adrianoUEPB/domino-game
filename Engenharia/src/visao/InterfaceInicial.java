@@ -60,13 +60,15 @@ public class InterfaceInicial extends JFrame {
 		senha.setColumns(10);
 				
 		nomeLabel = new JLabel("Nome do usuário:");
+		nomeLabel.setFont(new Font("Brush Script MT", Font.PLAIN, 21));
 		nomeLabel.setForeground(Color.WHITE);
-		nomeLabel.setBounds(10, 11, 154, 14);
+		nomeLabel.setBounds(10, 11, 154, 30);
 		informacoes.add(nomeLabel);
 		
 		senhaLabel = new JLabel("Senha:");
+		senhaLabel.setFont(new Font("Brush Script MT", Font.PLAIN, 21));
 		senhaLabel.setForeground(Color.WHITE);
-		senhaLabel.setBounds(10, 67, 154, 14);
+		senhaLabel.setBounds(10, 67, 154, 30);
 		informacoes.add(senhaLabel);
 		
 		botaoEntrar = new JButton("");
@@ -78,12 +80,13 @@ public class InterfaceInicial extends JFrame {
 		
 		iconeCombobox = new JComboBox<String>();
 		iconeCombobox.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Pernalonga", "Lola", "Eufrazino", "Patolino", "Marvin", "Frajola", "Piu Piu", "Gaguinho", "Taz"}));
-		iconeCombobox.setBounds(27, 148, 89, 20);
+		iconeCombobox.setBounds(27, 147, 89, 20);
 		informacoes.add(iconeCombobox);
 		
 		iconeLabel = new JLabel("Ícone:");
+		iconeLabel.setFont(new Font("Brush Script MT", Font.PLAIN, 21));
 		iconeLabel.setForeground(Color.WHITE);
-		iconeLabel.setBounds(10, 123, 154, 14);
+		iconeLabel.setBounds(10, 123, 118, 30);
 		informacoes.add(iconeLabel);
 		
 		botaoCancelar = new JButton();

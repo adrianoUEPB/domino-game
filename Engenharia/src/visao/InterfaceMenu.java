@@ -22,7 +22,8 @@ public class InterfaceMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	JPanel opcoes;
-	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking;
+	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking, jogoFacil, jogoDificil, jogo6pecas, jogo7pecas;
+	boolean dificil = false;
 
 	public InterfaceMenu(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
@@ -87,7 +88,7 @@ public class InterfaceMenu extends JFrame {
 		botaoLogout.setBounds(10, 494, 240, 70);
 		getContentPane().add(botaoLogout);
 		
-		JLabel imagemLabel = new JLabel("");
+		JLabel imagemLabel = new JLabel();
 		imagemLabel.setBounds(521, 11, 263, 227);
 		imagemLabel.setIcon(new ImageIcon(".\\image\\peca\\pecasMenu.png"));
 		getContentPane().add(imagemLabel);
@@ -106,18 +107,36 @@ public class InterfaceMenu extends JFrame {
 		opcoes.setVisible(false);
 		getContentPane().add(opcoes);
 		
-		JButton jogoNormal = new JButton("f\u00E1cil");
-		jogoNormal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jogoNormal.setBounds(128, 11, 240, 70);
-		opcoes.add(jogoNormal);
+		jogo7pecas = new JButton();
+		jogo7pecas.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-7pecas-disabled.png"));
+		jogo7pecas.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-7pecas-rollover.png"));
+		jogo7pecas.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtM-7pecas-rollover.png"));
+		jogo7pecas.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtM-7pecas-pressed.png"));
+		jogo7pecas.setIcon(new ImageIcon(".\\image\\graphics\\BtM-7pecas-normal.png"));
+		jogo7pecas.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtM-7pecas-disabled.png"));
+		jogo7pecas.setHorizontalTextPosition(SwingConstants.CENTER);
+		jogo7pecas.setBorder(null);
+		jogo7pecas.setVisible(false);
+		jogo7pecas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		jogo7pecas.setBounds(274, 11, 240, 70);
+		opcoes.add(jogo7pecas);
 		
-		JButton jogoDificil = new JButton("dificil");
-		jogoDificil.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jogoDificil.setEnabled(false);
-		jogoDificil.setBounds(128, 92, 240, 70);
-		opcoes.add(jogoDificil);
+		jogo6pecas = new JButton();
+		jogo6pecas.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-6pecas-disabled.png"));
+		jogo6pecas.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-6pecas-rollover.png"));
+		jogo6pecas.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtM-6pecas-rollover.png"));
+		jogo6pecas.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtM-6pecas-pressed.png"));
+		jogo6pecas.setIcon(new ImageIcon(".\\image\\graphics\\BtM-6pecas-normal.png"));
+		jogo6pecas.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtM-6pecas-disabled.png"));
+		jogo6pecas.setHorizontalTextPosition(SwingConstants.CENTER);
+		jogo6pecas.setBorder(null);
+		jogo6pecas.setVisible(false);
+		jogo6pecas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		jogo6pecas.setEnabled(false);
+		jogo6pecas.setBounds(274, 92, 240, 70);
+		opcoes.add(jogo6pecas);
 		
-		JButton botaoCancelar = new JButton("");
+		JButton botaoCancelar = new JButton();
 		botaoCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botaoCancelar.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-disabled.png"));
 		botaoCancelar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-rollover.png"));
@@ -127,8 +146,35 @@ public class InterfaceMenu extends JFrame {
 		botaoCancelar.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-cancelar-disabled.png"));
 		botaoCancelar.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoCancelar.setBorder(null);
-		botaoCancelar.setBounds(190, 193, 120, 35);
+		botaoCancelar.setBounds(72, 193, 120, 35);
 		opcoes.add(botaoCancelar);
+		
+		jogoFacil = new JButton();
+		jogoFacil.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		jogoFacil.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-facil-disabled.png"));
+		jogoFacil.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-facil-rollover.png"));
+		jogoFacil.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtM-facil-rollover.png"));
+		jogoFacil.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtM-facil-pressed.png"));
+		jogoFacil.setIcon(new ImageIcon(".\\image\\graphics\\BtM-facil-normal.png"));
+		jogoFacil.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtM-facil-disabled.png"));
+		jogoFacil.setHorizontalTextPosition(SwingConstants.CENTER);
+		jogoFacil.setBorder(null);
+		jogoFacil.setBounds(10, 11, 240, 70);
+		opcoes.add(jogoFacil);
+		
+		jogoDificil = new JButton();
+		jogoDificil.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		jogoDificil.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-dificil-disabled.png"));
+		jogoDificil.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtM-dificil-rollover.png"));
+		jogoDificil.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtM-dificil-rollover.png"));
+		jogoDificil.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtM-dificil-pressed.png"));
+		jogoDificil.setIcon(new ImageIcon(".\\image\\graphics\\BtM-dificil-normal.png"));
+		jogoDificil.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtM-dificil-disabled.png"));
+		jogoDificil.setHorizontalTextPosition(SwingConstants.CENTER);
+		jogoDificil.setBorder(null);
+		jogoDificil.setEnabled(false);
+		jogoDificil.setBounds(10, 92, 240, 70);
+		opcoes.add(jogoDificil);
 		
 		// actions listeners
 		botaoNovaPartida.addActionListener(new ActionListener() {
@@ -140,34 +186,73 @@ public class InterfaceMenu extends JFrame {
 			}
 		});
 		
+		jogoFacil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jogo6pecas.setVisible(true);
+				jogo7pecas.setVisible(true);
+			}
+		});
+		
+		jogoDificil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jogo6pecas.setVisible(true);
+				jogo7pecas.setVisible(true);
+				dificil = true;
+			}
+		});
+		
 		// nova partida facil
-		jogoNormal.addActionListener(new ActionListener() {
+		jogo7pecas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				ArrayList<Participante> participantes = new ArrayList<Participante>();
 				participantes.add(jogador_logado);
 				
 				Participante IA1;
-				if (jogador_logado.getIcone().contains("Pernalonga")){
-					IA1 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+				if (dificil){
+					if (jogador_logado.getIcone().contains("Pernalonga")){
+						IA1 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", true);
+					} else {
+						IA1 = new InteligenciaArtificial("Pernalonga", ".\\image\\icon\\Pernalonga.png", true);
+					}
 				} else {
-					IA1 = new InteligenciaArtificial("Pernalonga", ".\\image\\icon\\Pernalonga.png", false);
+					if (jogador_logado.getIcone().contains("Pernalonga")){
+						IA1 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+					} else {
+						IA1 = new InteligenciaArtificial("Pernalonga", ".\\image\\icon\\Pernalonga.png", false);
+					}
 				}
 				participantes.add(IA1);
 				
 				Participante IA2;
-				if (jogador_logado.getIcone().contains("Lola")){
-					IA2 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+				if (dificil){
+					if (jogador_logado.getIcone().contains("Lola")){
+						IA2 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", true);
+					} else {
+						IA2 = new InteligenciaArtificial("Lola", ".\\image\\icon\\Lola.png", true);
+					}
 				} else {
-					IA2 = new InteligenciaArtificial("Lola", ".\\image\\icon\\Lola.png", false);
+					if (jogador_logado.getIcone().contains("Lola")){
+						IA2 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+					} else {
+						IA2 = new InteligenciaArtificial("Lola", ".\\image\\icon\\Lola.png", false);
+					}
 				}
 				participantes.add(IA2);
 				
 				Participante IA3;
-				if (jogador_logado.getIcone().contains("Patolino")){
-					IA3 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+				if (dificil){
+					if (jogador_logado.getIcone().contains("Patolino")){
+						IA3 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", true);
+					} else {
+						IA3 = new InteligenciaArtificial("Patolino", ".\\image\\icon\\Patolino.png", true);
+					}
 				} else {
-					IA3 = new InteligenciaArtificial("Patolino", ".\\image\\icon\\Patolino.png", false);
+					if (jogador_logado.getIcone().contains("Patolino")){
+						IA3 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+					} else {
+						IA3 = new InteligenciaArtificial("Patolino", ".\\image\\icon\\Patolino.png", false);
+					}
 				}
 				participantes.add(IA3);
 				
@@ -188,6 +273,9 @@ public class InterfaceMenu extends JFrame {
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				opcoes.setVisible(false);
+				jogo6pecas.setVisible(false);
+				jogo7pecas.setVisible(false);
+				dificil = false;
 				botaoContinuarPartida.setEnabled(true);
 				botaoNovaPartida.setEnabled(true);
 				botaoRanking.setEnabled(true);
