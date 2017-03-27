@@ -322,7 +322,7 @@ public class InterfaceJogo extends JFrame {
 						tabuleiro.remove(remove);
 						
 						peca = part.pecas_dormidas.remove(remove);
-						//peca.virada = true; // TRUE APENAS PARA TESTAR
+						peca.virada = true; // TRUE APENAS PARA TESTAR
 						part.participantes.get(i).getPecas().add(peca);
 						if (i == 0){	// ia cima
 							peca.drawPeca(iaCimaPecas, 0, 0);
