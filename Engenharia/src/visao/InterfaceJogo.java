@@ -2,38 +2,40 @@ package visao;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import modelo.*;
-
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-
 import java.awt.Component;
-
-import javax.swing.SwingConstants;
-
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.swing.border.EtchedBorder;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 
-import java.awt.Cursor;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import modelo.Jogador;
+import modelo.Partida;
+import modelo.Peca;
 
 public class InterfaceJogo extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	private Timer tm;
+	private int contador = 0;
 	
 	JPanel jogadorPecas, iaCimaPecas, iaEsquerdaPecas, iaDireitaPecas, tabuleiro;
 
@@ -111,13 +113,40 @@ public class InterfaceJogo extends JFrame {
 		tempoLbl.setAlignmentX(0.5f);
 		blockCimDir.add(tempoLbl);
 		
-		JLabel tempoInt = new JLabel("00:00");
+		final JLabel tempoInt = new JLabel("00:00");
 		tempoInt.setMinimumSize(new Dimension(50, 50));
 		tempoInt.setMaximumSize(new Dimension(75, 50));
 		tempoInt.setHorizontalAlignment(SwingConstants.CENTER);
 		tempoInt.setForeground(Color.WHITE);
 		tempoInt.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		tempoInt.setAlignmentX(0.5f);
+		
+		EventQueue.invokeLater(new Runnable(){
+			@Override 
+			public void run() {
+				this.cronometro();
+			}
+
+			private void cronometro() {
+				Timer tm;
+				tm = new Timer();
+				tm.scheduleAtFixedRate(new TimerTask() {
+
+					@Override
+					public void run() {
+						contador++;
+						int seg = contador % 60;
+						int min = contador / 60;
+						int hora = min / 60;
+						min %= 60;
+						tempoInt.setText(String.format("%02d:%02d", min, seg));
+					}
+				}, 1000, 1000);				
+				
+			}			
+		});
+		
+		
 		blockCimDir.add(tempoInt);
 		
 		JPanel iaLeftPainel = new JPanel();
@@ -354,4 +383,5 @@ public class InterfaceJogo extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
+			
 }
