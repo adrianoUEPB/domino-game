@@ -37,8 +37,6 @@ public class Partida {
 		}
 		return null;		
 	}
-<<<<<<< HEAD
-=======
 	
 	/**
 	 * Verifica na lista de participantes o que nao possui pecas
@@ -68,7 +66,6 @@ public class Partida {
 		
 		return ++id;
 	}
->>>>>>> refs/remotes/Dellg/master
 	
 	public int getId_partida() {
 		return id_partida;
