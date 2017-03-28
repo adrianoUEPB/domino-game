@@ -13,6 +13,7 @@ public class Partida {
 	public int extremidade1;
 	public int extremidade2;
 	public int rodada;
+	private Peca ultima_peca;
 
 	
 	public Partida(ArrayList<Participante> participantes){
@@ -50,8 +51,14 @@ public class Partida {
 	public Participante checkWinner() {
 		int id = -1;
 		for (Participante participante : participantes) {
+			
+			int pontos = this.pontuacao();
 			id++;
-			if(participante.noHasPeca()) {
+			
+			pontuacao_jogadores[id] += pontos;
+			
+			if(participante.noHasPeca()) {				
+				participante.setPontuacao(participante.getPontuacao() + pontos);		
 				id_lastWin = id;
 				return participante;
 			}
@@ -60,11 +67,37 @@ public class Partida {
 		return null;		
 	}
 	
+	private int pontuacao() {
+		if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor1()
+				&& extremidade1 != ultima_peca.getValor2() && extremidade2 != ultima_peca.getValor2())
+			return 1;
+		
+		if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor1()
+				&& ultima_peca.getValor1() == ultima_peca.getValor2() || 
+				extremidade2 == ultima_peca.getValor1() && extremidade1 != ultima_peca.getValor1()
+				&& ultima_peca.getValor1() == ultima_peca.getValor2())
+			return 2;
+		
+		if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor1()
+				&& extremidade1 != ultima_peca.getValor2() && extremidade2 == ultima_peca.getValor2())
+			return 3;
+		
+		if (extremidade1 == extremidade2 && extremidade2 == ultima_peca.getValor1()
+				&& ultima_peca.getValor1() == ultima_peca.getValor2())
+			return 6;
+		
+		return 0;		
+	}
+	
 	public int checkNext(int id) {
 		if (id == 3)
 			return 0;
 		
 		return ++id;
+	}
+	
+	public void setUltima_peca(Peca peca) {
+		this.ultima_peca = peca;
 	}
 	
 	public int getId_partida() {
