@@ -230,7 +230,7 @@ public class InterfaceInicial extends JFrame {
 					if (nome.getText().equals("") || senhaTxt.equals("") || iconeCombobox.getSelectedItem().equals("")){
 						JOptionPane.showMessageDialog(null,"Campo obrigatório!");
 					}else{
-						int campoSenha = senha.getText().length();
+						int campoSenha = senhaTxt.length();
 						if(campoSenha < 4){
 							JOptionPane.showMessageDialog(null,"A senha não pode ter menos de 4 caracteres!");
 						}else{

@@ -25,7 +25,7 @@ public class InteligenciaArtificial extends Participante {
 			} else {
 				// ia fácil
 				for(Peca p: super.getPecas()){
-					if(p.getValor1() == extremidade1 || p.getValor1() == extremidade2 ||
+					if(p.getValor1() == extremidade1 || p.getValor2() == extremidade1 ||
 							p.getValor2() == extremidade1 || p.getValor2() == extremidade2){
 						return p;
 					}
