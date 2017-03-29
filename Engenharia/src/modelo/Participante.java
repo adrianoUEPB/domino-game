@@ -18,22 +18,22 @@ public class Participante {
 	
 	public boolean verificaCarrocao() {
 		for (Peca peca : pecas) {
-			if(peca.getValor1() == peca.getValor2() && peca.getValor1() == 6)
+			if(peca.getValor1() == 6 && peca.getValor2() == 6)
 				return true;
 		}		
 		return false;
 	}
 	
-	public Peca pegaPeca(Peca jogar) {
-		if(pecas.isEmpty())
-			return null;
-		
-		for (Peca peca : pecas) {
-			if (jogar.equals(peca))
-				return peca;
-		}
-		return null;		
-	}
+//	public Peca pegaPeca(Peca jogar) {
+//		if(pecas.isEmpty())
+//			return null;
+//		
+//		for (Peca peca : pecas) {
+//			if (jogar.equals(peca))
+//				return peca;
+//		}
+//		return null;		
+//	}
 	
 	public boolean VerificarJogadaPossivel(int extremidade1, int extremidade2){
 		for(Peca p: this.pecas){
