@@ -22,10 +22,9 @@ public class DAO {
 			
 			int id = buscaId(nome);
 
-			JOptionPane.showMessageDialog(null, id);
 			PreparedStatement stmt = con.prepareStatement("DELETE FROM jogador WHERE id_jogador = ?;");
 			stmt.setString(1, nome);
-			stmt.executeUpdate(sql);
+			stmt.executeUpdate();
 			con.commit();
 			stmt.close();			
 			con.close();
@@ -40,11 +39,13 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			Statement stmt = con.createStatement();
-
-			sql = "INSERT INTO jogador (nome, icone, senha)"
-					+ "VALUES ('"+jogador.getNome()+"','"+jogador.getIcone()+"','"+ jogador.getSenha() +"');";			
-			stmt.executeUpdate(sql);
+			PreparedStatement stmt = con.prepareStatement("INSERT INTO jogador (nome, icone, senha)"
+					+ "VALUES (?, ?, ?);");
+			stmt.setString(1, jogador.getNome());
+			stmt.setString(2, jogador.getIcone());
+			stmt.setString(3, jogador.getSenha());
+	
+			stmt.executeUpdate();
 			stmt.close();
 			con.commit();
 			con.close();
@@ -60,11 +61,15 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 
-			Statement stmt = con.createStatement();
+			PreparedStatement stmt = con.prepareStatement("UPDATE jogador "
+					+ "SET nome= ?, senha= ?, icone= ? WHERE id_jogador= ?");
+			stmt.setString(1, novo.getNome());
+			stmt.setString(2, novo.getSenha());
+			stmt.setString(3, novo.getIcone());
+			stmt.setInt(4, antigo.getId());
 			
-			stmt.executeUpdate("UPDATE jogador "
-					+ "SET nome= '"+novo.getNome()+"', senha='"+ novo.getSenha() +"', icone= '"+ novo.getIcone()+"'"
-							+ " WHERE id_jogador="+antigo.getId());
+			
+			stmt.executeUpdate();
 			con.commit();
 			stmt.close();
 			con.close();			
@@ -117,8 +122,9 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 					
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ nome +"';");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ?;");
+			stmt.setString(1, nome);
+			ResultSet rs = stmt.executeQuery();
 
 			if(!rs.next())
 				throw new SQLException();
@@ -128,6 +134,7 @@ public class DAO {
 			jogador.setNome(rs.getString("nome"));
 			jogador.setSenha(rs.getString("senha"));
 			jogador.setIcone(rs.getString("icone"));
+			jogador.setPontuacao(rs.getInt("pontuacao"));
 			
 			rs.close();
 			stmt.close();
@@ -144,8 +151,9 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ nome +"';");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ?;");
+			stmt.setString(1, nome);
+			ResultSet rs = stmt.executeQuery();
 			//se existir um proximo
 			if(rs.next()) {
 				con.close();
@@ -159,16 +167,17 @@ public class DAO {
 	}
 	
 	public boolean checkLogin(Jogador jogador) {
-		Statement stmt;
+		
 		ResultSet rs;
 		
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM jogador WHERE nome = '"+ 
-					jogador.getNome() +"' AND senha = '"+ jogador.getSenha() +"';");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ? AND senha = ?;");
+			stmt.setString(1, jogador.getNome());
+			stmt.setString(2, jogador.getSenha());
+			rs = stmt.executeQuery();
 			if (rs.next()){
 				con.close();
 				return true;
@@ -187,9 +196,9 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT id_jogador FROM jogador WHERE nome = '"
-					+ nome + "'");
+			PreparedStatement stmt = con.prepareStatement("SELECT id_jogador FROM jogador WHERE nome = ?;");
+			stmt.setString(1, nome);
+			ResultSet rs = stmt.executeQuery();
 		
 			if (rs.next())
 				id = rs.getInt(1);
@@ -199,6 +208,29 @@ public class DAO {
 		}
 		return id;
 	}
+	
+	public void salvarPontuacao(int id_jogador, int pontuacao) {
+		
+		
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			
+			PreparedStatement stmt = con.prepareStatement("UPDATE jogador SET pontuacao = ? WHERE id_jogador = ?;");
+			stmt.setInt(1, pontuacao);
+			stmt.setInt(2, id_jogador);
+			
+			stmt.executeUpdate();
+			stmt.close();
+			con.commit();
+			con.close();
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 	
 	public static int buscaId(Statement stmt) {
 		int lastId = 0;
@@ -213,4 +245,6 @@ public class DAO {
 		}
 		return lastId;
 	}
+	
+	
 }

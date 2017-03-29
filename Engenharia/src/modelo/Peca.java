@@ -6,6 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controle.RotatedIcon;
+
 public class Peca {
 	private int valor1;
 	private int valor2;
@@ -23,19 +25,45 @@ public class Peca {
 		imagem = new ImageIcon(".\\image\\peca\\peca" + valor1 + valor2 + ".png");
 	}
 	
-	public void drawPeca(JPanel painel, int posicaoX, int posicaoY){
+	public void drawPeca(JPanel painel, int posicaoX, int posicaoY, int rotacao){
 		this.posicaoX = posicaoX;
 		this.posicaoY = posicaoY;
+		// rotacao
+		// 0 = posicao original		-	 O
+		//								 X
+		//
+		// 1 = 90º para a direita	-	 XO
+		//
+		// 2 = 180º para a direita	-	 X
+		//								 O
+		//
+		// 3 = 270º para a direita	-	OX
+		//
 		
 		JLabel l = new JLabel();
 		l.setName("" + valor1 + valor2);
 		if (this.virada){
-			l.setIcon(imagem);
+			if (rotacao == 0){
+				l.setIcon(imagem);
+				l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
+			} else if (rotacao == 1){
+				RotatedIcon rimagem = new RotatedIcon(imagem, RotatedIcon.Rotate.DOWN);
+				l.setIcon(rimagem);
+				l.setBounds(this.posicaoX, this.posicaoY, this.altura, this.largura);
+			} else if (rotacao == 2){
+				RotatedIcon rimagem = new RotatedIcon(imagem, RotatedIcon.Rotate.UPSIDE_DOWN);
+				l.setIcon(rimagem);
+				l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
+			} else if (rotacao == 3){
+				RotatedIcon rimagem = new RotatedIcon(imagem, RotatedIcon.Rotate.UP);
+				l.setIcon(rimagem);
+				l.setBounds(this.posicaoX, this.posicaoY, this.altura, this.largura);
+			}
 		} else {
 			l.setIcon(new ImageIcon(".\\image\\peca\\pecaOff.png"));
+			l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
 		}
 		l.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
 		painel.add(l);
 	}
 
