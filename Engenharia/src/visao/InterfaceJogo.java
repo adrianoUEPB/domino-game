@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Timer;
@@ -386,101 +387,18 @@ public class InterfaceJogo extends JFrame {
 	// método da primeira jogada de cada rodada
 	public void IniciaPartida(final Partida part) {
 		Participante primeiro;
-		if (part.id_lastWin == -1){
-			// verifica quem tem o carracao de 6
+		if (part.id_lastWin == -1){			
+			// verifica quem é o jogador da vez
 			primeiro = part.firstBegin();
-			if(part.jogadorDaVez == 0){ // jogador
-				// esse if verifica se tem jogada para fazer
-				if (part.participantes.get(0).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
+			if(part.jogadorDaVez == 0){ // jogador				
+				Component[] c = jogadorPecas.getComponents();
+				for (int i = 0; i < c.length; i++){
+					JLabel lab = (JLabel) c[i];
+					String nome = lab.getName();
+					int v1 = Integer.parseInt("" + nome.charAt(0));
+					int v2 = Integer.parseInt("" + nome.charAt(1));
 					
-					Component[] c = jogadorPecas.getComponents();
-					for (int i = 0; i < c.length; i++){
-						JLabel lab = (JLabel) c[i];
-						String nome = lab.getName();
-						int v1 = Integer.parseInt("" + nome.charAt(0));
-						int v2 = Integer.parseInt("" + nome.charAt(1));
-						
-						if (v1 == 6 && v2 == 6){
-							c[i].addMouseListener(new MouseAdapter(){
-								@Override
-								public void mousePressed(MouseEvent e){
-									
-									JLabel lab = (JLabel) e.getSource();
-									String nome = lab.getName();
-									int v1 = Integer.parseInt("" + nome.charAt(0));
-									int v2 = Integer.parseInt("" + nome.charAt(1));
-									
-									Peca peca = null;
-									Iterator<Peca> it = part.participantes.get(0).getPecas().iterator();
-									while(it.hasNext()) {
-										Peca p = it.next();
-									    if (p.getValor1() == v1 && p.getValor2() == v2) {
-									    	peca = p;
-									        it.remove();
-									    }
-									}
-									
-									jogadorPecas.remove(e.getComponent());
-									part.participantes.get(0).getPecas().remove(peca);
-									peca.drawPeca(tabuleiro, tabuleiro.getWidth()/2 - 20, tabuleiro.getHeight()/2 - 42, 0);
-									part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
-									part.extremidade1 = peca.getValor1();
-									part.extremidade2 = peca.getValor2();
-									tabuleiro.updateUI();
-									jogadorPecas.updateUI();
-									repaint();
-
-									Component[] c = jogadorPecas.getComponents();
-									for (Component j: c){
-										j.setEnabled(true);;
-									}
-									
-									JogadasSeguintes(part);
-								}
-							});
-						} else {
-							lab.setEnabled(false);
-						}
-					}
-				} else { // passa a vez
-					part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
-				}
-			} else { // inteligência artificial
-				for(int i = 0; i < primeiro.getPecas().size(); i++){
-					Peca p = primeiro.getPecas().get(i);
-					if(p.getValor1() == 6 && p.getValor2() == 6){
-						primeiro.getPecas().remove(p);
-						if (part.jogadorDaVez == 1) //ia esquerda
-							iaEsquerdaPecas.remove(i);
-						if (part.jogadorDaVez == 2) //ia cima
-							iaCimaPecas.remove(i);
-						if (part.jogadorDaVez == 3) //ia direita
-							iaDireitaPecas.remove(i);
-						
-						p.virada = true;
-						p.drawPeca(tabuleiro, tabuleiro.getWidth()/2 - 20, tabuleiro.getHeight()/2 - 42, 0);
-						part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
-						part.extremidade1 = p.getValor1();
-						part.extremidade2 = p.getValor2();
-						tabuleiro.updateUI();
-						repaint();
-						
-						JogadasSeguintes(part);
-						break;
-					}
-				}
-			}
-		} else {
-			primeiro = part.participantes.get(part.id_lastWin);
-			part.jogadorDaVez = part.id_lastWin;
-			
-			if(part.jogadorDaVez == 0){	// jogador
-				// esse if debaixo verifica se tem jogada para fazer
-				if (part.participantes.get(0).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
-					
-					Component[] c = jogadorPecas.getComponents();
-					for (int i = 0; i < c.length; i++){
-						
+					if (v1 == 6 && v2 == 6){
 						c[i].addMouseListener(new MouseAdapter(){
 							@Override
 							public void mousePressed(MouseEvent e){
@@ -499,21 +417,101 @@ public class InterfaceJogo extends JFrame {
 								        it.remove();
 								    }
 								}
+
+								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
-								peca.virada = true;
-								peca.drawPeca(tabuleiro, 50, 50, 0);
+								peca.drawPeca(tabuleiro, tabuleiro.getWidth()/2 - 20, tabuleiro.getHeight()/2 - 42, 0);
 								part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
+								part.extremidade1 = peca.getValor1();
+								part.extremidade2 = peca.getValor2();
 								tabuleiro.updateUI();
 								jogadorPecas.updateUI();
 								repaint();
 								
+								Component[] c = jogadorPecas.getComponents();
+								for (Component j: c){
+									j.setEnabled(true);;
+								}
+								
 								JogadasSeguintes(part);
+								return;
 							}
 						});
+					} else {
+						lab.setEnabled(false);
 					}
-				} else { // passa a vez
-					part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
+				}
+			} else { // inteligência artificial
+				for(int i = 0; i < primeiro.getPecas().size(); i++){
+					Peca p = primeiro.getPecas().get(i);
+					if(p.getValor1() == 6 && p.getValor2() == 6){
+						primeiro.getPecas().remove(p);
+						if (part.jogadorDaVez == 1) //ia esquerda
+							iaEsquerdaPecas.remove(i);
+						if (part.jogadorDaVez == 2) //ia cima
+							iaCimaPecas.remove(i);
+						if (part.jogadorDaVez == 3) //ia direita
+							iaDireitaPecas.remove(i);
+
+						part.setUltima_peca(p);
+						p.virada = true;
+						p.drawPeca(tabuleiro, tabuleiro.getWidth()/2 - 20, tabuleiro.getHeight()/2 - 42, 0);
+						part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
+						part.extremidade1 = p.getValor1();
+						part.extremidade2 = p.getValor2();
+						tabuleiro.updateUI();
+						repaint();
+						
+						//break;
+						
+						JogadasSeguintes(part);
+						return;
+					}
+				}
+			}
+		} else {
+			primeiro = part.participantes.get(part.id_lastWin);
+			part.jogadorDaVez = part.id_lastWin;
+			
+			if(part.jogadorDaVez == 0){	// jogador
+					
+				Component[] c = jogadorPecas.getComponents();
+				for (int i = 0; i < c.length; i++){
+					
+					c[i].addMouseListener(new MouseAdapter(){
+						@Override
+						public void mousePressed(MouseEvent e){
+							
+							JLabel lab = (JLabel) e.getSource();
+							String nome = lab.getName();
+							int v1 = Integer.parseInt("" + nome.charAt(0));
+							int v2 = Integer.parseInt("" + nome.charAt(1));
+							
+							Peca peca = null;
+							Iterator<Peca> it = part.participantes.get(0).getPecas().iterator();
+							while(it.hasNext()) {
+								Peca p = it.next();
+							    if (p.getValor1() == v1 && p.getValor2() == v2) {
+							    	peca = p;
+							        it.remove();
+							    }
+							}
+							
+							part.setUltima_peca(peca);
+							jogadorPecas.remove(e.getComponent());
+							part.participantes.get(0).getPecas().remove(peca);
+							peca.virada = true;
+							peca.drawPeca(tabuleiro, 50, 50, 0);
+							part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
+							tabuleiro.updateUI();
+							jogadorPecas.updateUI();
+							repaint();
+							
+							JogadasSeguintes(part);
+							return;
+						}
+					});
 				}
 			} else { // inteligência artificial
 				Peca p;
@@ -527,7 +525,8 @@ public class InterfaceJogo extends JFrame {
 							iaCimaPecas.remove(i);
 						if (part.jogadorDaVez == 3) //ia direita
 							iaDireitaPecas.remove(i);
-						
+
+						part.setUltima_peca(p);
 						p.virada = true;
 						p.drawPeca(tabuleiro, tabuleiro.getWidth()/2 - 20, tabuleiro.getHeight()/2 - 42, 0);
 						part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
@@ -537,7 +536,7 @@ public class InterfaceJogo extends JFrame {
 						repaint();
 						
 						JogadasSeguintes(part);
-						break;
+						return;
 					} else {
 						if(i == primeiro.getPecas().size()-1){
 							primeiro.getPecas().remove(0);
@@ -547,7 +546,8 @@ public class InterfaceJogo extends JFrame {
 								iaCimaPecas.remove(0);
 							if (part.jogadorDaVez == 3) //ia direita
 								iaDireitaPecas.remove(0);
-							
+
+							part.setUltima_peca(p);
 							p.virada = true;
 							p.drawPeca(tabuleiro, tabuleiro.getWidth()/2 - 20, tabuleiro.getHeight()/2 - 42, 0);
 							part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
@@ -557,7 +557,7 @@ public class InterfaceJogo extends JFrame {
 							repaint();
 							
 							JogadasSeguintes(part);
-							break;
+							return;
 						}
 					}
 				}
@@ -566,7 +566,7 @@ public class InterfaceJogo extends JFrame {
 	}
 	
 	public void JogadasSeguintes(final Partida part){
-		
+
 		if(part.jogadorDaVez == 0){ // jogador
 			// esse if verifica se tem jogada para fazer
 			if (part.participantes.get(0).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
@@ -590,16 +590,19 @@ public class InterfaceJogo extends JFrame {
 								int v2 = Integer.parseInt("" + nome.charAt(1));
 								
 								Peca peca = null;
+								Peca p = null;
 								Iterator<Peca> it = part.participantes.get(0).getPecas().iterator();
 								while(it.hasNext()) {
-									Peca p = it.next();
-									System.out.println("Peça disponíveis: " + p.getValor1() + p.getValor2());
-								    if (p.getValor1() == v1 && p.getValor2() == v2) {
-										System.out.println("Peça escolhida: " + p.getValor1() + p.getValor2());
-								    	peca = p;
-								        it.remove();
-								        break;
-								    }
+									p = it.next();
+									if (p == null){
+										break;
+									} else {
+									    if (p.getValor1() == v1 && p.getValor2() == v2) {
+									    	peca = p;
+									        it.remove();
+									        break;
+									    }
+									}
 								}
 								
 								jogadorPecas.remove(e.getComponent());
@@ -618,10 +621,11 @@ public class InterfaceJogo extends JFrame {
 									peca.drawPeca(tabuleiro, tabuleiro.getWidth()/2 + 18, tabuleiro.getHeight()/2, 1);
 									part.extremidade2 = peca.getValor1();
 								}
-								
+
 								// falta calcular as posições X e Y onde a peça irá ser encaixada
 								// dependendo da extremidade que for encaixada
 								
+								part.setUltima_peca(peca);
 								part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 								tabuleiro.updateUI();
 								jogadorPecas.updateUI();
@@ -631,10 +635,13 @@ public class InterfaceJogo extends JFrame {
 
 								Component[] c = jogadorPecas.getComponents();
 								for (Component j: c){
-									j.removeMouseListener(this);
+									MouseListener[] m = j.getMouseListeners();
+									if(m.length > 0)
+										j.removeMouseListener(m[0]);
 									j.setEnabled(true);;
 								}
 								JogadasSeguintes(part);
+								return;
 							}
 						});
 					} else {
@@ -643,7 +650,9 @@ public class InterfaceJogo extends JFrame {
 				}
 			} else { // passa a vez
 				part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
+				System.out.println("Jogador passou a vez!");
 				JogadasSeguintes(part);
+				return;
 			}
 		} else { // inteligência artificial
 			Peca p;
@@ -677,7 +686,8 @@ public class InterfaceJogo extends JFrame {
 						
 						// falta calcular as posições X e Y onde a peça irá ser encaixada
 						// dependendo da extremidade que for encaixada
-						
+
+						part.setUltima_peca(p);
 						p.virada = true;
 						part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 						tabuleiro.updateUI();
@@ -686,15 +696,17 @@ public class InterfaceJogo extends JFrame {
 						// falta checar o winner após cada jogada feita pelo jogador ou pelas IAs
 						
 						JogadasSeguintes(part);
-						break;
+						return;
 					}
 				}
 			} else {
+				System.out.println(part.participantes.get(part.jogadorDaVez) + " passou a vez!");
 				part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 				
 				// tá bugado aqui, sem isso a IA não passa a vez e com isso, nunca é verificado
 				// quando a partida acaba
 				JogadasSeguintes(part);
+				return;
 			}
 		}
 	}
