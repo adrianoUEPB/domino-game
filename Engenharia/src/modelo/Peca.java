@@ -62,8 +62,23 @@ public class Peca {
 				l.setBounds(this.posicaoX, this.posicaoY, this.altura, this.largura);
 			}
 		} else {
-			l.setIcon(new ImageIcon(".\\image\\peca\\pecaOff.png"));
-			l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
+			ImageIcon desvirada = new ImageIcon(".\\image\\peca\\pecaOff.png");
+			if (rotacao == 0){
+				l.setIcon(desvirada);
+				l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
+			} else if (rotacao == 1){
+				RotatedIcon rimagem = new RotatedIcon(desvirada, RotatedIcon.Rotate.DOWN);
+				l.setIcon(rimagem);
+				l.setBounds(this.posicaoX, this.posicaoY, this.altura, this.largura);
+			} else if (rotacao == 2){
+				RotatedIcon rimagem = new RotatedIcon(desvirada, RotatedIcon.Rotate.UPSIDE_DOWN);
+				l.setIcon(rimagem);
+				l.setBounds(this.posicaoX, this.posicaoY, this.largura, this.altura);
+			} else if (rotacao == 3){
+				RotatedIcon rimagem = new RotatedIcon(desvirada, RotatedIcon.Rotate.UP);
+				l.setIcon(rimagem);
+				l.setBounds(this.posicaoX, this.posicaoY, this.altura, this.largura);
+			}
 		}
 		
 		this.rotacao = rotacao;
