@@ -127,7 +127,7 @@ public class Partida {
 			// batida carroção
 			if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor2() ||
 				extremidade1 != ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2()){
-				return 1;
+				return 2;
 			}
 		// se venceu com peça normal
 		} else {
