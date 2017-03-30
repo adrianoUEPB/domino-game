@@ -811,7 +811,8 @@ public class InterfaceJogo extends JFrame {
 							iaCimaPecas.remove(i);
 						if (part.jogadorDaVez == 3) //ia direita
 							iaDireitaPecas.remove(i);
-						
+
+						p.virada = true;
 						if (p.getValor1() == part.extremidade1){
 							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 1, 1);
 							part.extremidade1 = p.getValor2();
@@ -831,7 +832,6 @@ public class InterfaceJogo extends JFrame {
 						}
 
 						part.setUltima_peca(p);
-						p.virada = true;
 						tabuleiro.updateUI();
 						repaint();
 						
