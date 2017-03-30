@@ -17,6 +17,8 @@ public class Partida {
 	public int rodada;
 	public int jogadorDaVez;
 	private Peca ultima_peca;
+	
+	public String tempoPartida; //teste
 
 	public Partida(ArrayList<Participante> participantes){
 		this.participantes = participantes;
@@ -94,6 +96,7 @@ public class Partida {
 		int[] pontos = new int[]{0,0,0,0};
 		int id = -1;
 		int menorValor = 9999;
+		int idVencedor = -1;
 		Participante vencedor = null;
 		
 		for (Participante participante : participantes) {
@@ -103,15 +106,16 @@ public class Partida {
 				pontos[id] += p.getValor2();
 			}
 			if (pontos[id] < menorValor){
+				idVencedor = id;
 				menorValor = pontos[id];
 				vencedor = participante;
 			}
 		}
 		
-		pontuacao_jogadores[id] += 1;
+		pontuacao_jogadores[idVencedor] += 1;
 		vencedor.setPontuacao(vencedor.getPontuacao() + 1);
 		rodada++;
-		id_lastWin = id;
+		id_lastWin = idVencedor;
 		
 		return vencedor;		
 	}

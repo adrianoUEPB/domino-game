@@ -41,6 +41,7 @@ public class InterfaceJogo extends JFrame {
 
 	public InterfaceJogo(final Partida part){
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		setDefaultCloseOperation(InterfaceJogo.EXIT_ON_CLOSE);
 		
 		JPanel iaUpPainel = new JPanel();
 		iaUpPainel.setBackground(new Color(139, 0, 0));
@@ -339,30 +340,29 @@ public class InterfaceJogo extends JFrame {
 			JOptionPane.showMessageDialog(null, "Você venceu a partida! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			// aqui terá o método de atualizar o banco de dados para o ranking
-			new InterfaceMenu(jogador_logado);
 			dispose();
+			new InterfaceMenu(jogador_logado);
 			
 		} else if(part.participantes.get(1).getPontuacao() >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(1).getNome() + " venceu a partida! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			// aqui terá o método de atualizar o banco de dados para o ranking
-			new InterfaceMenu(jogador_logado);
 			dispose();
+			new InterfaceMenu(jogador_logado);
 			
 		} else if(part.participantes.get(2).getPontuacao() >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(2).getNome() + " venceu a partida! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			// aqui terá o método de atualizar o banco de dados para o ranking
-			new InterfaceMenu(jogador_logado);
 			dispose();
+			new InterfaceMenu(jogador_logado);
 			
 		} else if(part.participantes.get(3).getPontuacao() >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(3).getNome() + " venceu a partida! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			// aqui terá o método de atualizar o banco de dados para o ranking
-			new InterfaceMenu(jogador_logado);
 			dispose();
-			
+			new InterfaceMenu(jogador_logado);
 		}
 		
 		Random r = new Random();
@@ -444,13 +444,12 @@ public class InterfaceJogo extends JFrame {
 		setSize(800, 800);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(InterfaceJogo.EXIT_ON_CLOSE);
 	}
 	
 	// método da primeira jogada de cada rodada
 	public void IniciaPartida(final Partida part) {
 		Participante primeiro;
-		if (part.id_lastWin == -1){			
+		if (part.id_lastWin == -1){
 			// verifica quem é o jogador da vez
 			primeiro = part.firstBegin();
 			if(part.jogadorDaVez == 0){ // jogador				
@@ -540,9 +539,9 @@ public class InterfaceJogo extends JFrame {
 		} else {
 			primeiro = part.participantes.get(part.id_lastWin);
 			part.jogadorDaVez = part.id_lastWin;
+			int quantidadeCarrocao = 0;
 			
 			if(part.jogadorDaVez == 0){	// jogador
-				int quantidadeCarrocao = 0;
 				Component[] c = jogadorPecas.getComponents();
 				for (int i = 0; i < c.length; i++){
 					JLabel lab = (JLabel) c[i];
@@ -597,13 +596,15 @@ public class InterfaceJogo extends JFrame {
 					} else {
 						lab.setEnabled(false);
 					}
-					if (quantidadeCarrocao == 0){ // passa a vez
-						JOptionPane.showMessageDialog(null, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroção para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
-						part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
-						contadorEmpate++;
-						JogadasSeguintes(part);
-						return;
-					}
+				}
+				if (quantidadeCarrocao == 0){ // passa a vez
+					JOptionPane.showMessageDialog(null, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroção para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+					int j = part.jogadorDaVez;
+					part.jogadorDaVez = part.checkNext(j);
+					part.id_lastWin = part.checkNext(j);
+					contadorEmpate++;
+					IniciaPartida(part);
+					return;
 				}
 			} else { // inteligência artificial
 				Peca p;
@@ -632,33 +633,15 @@ public class InterfaceJogo extends JFrame {
 						
 						JogadasSeguintes(part);
 						return;
-					} else {
-						if(i == primeiro.getPecas().size()-1){
-							primeiro.getPecas().remove(0);
-							if (part.jogadorDaVez == 1) //ia esquerda
-								iaEsquerdaPecas.remove(0);
-							if (part.jogadorDaVez == 2) //ia cima
-								iaCimaPecas.remove(0);
-							if (part.jogadorDaVez == 3) //ia direita
-								iaDireitaPecas.remove(0);
-
-							part.setUltima_peca(p);
-							p.virada = true;
-							p.drawPeca(tabuleiro, tabuleiro.getWidth()/2 - 12, tabuleiro.getHeight()/2 - 22, 0);
-							part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
-							part.extremidade1 = p.getValor1();
-							part.extremidade2 = p.getValor2();
-							part.primeiraPecaJogada = p;
-							part.ext1Peca = p;
-							part.ext2Peca = p;
-							tabuleiro.updateUI();
-							repaint();
-							
-							JogadasSeguintes(part);
-							return;
-						}
 					}
 				}
+				JOptionPane.showMessageDialog(null, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroção para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+				int j = part.jogadorDaVez;
+				part.jogadorDaVez = part.checkNext(j);
+				part.id_lastWin = part.checkNext(j);
+				contadorEmpate++;
+				IniciaPartida(part);
+				return;
 			}
 		}
 	}
@@ -764,11 +747,31 @@ public class InterfaceJogo extends JFrame {
 			} else { // passa a vez
 				if(contadorEmpate == 3){
 					
-					for (Participante particip: part.participantes){
-						for (Peca peca: particip.getPecas()){
-							peca.virada = true;
-						}
+					Component[] c1 = iaCimaPecas.getComponents();
+					for (Component j: c1){
+						JLabel m = (JLabel) j;
+						String nome = m.getName();
+						int v1 = Integer.parseInt("" + nome.charAt(0));
+						int v2 = Integer.parseInt("" + nome.charAt(1));
+						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
 					}
+					Component[] c2 = iaDireitaPecas.getComponents();
+					for (Component j: c2){
+						JLabel m = (JLabel) j;
+						String nome = m.getName();
+						int v1 = Integer.parseInt("" + nome.charAt(0));
+						int v2 = Integer.parseInt("" + nome.charAt(1));
+						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+					}
+					Component[] c3 = iaEsquerdaPecas.getComponents();
+					for (Component j: c3){
+						JLabel m = (JLabel) j;
+						String nome = m.getName();
+						int v1 = Integer.parseInt("" + nome.charAt(0));
+						int v2 = Integer.parseInt("" + nome.charAt(1));
+						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+					}
+					
 					tabuleiro.updateUI();
 					jogadorPecas.updateUI();
 					iaCimaPecas.updateUI();
@@ -857,11 +860,31 @@ public class InterfaceJogo extends JFrame {
 			} else {
 				if(contadorEmpate == 3){
 					
-					for (Participante particip: part.participantes){
-						for (Peca peca: particip.getPecas()){
-							peca.virada = true;
-						}
+					Component[] c1 = iaCimaPecas.getComponents();
+					for (Component j: c1){
+						JLabel m = (JLabel) j;
+						String nome = m.getName();
+						int v1 = Integer.parseInt("" + nome.charAt(0));
+						int v2 = Integer.parseInt("" + nome.charAt(1));
+						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
 					}
+					Component[] c2 = iaDireitaPecas.getComponents();
+					for (Component j: c2){
+						JLabel m = (JLabel) j;
+						String nome = m.getName();
+						int v1 = Integer.parseInt("" + nome.charAt(0));
+						int v2 = Integer.parseInt("" + nome.charAt(1));
+						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+					}
+					Component[] c3 = iaEsquerdaPecas.getComponents();
+					for (Component j: c3){
+						JLabel m = (JLabel) j;
+						String nome = m.getName();
+						int v1 = Integer.parseInt("" + nome.charAt(0));
+						int v2 = Integer.parseInt("" + nome.charAt(1));
+						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+					}
+					
 					tabuleiro.updateUI();
 					jogadorPecas.updateUI();
 					iaCimaPecas.updateUI();
