@@ -691,6 +691,7 @@ public class InterfaceJogo extends JFrame {
 								part.participantes.get(0).getPecas().remove(peca);
 								
 								if (peca.getValor1() == part.extremidade1){
+									
 									peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 1, 1);
 									part.extremidade1 = peca.getValor2();
 									part.ext1Peca = peca;

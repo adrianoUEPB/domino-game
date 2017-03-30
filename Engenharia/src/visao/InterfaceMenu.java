@@ -193,6 +193,13 @@ public class InterfaceMenu extends JFrame {
 			}
 		});
 		
+		botaoRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new InterfaceRanking(jogador_logado);
+			}
+		});
+		
 		jogoDificil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				jogo6pecas.setVisible(true);
