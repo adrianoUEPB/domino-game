@@ -565,7 +565,7 @@ public class InterfaceJogo extends JFrame {
 		}
 	}
 	
-	public void JogadasSeguintes(final Partida part){
+	public synchronized void JogadasSeguintes(final Partida part){
 		
 		if(part.jogadorDaVez == 0){ // jogador
 			// esse if verifica se tem jogada para fazer

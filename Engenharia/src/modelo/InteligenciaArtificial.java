@@ -1,6 +1,6 @@
 package modelo;
 
-public class InteligenciaArtificial extends Participante {
+public class InteligenciaArtificial extends Participante implements Runnable {
 
 	private boolean dificil;
 
@@ -34,6 +34,16 @@ public class InteligenciaArtificial extends Participante {
 		}
 		// Metodo para chamar o jogador da vez
 		return null;
+	}
+
+	@Override
+	public void run() {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 }
