@@ -15,9 +15,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JSeparator;
 
 public class InterfaceRanking extends JFrame {
+	private static final long serialVersionUID = 1L;
 
 	public InterfaceRanking(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
@@ -39,33 +39,33 @@ public class InterfaceRanking extends JFrame {
 		inforTopOne.add(icon1);
 		
 		JLabel nome1 = new JLabel("Nome:");
-		nome1.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		nome1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		nome1.setForeground(Color.WHITE);
-		nome1.setBounds(107, 11, 148, 14);
+		nome1.setBounds(107, 11, 148, 25);
 		inforTopOne.add(nome1);
 		
 		JLabel vitorias1 = new JLabel("Vit\u00F3rias:");
-		vitorias1.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		vitorias1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		vitorias1.setForeground(Color.WHITE);
 		vitorias1.setBounds(501, 11, 148, 38);
 		inforTopOne.add(vitorias1);
 		
 		JLabel ponto1 = new JLabel("Pontua\u00E7\u00E3o:");
-		ponto1.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		ponto1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		ponto1.setForeground(Color.WHITE);
 		ponto1.setBounds(315, 11, 176, 38);
 		inforTopOne.add(ponto1);
 		
 		JLabel tempo1 = new JLabel("Tempo:");
-		tempo1.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		tempo1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo1.setForeground(Color.WHITE);
-		tempo1.setBounds(315, 60, 176, 14);
+		tempo1.setBounds(315, 60, 176, 25);
 		inforTopOne.add(tempo1);
 		
 		JLabel data1 = new JLabel("Data:");
-		data1.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		data1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		data1.setForeground(Color.WHITE);
-		data1.setBounds(501, 60, 148, 14);
+		data1.setBounds(501, 60, 148, 25);
 		inforTopOne.add(data1);
 		
 		JLabel name1 = new JLabel("New label");
@@ -86,33 +86,33 @@ public class InterfaceRanking extends JFrame {
 		inforTopTwo.add(icon2);
 		
 		JLabel nome2 = new JLabel("Nome:");
-		nome2.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		nome2.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		nome2.setForeground(Color.WHITE);
-		nome2.setBounds(107, 11, 148, 14);
+		nome2.setBounds(107, 11, 148, 25);
 		inforTopTwo.add(nome2);
 		
 		JLabel vitorias2 = new JLabel("Vit\u00F3rias:");
-		vitorias2.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		vitorias2.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		vitorias2.setForeground(Color.WHITE);
 		vitorias2.setBounds(501, 11, 148, 38);
 		inforTopTwo.add(vitorias2);
 		
 		JLabel ponto2 = new JLabel("Pontua\u00E7\u00E3o:");
-		ponto2.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		ponto2.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		ponto2.setForeground(Color.WHITE);
 		ponto2.setBounds(315, 11, 176, 38);
 		inforTopTwo.add(ponto2);
 		
 		JLabel tempo2 = new JLabel("Tempo:");
-		tempo2.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		tempo2.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo2.setForeground(Color.WHITE);
-		tempo2.setBounds(315, 60, 176, 14);
+		tempo2.setBounds(315, 60, 176, 25);
 		inforTopTwo.add(tempo2);
 		
 		JLabel data2 = new JLabel("Data:");
-		data2.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		data2.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		data2.setForeground(Color.WHITE);
-		data2.setBounds(501, 60, 148, 14);
+		data2.setBounds(501, 60, 148, 25);
 		inforTopTwo.add(data2);
 		
 		JLabel name2 = new JLabel("New label");
@@ -133,33 +133,33 @@ public class InterfaceRanking extends JFrame {
 		inforTopThree.add(icon3);
 		
 		JLabel nome3 = new JLabel("Nome:");
-		nome3.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		nome3.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		nome3.setForeground(Color.WHITE);
-		nome3.setBounds(107, 11, 148, 14);
+		nome3.setBounds(107, 11, 148, 25);
 		inforTopThree.add(nome3);
 		
 		JLabel vitorias3 = new JLabel("Vit\u00F3rias:");
-		vitorias3.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		vitorias3.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		vitorias3.setForeground(Color.WHITE);
 		vitorias3.setBounds(501, 11, 148, 38);
 		inforTopThree.add(vitorias3);
 		
 		JLabel ponto3 = new JLabel("Pontua\u00E7\u00E3o:");
-		ponto3.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		ponto3.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		ponto3.setForeground(Color.WHITE);
 		ponto3.setBounds(315, 11, 176, 38);
 		inforTopThree.add(ponto3);
 		
 		JLabel tempo3 = new JLabel("Tempo:");
-		tempo3.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		tempo3.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo3.setForeground(Color.WHITE);
-		tempo3.setBounds(315, 60, 176, 14);
+		tempo3.setBounds(315, 60, 176, 25);
 		inforTopThree.add(tempo3);
 		
 		JLabel data3 = new JLabel("Data:");
-		data3.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		data3.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		data3.setForeground(Color.WHITE);
-		data3.setBounds(501, 60, 148, 14);
+		data3.setBounds(501, 60, 148, 25);
 		inforTopThree.add(data3);
 		
 		JLabel name3 = new JLabel("New label");
@@ -180,33 +180,33 @@ public class InterfaceRanking extends JFrame {
 		inforTopFour.add(icon4);
 		
 		JLabel nome4 = new JLabel("Nome:");
-		nome4.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		nome4.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		nome4.setForeground(Color.WHITE);
-		nome4.setBounds(107, 11, 148, 14);
+		nome4.setBounds(107, 11, 148, 25);
 		inforTopFour.add(nome4);
 		
 		JLabel vitorias4 = new JLabel("Vit\u00F3rias:");
-		vitorias4.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		vitorias4.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		vitorias4.setForeground(Color.WHITE);
 		vitorias4.setBounds(501, 11, 148, 38);
 		inforTopFour.add(vitorias4);
 		
 		JLabel ponto4 = new JLabel("Pontua\u00E7\u00E3o:");
-		ponto4.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		ponto4.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		ponto4.setForeground(Color.WHITE);
 		ponto4.setBounds(315, 11, 176, 38);
 		inforTopFour.add(ponto4);
 		
 		JLabel tempo4 = new JLabel("Tempo:");
-		tempo4.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		tempo4.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo4.setForeground(Color.WHITE);
-		tempo4.setBounds(315, 60, 176, 14);
+		tempo4.setBounds(315, 60, 176, 25);
 		inforTopFour.add(tempo4);
 		
 		JLabel data4 = new JLabel("Data:");
-		data4.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		data4.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		data4.setForeground(Color.WHITE);
-		data4.setBounds(501, 60, 148, 14);
+		data4.setBounds(501, 60, 148, 25);
 		inforTopFour.add(data4);
 		
 		JLabel name4 = new JLabel("New label");
@@ -227,33 +227,33 @@ public class InterfaceRanking extends JFrame {
 		inforTopFive.add(icon5);
 		
 		JLabel nome5 = new JLabel("Nome:");
-		nome5.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		nome5.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		nome5.setForeground(Color.WHITE);
-		nome5.setBounds(107, 11, 148, 14);
+		nome5.setBounds(107, 11, 148, 25);
 		inforTopFive.add(nome5);
 		
 		JLabel vitorias5 = new JLabel("Vit\u00F3rias:");
-		vitorias5.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		vitorias5.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		vitorias5.setForeground(Color.WHITE);
 		vitorias5.setBounds(501, 11, 148, 38);
 		inforTopFive.add(vitorias5);
 		
 		JLabel ponto5 = new JLabel("Pontua\u00E7\u00E3o:");
-		ponto5.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		ponto5.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		ponto5.setForeground(Color.WHITE);
 		ponto5.setBounds(315, 11, 176, 38);
 		inforTopFive.add(ponto5);
 		
 		JLabel tempo5 = new JLabel("Tempo:");
-		tempo5.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		tempo5.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo5.setForeground(Color.WHITE);
-		tempo5.setBounds(315, 60, 176, 14);
+		tempo5.setBounds(315, 60, 176, 25);
 		inforTopFive.add(tempo5);
 		
 		JLabel data5 = new JLabel("Data:");
-		data5.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		data5.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		data5.setForeground(Color.WHITE);
-		data5.setBounds(501, 60, 148, 14);
+		data5.setBounds(501, 60, 148, 25);
 		inforTopFive.add(data5);
 		
 		JLabel name5 = new JLabel("New label");
@@ -306,7 +306,7 @@ public class InterfaceRanking extends JFrame {
 		inforRanking.add(quinto);
 		
 		JButton voltarBt = new JButton();
-		voltarBt.setBounds(684, 0, 90, 90);
+		voltarBt.setBounds(15, 0, 90, 90);
 		inforRanking.add(voltarBt);
 		voltarBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-disabled.png"));
 		voltarBt.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-rollover.png"));
@@ -320,6 +320,15 @@ public class InterfaceRanking extends JFrame {
 		voltarBt.setMaximumSize(new Dimension(90, 90));
 		voltarBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		voltarBt.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JButton resetarBt = new JButton();
+		resetarBt.setMinimumSize(new Dimension(90, 90));
+		resetarBt.setMaximumSize(new Dimension(90, 90));
+		resetarBt.setHorizontalTextPosition(SwingConstants.CENTER);
+		resetarBt.setBorder(null);
+		resetarBt.setAlignmentX(0.5f);
+		resetarBt.setBounds(684, 0, 90, 90);
+		inforRanking.add(resetarBt);
 		
 		// actions listeners
 		voltarBt.addActionListener(new ActionListener() {

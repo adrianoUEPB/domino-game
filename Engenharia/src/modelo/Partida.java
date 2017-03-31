@@ -120,7 +120,8 @@ public class Partida {
 		return vencedor;		
 	}
 	
-	private int pontuacao() {
+	public int pontuacao() {
+	//private int pontuacao() {
 		
 		// se venceu com carroção
 		if (ultima_peca.getValor1() == ultima_peca.getValor2()){

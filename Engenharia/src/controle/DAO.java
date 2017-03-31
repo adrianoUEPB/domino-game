@@ -12,7 +12,7 @@ import modelo.Jogador;
 public class DAO {
 	
 	private Connection con;
-	private String sql = null;
+	//private String sql = null;
 	
 	public void deleteJogador(String nome) {
 		
@@ -20,7 +20,7 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			int id = buscaId(nome);
+			//int id = buscaId(nome);
 
 			PreparedStatement stmt = con.prepareStatement("DELETE FROM jogador WHERE id_jogador = ?;");
 			stmt.setString(1, nome);
