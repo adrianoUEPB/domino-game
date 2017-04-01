@@ -193,6 +193,13 @@ public class InterfaceMenu extends JFrame {
 			}
 		});
 		
+		botaoRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new InterfaceRanking(jogador_logado);
+			}
+		});
+		
 		jogoDificil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				jogo6pecas.setVisible(true);
@@ -257,13 +264,7 @@ public class InterfaceMenu extends JFrame {
 				participantes.add(IA3);
 				
 				Partida part = new Partida(participantes);
-
-				for (int valor1 = 0; valor1 <= 6; valor1++) {
-					for (int valor2 = valor1; valor2 <= 6; valor2++) {
-						Peca peca = new Peca(valor1, valor2, false);
-						part.pecas_dormidas.add(peca);
-					}
-				}
+				part.criarPartida();
 				
 				dispose();
 				new InterfaceJogo(part);

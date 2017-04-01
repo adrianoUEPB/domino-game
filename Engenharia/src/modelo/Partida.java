@@ -2,7 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 
-
 public class Partida {
 	private int id_partida;
 	public int id_lastWin; //flag para identificar ultimo participante ganhador
@@ -10,13 +9,17 @@ public class Partida {
 	public ArrayList<Participante> participantes;
 	public ArrayList<Peca> pecas_campo;
 	public ArrayList<Peca> pecas_dormidas;
+	public Peca primeiraPecaJogada;
 	public int extremidade1;
+	public Peca ext1Peca;
 	public int extremidade2;
+	public Peca ext2Peca;
 	public int rodada;
 	public int jogadorDaVez;
 	private Peca ultima_peca;
-
 	
+	public String tempoPartida; //teste
+
 	public Partida(ArrayList<Participante> participantes){
 		this.participantes = participantes;
 		pontuacao_jogadores = new int[]{0,0,0,0};
@@ -25,6 +28,21 @@ public class Partida {
 		pecas_campo = new ArrayList<Peca>();
 		jogadorDaVez = 0;
 		id_lastWin = -1;
+	}
+	
+	public void criarPartida(){
+		pecas_campo.clear();
+		pecas_dormidas.clear();
+		for (Participante p: participantes){
+			p.setPecas(new ArrayList<Peca>());
+		}
+		
+		for (int valor1 = 0; valor1 <= 6; valor1++) {
+			for (int valor2 = valor1; valor2 <= 6; valor2++) {
+				Peca peca = new Peca(valor1, valor2, false);
+				pecas_dormidas.add(peca);
+			}
+		}
 	}
 	
 	/**
@@ -62,8 +80,9 @@ public class Partida {
 			
 			pontuacao_jogadores[id] += pontos;
 			
-			if(participante.noHasPeca()) {				
-				participante.setPontuacao(participante.getPontuacao() + pontos);		
+			if(participante.noHasPeca()) {
+				participante.setPontuacao(participante.getPontuacao() + pontos);
+				rodada++;
 				id_lastWin = id;
 				return participante;
 			}
@@ -72,25 +91,64 @@ public class Partida {
 		return null;		
 	}
 	
-	private int pontuacao() {
-		if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor1()
-				&& extremidade1 != ultima_peca.getValor2() && extremidade2 != ultima_peca.getValor2())
-			return 1;
+	public Participante checkEmpate() {
 		
-		if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor1()
-				&& ultima_peca.getValor1() == ultima_peca.getValor2() || 
-				extremidade2 == ultima_peca.getValor1() && extremidade1 != ultima_peca.getValor1()
-				&& ultima_peca.getValor1() == ultima_peca.getValor2())
-			return 1;
+		int[] pontos = new int[]{0,0,0,0};
+		int id = -1;
+		int menorValor = 9999;
+		int idVencedor = -1;
+		Participante vencedor = null;
 		
-		if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor1()
-				&& extremidade1 != ultima_peca.getValor2() && extremidade2 == ultima_peca.getValor2())
-			return 3;
+		for (Participante participante : participantes) {
+			id++;
+			for (Peca p : participante.getPecas()){
+				pontos[id] += p.getValor1();
+				pontos[id] += p.getValor2();
+			}
+			if (pontos[id] < menorValor){
+				idVencedor = id;
+				menorValor = pontos[id];
+				vencedor = participante;
+			}
+		}
 		
-		if (extremidade1 == extremidade2 && extremidade2 == ultima_peca.getValor1()
-				&& ultima_peca.getValor1() == ultima_peca.getValor2())
-			return 6;
+		pontuacao_jogadores[idVencedor] += 1;
+		vencedor.setPontuacao(vencedor.getPontuacao() + 1);
+		rodada++;
+		id_lastWin = idVencedor;
 		
+		return vencedor;		
+	}
+	
+	public int pontuacao() {
+	//private int pontuacao() {
+		
+		// se venceu com carroção
+		if (ultima_peca.getValor1() == ultima_peca.getValor2()){
+			// cruzada
+			if (extremidade1 == ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2()){
+				return 6;
+			}
+			// batida carroção
+			if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor2() ||
+				extremidade1 != ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2()){
+				return 2;
+			}
+		// se venceu com peça normal
+		} else {
+			// lá e ló
+			if (extremidade1 == ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2() ||
+				extremidade2 == ultima_peca.getValor1() && extremidade1 == ultima_peca.getValor2()){
+				return 3;
+			}
+			// batida normal
+			if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor2() ||
+				extremidade1 != ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2() ||
+				extremidade2 == ultima_peca.getValor1() && extremidade1 != ultima_peca.getValor2() ||
+				extremidade2 != ultima_peca.getValor1() && extremidade1 == ultima_peca.getValor2()){
+				return 1;
+			}
+		}		
 		return 0;		
 	}
 	
