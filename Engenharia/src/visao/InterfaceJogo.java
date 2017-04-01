@@ -20,7 +20,6 @@ import java.util.TimerTask;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -450,7 +449,9 @@ public class InterfaceJogo extends JFrame {
 			// verifica quem é o jogador da vez
 			primeiro = part.firstBegin();
 			if(part.jogadorDaVez == 0){ // jogador
-
+				
+				inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 				JOptionPane.showMessageDialog(jogadorPecas, "Você inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				
 				Component[] c = jogadorPecas.getComponents();
@@ -483,7 +484,7 @@ public class InterfaceJogo extends JFrame {
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
-								peca.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0);
+								peca.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
 								part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 								part.extremidade1 = peca.getValor1();
 								part.extremidade2 = peca.getValor2();
@@ -499,8 +500,13 @@ public class InterfaceJogo extends JFrame {
 									j.setEnabled(true);;
 								}
 								
-								JogadasSeguintes(part);
-								return;
+								if (part.isDificil()){
+									JogadasSeguintesDificil(part);
+									return;									
+								} else {
+									JogadasSeguintes(part);
+									return;
+								}
 							}
 						});
 					} else {
@@ -508,26 +514,34 @@ public class InterfaceJogo extends JFrame {
 					}
 				}
 			} else { // inteligência artificial
+				if (part.jogadorDaVez == 1){
+					inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				} else if (part.jogadorDaVez == 2){
+					inforCima.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				} else if (part.jogadorDaVez == 3){
+					inforDireita.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				}
+				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				for(int i = 0; i < primeiro.getPecas().size(); i++){
 					Peca p = primeiro.getPecas().get(i);
 					if(p.getValor1() == 6 && p.getValor2() == 6){
 						primeiro.getPecas().remove(p);
 						if (part.jogadorDaVez == 1){ //ia esquerda
 							iaEsquerdaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(1).getNome() + " inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 						}
 						if (part.jogadorDaVez == 2){ //ia cima
 							iaCimaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(2).getNome() + " inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 						}
 						if (part.jogadorDaVez == 3){ //ia direita
 							iaDireitaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(3).getNome() + " inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 						}
 
 						part.setUltima_peca(p);
 						p.virada = true;
-						p.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0);
+						p.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
 						part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 						part.extremidade1 = p.getValor1();
 						part.extremidade2 = p.getValor2();
@@ -537,8 +551,18 @@ public class InterfaceJogo extends JFrame {
 						tabuleiro.updateUI();
 						repaint();
 						
-						JogadasSeguintes(part);
-						return;
+						if (part.jogadorDaVez == 0){
+							JogadasSeguintes(part);
+							return;				
+						} else {
+							if (part.isDificil()){
+								JogadasSeguintesDificil(part);
+								return;
+							} else {
+								JogadasSeguintes(part);
+								return;				
+							}
+						}
 					}
 				}
 			}
@@ -549,6 +573,8 @@ public class InterfaceJogo extends JFrame {
 			
 			if(part.jogadorDaVez == 0){	// jogador
 
+				inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 				JOptionPane.showMessageDialog(jogadorPecas, "Você inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				
 				Component[] c = jogadorPecas.getComponents();
@@ -582,7 +608,7 @@ public class InterfaceJogo extends JFrame {
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
-								peca.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0);
+								peca.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
 								part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 								part.extremidade1 = peca.getValor1();
 								part.extremidade2 = peca.getValor2();
@@ -602,8 +628,13 @@ public class InterfaceJogo extends JFrame {
 									j.setEnabled(true);;
 								}
 								
-								JogadasSeguintes(part);
-								return;
+								if (part.isDificil()){
+									JogadasSeguintesDificil(part);
+									return;
+								} else {
+									JogadasSeguintes(part);
+									return;
+								}
 							}
 						});
 					} else {
@@ -631,26 +662,34 @@ public class InterfaceJogo extends JFrame {
 				}
 			} else { // inteligência artificial
 				Peca p;
+				if (part.jogadorDaVez == 1){
+					inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				} else if (part.jogadorDaVez == 2){
+					inforCima.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				} else if (part.jogadorDaVez == 3){
+					inforDireita.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				}
+				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				for(int i = 0; i < primeiro.getPecas().size(); i++){
 					p = primeiro.getPecas().get(i);
 					if(p.getValor1() == p.getValor2()){ // pega o primeiro carrocao q aparecer
 						primeiro.getPecas().remove(p);
 						if (part.jogadorDaVez == 1){ //ia esquerda
 							iaEsquerdaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(1).getNome() + " inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 						}
 						if (part.jogadorDaVez == 2){ //ia cima
 							iaCimaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(2).getNome() + " inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 						}
 						if (part.jogadorDaVez == 3){ //ia direita
 							iaDireitaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(3).getNome() + " inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 						}
 
 						part.setUltima_peca(p);
 						p.virada = true;
-						p.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0);
+						p.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
 						part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 						part.extremidade1 = p.getValor1();
 						part.extremidade2 = p.getValor2();
@@ -660,8 +699,18 @@ public class InterfaceJogo extends JFrame {
 						tabuleiro.updateUI();
 						repaint();
 						
-						JogadasSeguintes(part);
-						return;
+						if (part.jogadorDaVez == 0){
+							JogadasSeguintes(part);
+							return;
+						} else {
+							if (part.isDificil()){
+								JogadasSeguintesDificil(part);
+								return;
+							} else {
+								JogadasSeguintes(part);
+								return;
+							}
+						}
 					}
 				}
 				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroção para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
@@ -680,6 +729,8 @@ public class InterfaceJogo extends JFrame {
 	
 	public void JogadasSeguintes(final Partida part){
 		if(part.jogadorDaVez == 0){ // jogador
+			inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+			inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 			JOptionPane.showMessageDialog(jogadorPecas, "Sua vez!", "Partida em andamento", JOptionPane.INFORMATION_MESSAGE);
 			// esse if verifica se tem jogada para fazer
 			if (part.participantes.get(0).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
@@ -721,23 +772,62 @@ public class InterfaceJogo extends JFrame {
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
 								
-								if (peca.getValor1() == part.extremidade1){
-									
-									peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 1, 1);
-									part.extremidade1 = peca.getValor2();
-									part.ext1Peca = peca;
-								} else if (peca.getValor2() == part.extremidade1){
-									peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 1, 3);
-									part.extremidade1 = peca.getValor1();
-									part.ext1Peca = peca;
-								} else if (peca.getValor1() == part.extremidade2){
-									peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 3, 3);
-									part.extremidade2 = peca.getValor2();
-									part.ext2Peca = peca;
-								} else if (peca.getValor2() == part.extremidade2){
-									peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 3, 1);
-									part.extremidade2 = peca.getValor1();
-									part.ext2Peca = peca;
+								if (peca.getValor1() == peca.getValor2()){
+									if (peca.getValor1() == part.extremidade1){
+										peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
+										part.extremidade1 = peca.getValor2();
+										part.ext1Peca = peca;
+									} else if (peca.getValor1() == part.extremidade2){
+										peca.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 3);
+										part.extremidade2 = peca.getValor2();
+										part.ext2Peca = peca;
+									}
+								} else {
+									if ((peca.getValor1() == part.extremidade1 && peca.getValor2() == part.extremidade2) ||
+										(peca.getValor1() == part.extremidade2 && peca.getValor2() == part.extremidade1)){
+										
+										Object[] options = { "Lado do " + part.extremidade1, "Lado do " + part.extremidade2};
+										int i = JOptionPane.showOptionDialog(null, "Qual extremidade?", "Escolha", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+										if (i == 0){
+											if (peca.getValor1() == part.extremidade1){
+												peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
+												part.extremidade1 = peca.getValor2();
+												part.ext1Peca = peca;
+											} else if (peca.getValor2() == part.extremidade1){
+												peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 3);
+												part.extremidade1 = peca.getValor1();
+												part.ext1Peca = peca;
+											}
+										} else if (i == 1) {
+											if (peca.getValor1() == part.extremidade2){
+												peca.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 3);
+												part.extremidade2 = peca.getValor2();
+												part.ext2Peca = peca;
+											} else if (peca.getValor2() == part.extremidade2){
+												peca.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 1);
+												part.extremidade2 = peca.getValor1();
+												part.ext2Peca = peca;
+											}
+										}
+									} else {
+										if (peca.getValor1() == part.extremidade1){
+											peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
+											part.extremidade1 = peca.getValor2();
+											part.ext1Peca = peca;
+										} else if (peca.getValor2() == part.extremidade1){
+											peca.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 3);
+											part.extremidade1 = peca.getValor1();
+											part.ext1Peca = peca;
+										} else if (peca.getValor1() == part.extremidade2){
+											peca.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 3);
+											part.extremidade2 = peca.getValor2();
+											part.ext2Peca = peca;
+										} else if (peca.getValor2() == part.extremidade2){
+											peca.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 1);
+											part.extremidade2 = peca.getValor1();
+											part.ext2Peca = peca;
+										}
+									}
 								}
 								
 								part.setUltima_peca(peca);
@@ -756,8 +846,13 @@ public class InterfaceJogo extends JFrame {
 								Participante vencedor = part.checkWinner();
 								if (vencedor == null){
 									part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
-									JogadasSeguintes(part);
-									return;
+									if (part.isDificil()){
+										JogadasSeguintesDificil(part);
+										return;
+									} else {
+										JogadasSeguintes(part);
+										return;
+									}
 								} else {
 									int x = part.pontuacao();
 									String mensagem = "";
@@ -834,16 +929,36 @@ public class InterfaceJogo extends JFrame {
 					
 				} else {
 					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+					if (part.isDificil()){
+						InteligenciaArtificial iaAnterior = (InteligenciaArtificial) part.participantes.get(3);
+						iaAnterior.alvoPassouVez(part.extremidade1, part.extremidade2);
+					}
 					part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 					contadorEmpate++;
-					JogadasSeguintes(part);
-					return;
+					if (part.isDificil()){
+						JogadasSeguintesDificil(part);
+						return;
+					} else {
+						JogadasSeguintes(part);
+						return;
+					}
 				}
 			}
-		} else { // inteligência artificial
+		} else { // inteligência artificial fácil
 			Peca p;
+			if (part.jogadorDaVez == 1){
+				inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+			} else if (part.jogadorDaVez == 2){
+				inforCima.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+			} else if (part.jogadorDaVez == 3){
+				inforDireita.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+			}
 			// esse if verifica se tem peça que pode ser jogada
 			if (part.participantes.get(part.jogadorDaVez).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
+				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " tem a vez!", "Partida em andamento", JOptionPane.INFORMATION_MESSAGE);							
 				contadorEmpate = 0;
 				for(int i = 0; i < part.participantes.get(part.jogadorDaVez).getPecas().size(); i++){
 					p = part.participantes.get(part.jogadorDaVez).getPecas().get(i);
@@ -852,33 +967,29 @@ public class InterfaceJogo extends JFrame {
 						part.participantes.get(part.jogadorDaVez).getPecas().remove(p);
 						if (part.jogadorDaVez == 1){ //ia esquerda
 							iaEsquerdaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(1).getNome() + " tem a vez!", "Partida em andamento", JOptionPane.INFORMATION_MESSAGE);							
 						}
 						if (part.jogadorDaVez == 2){ //ia cima
 							iaCimaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(2).getNome() + " tem a vez!", "Partida em andamento", JOptionPane.INFORMATION_MESSAGE);							
 						}
 						if (part.jogadorDaVez == 3){ //ia direita
 							iaDireitaPecas.remove(i);
-							JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(3).getNome() + " tem a vez!", "Partida em andamento", JOptionPane.INFORMATION_MESSAGE);							
-
 						}
 
 						p.virada = true;
 						if (p.getValor1() == part.extremidade1){
-							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 1, 1);
+							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
 							part.extremidade1 = p.getValor2();
 							part.ext1Peca = p;
 						} else if (p.getValor2() == part.extremidade1){
-							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 1, 3);
+							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 3);
 							part.extremidade1 = p.getValor1();
 							part.ext1Peca = p;
 						} else if (p.getValor1() == part.extremidade2){
-							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 3, 3);
+							p.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 3);
 							part.extremidade2 = p.getValor2();
 							part.ext2Peca = p;
 						} else if (p.getValor2() == part.extremidade2){
-							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.ext2Peca, part.primeiraPecaJogada, 3, 1);
+							p.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 1);
 							part.extremidade2 = p.getValor1();
 							part.ext2Peca = p;
 						}
@@ -968,6 +1079,167 @@ public class InterfaceJogo extends JFrame {
 					part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 					contadorEmpate++;
 					JogadasSeguintes(part);
+					return;
+				}
+			}
+		}
+	}
+	
+	// IA difícil
+	public void JogadasSeguintesDificil(final Partida part){
+		Peca p;
+		Peca aux;
+		// esse if verifica se tem peça que pode ser jogada
+		if (part.participantes.get(part.jogadorDaVez).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
+			if (part.jogadorDaVez == 1){
+				inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+			} else if (part.jogadorDaVez == 2){
+				inforCima.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+			} else if (part.jogadorDaVez == 3){
+				inforDireita.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+				inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+			}
+			JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " tem a vez!", "Partida em andamento", JOptionPane.INFORMATION_MESSAGE);							
+			contadorEmpate = 0;
+			InteligenciaArtificial ia = (InteligenciaArtificial) part.participantes.get(part.jogadorDaVez);
+			
+			p = ia.jogarPecaPensada(part);
+			for (int i = 0; i < part.participantes.get(part.jogadorDaVez).getPecas().size(); i++){
+				aux = part.participantes.get(part.jogadorDaVez).getPecas().get(i);
+				if (p.equals(aux)){
+					part.participantes.get(part.jogadorDaVez).getPecas().remove(p);
+					if (part.jogadorDaVez == 1){ //ia esquerda
+						iaEsquerdaPecas.remove(i);
+						break;
+					}
+					if (part.jogadorDaVez == 2){ //ia cima
+						iaCimaPecas.remove(i);
+						break;
+					}
+					if (part.jogadorDaVez == 3){ //ia direita
+						iaDireitaPecas.remove(i);
+						break;
+					}
+				}
+			}
+
+			p.virada = true;
+			if (p.getValor1() == part.extremidade1){
+				p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
+				part.extremidade1 = p.getValor2();
+				part.ext1Peca = p;
+			} else if (p.getValor2() == part.extremidade1){
+				p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 3);
+				part.extremidade1 = p.getValor1();
+				part.ext1Peca = p;
+			} else if (p.getValor1() == part.extremidade2){
+				p.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 3);
+				part.extremidade2 = p.getValor2();
+				part.ext2Peca = p;
+			} else if (p.getValor2() == part.extremidade2){
+				p.calcularPosicaoPeca(tabuleiro, part.ext2Peca, part.primeiraPecaJogada, 3, 1);
+				part.extremidade2 = p.getValor1();
+				part.ext2Peca = p;
+			}
+
+			part.setUltima_peca(p);
+			tabuleiro.updateUI();
+			repaint();
+			
+			Participante vencedor = part.checkWinner();
+			if (vencedor == null){
+				part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
+				if (part.jogadorDaVez == 0){
+					JogadasSeguintes(part);
+					return;
+				} else {
+					JogadasSeguintesDificil(part);
+					return;
+				}
+			} else {
+				int x = part.pontuacao();
+				String mensagem = "";
+				if (x == 1){
+					mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
+				} else if (x == 2){
+					mensagem = vencedor.getNome() + " venceu a partida com um carroção!\n\n";
+				} else if (x == 3){
+					mensagem = vencedor.getNome() + " venceu a partida com lá e lô!\n\n";
+				} else if (x == 6){
+					mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
+				}
+				mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+
+				dispose();
+				part.criarPartida();
+				new InterfaceJogo(part);
+			}
+		} else {
+			if(contadorEmpate == 3){
+				
+				Component[] c1 = iaCimaPecas.getComponents();
+				for (Component j: c1){
+					JLabel m = (JLabel) j;
+					String nome = m.getName();
+					int v1 = Integer.parseInt("" + nome.charAt(0));
+					int v2 = Integer.parseInt("" + nome.charAt(1));
+					m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+				}
+				Component[] c2 = iaDireitaPecas.getComponents();
+				for (Component j: c2){
+					JLabel m = (JLabel) j;
+					String nome = m.getName();
+					int v1 = Integer.parseInt("" + nome.charAt(0));
+					int v2 = Integer.parseInt("" + nome.charAt(1));
+					m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+				}
+				Component[] c3 = iaEsquerdaPecas.getComponents();
+				for (Component j: c3){
+					JLabel m = (JLabel) j;
+					String nome = m.getName();
+					int v1 = Integer.parseInt("" + nome.charAt(0));
+					int v2 = Integer.parseInt("" + nome.charAt(1));
+					m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+				}
+				
+				tabuleiro.updateUI();
+				jogadorPecas.updateUI();
+				iaCimaPecas.updateUI();
+				iaEsquerdaPecas.updateUI();
+				iaDireitaPecas.updateUI();
+				repaint();
+				
+				Participante vencedor = part.checkEmpate();
+				String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";
+				mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+
+				dispose();
+				part.criarPartida();
+				new InterfaceJogo(part);
+				
+			} else {
+				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+				if (part.jogadorDaVez > 1){
+					InteligenciaArtificial iaAnterior = (InteligenciaArtificial) part.participantes.get(part.jogadorDaVez - 1);
+					iaAnterior.alvoPassouVez(part.extremidade1, part.extremidade2);
+				}
+				part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
+				contadorEmpate++;
+				if (part.jogadorDaVez == 0){
+					JogadasSeguintes(part);
+					return;
+				} else {
+					JogadasSeguintesDificil(part);
 					return;
 				}
 			}

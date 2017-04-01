@@ -17,10 +17,11 @@ public class Partida {
 	public int rodada;
 	public int jogadorDaVez;
 	private Peca ultima_peca;
+	private boolean dificil;
 	
 	public String tempoPartida; //teste
 
-	public Partida(ArrayList<Participante> participantes){
+	public Partida(ArrayList<Participante> participantes, boolean dificil){
 		this.participantes = participantes;
 		pontuacao_jogadores = new int[]{0,0,0,0};
 		rodada = 1;
@@ -28,6 +29,7 @@ public class Partida {
 		pecas_campo = new ArrayList<Peca>();
 		jogadorDaVez = 0;
 		id_lastWin = -1;
+		this.dificil = dificil;
 	}
 	
 	public void criarPartida(){
@@ -161,6 +163,10 @@ public class Partida {
 	
 	public void setUltima_peca(Peca peca) {
 		this.ultima_peca = peca;
+	}
+	
+	public boolean isDificil(){
+		return dificil;
 	}
 	
 	public int getId_partida() {
