@@ -92,7 +92,7 @@ public class InterfaceJogo extends JFrame {
 		nomeCim.setFont(new Font("Brush Script MT", Font.BOLD, 17));
 		nomeCim.setForeground(Color.WHITE);
 		
-		JLabel pontosCim = new JLabel("Pontos: " + part.participantes.get(2).getPontuacao());
+		JLabel pontosCim = new JLabel("Pontos: " + part.pontuacao_jogadores[2]);
 		pontosCim.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosCim.setMaximumSize(new Dimension(90, 14));
 		pontosCim.setFont(new Font("Brush Script MT", Font.BOLD, 14));
@@ -176,7 +176,7 @@ public class InterfaceJogo extends JFrame {
 		nomeEsq.setFont(new Font("Brush Script MT", Font.BOLD, 17));
 		nomeEsq.setForeground(Color.WHITE);
 		
-		JLabel pontosEsq = new JLabel("Pontos: " + part.participantes.get(1).getPontuacao());
+		JLabel pontosEsq = new JLabel("Pontos: " + part.pontuacao_jogadores[1]);
 		pontosEsq.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosEsq.setMaximumSize(new Dimension(90, 14));
 		pontosEsq.setFont(new Font("Brush Script MT", Font.BOLD, 14));
@@ -224,7 +224,7 @@ public class InterfaceJogo extends JFrame {
 		nomeBai.setFont(new Font("Brush Script MT", Font.BOLD, 17));
 		nomeBai.setForeground(Color.WHITE);
 		
-		JLabel pontosBai = new JLabel("Pontos: " + part.participantes.get(0).getPontuacao());
+		JLabel pontosBai = new JLabel("Pontos: " + part.pontuacao_jogadores[0]);
 		pontosBai.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosBai.setMaximumSize(new Dimension(90, 14));
 		pontosBai.setFont(new Font("Brush Script MT", Font.BOLD, 14));
@@ -310,7 +310,7 @@ public class InterfaceJogo extends JFrame {
 		nomeDir.setFont(new Font("Brush Script MT", Font.BOLD, 17));
 		nomeDir.setForeground(Color.WHITE);
 		
-		JLabel pontosDir = new JLabel("Pontos: " + part.participantes.get(3).getPontuacao());
+		JLabel pontosDir = new JLabel("Pontos: " + part.pontuacao_jogadores[3]);
 		pontosDir.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosDir.setMaximumSize(new Dimension(90, 14));
 		pontosDir.setFont(new Font("Brush Script MT", Font.BOLD, 14));
@@ -334,25 +334,26 @@ public class InterfaceJogo extends JFrame {
 		getContentPane().add(tabuleiro, BorderLayout.CENTER);
 		tabuleiro.setLayout(null);
 		
-		if(part.participantes.get(0).getPontuacao() >= 6){
+		if(part.pontuacao_jogadores[0] >= 6){
+			System.out.println(part.pontuacao_jogadores[0]);
 			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
 			// aqui terá o método de atualizar o banco de dados para o ranking
 			return;
-		} else if(part.participantes.get(1).getPontuacao() >= 6) {
+		} else if(part.pontuacao_jogadores[1] >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(1).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
 			// aqui terá o método de atualizar o banco de dados para o ranking
 			return;
-		} else if(part.participantes.get(2).getPontuacao() >= 6) {
+		} else if(part.pontuacao_jogadores[2] >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(2).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
 			// aqui terá o método de atualizar o banco de dados para o ranking
 			return;
-		} else if(part.participantes.get(3).getPontuacao() >= 6) {
+		} else if(part.pontuacao_jogadores[3] >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(3).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);			
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
@@ -865,10 +866,10 @@ public class InterfaceJogo extends JFrame {
 									} else if (x == 6){
 										mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
 									}
-									mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
-									mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
-									mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
-									mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+									mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
+									mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
+									mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
+									mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 									JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 
 									dispose();
@@ -917,10 +918,11 @@ public class InterfaceJogo extends JFrame {
 					repaint();
 					
 					Participante vencedor = part.checkEmpate();
-					String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";					mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
-					mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
-					mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
-					mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+					String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";
+					mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
+					mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
+					mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
+					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 
 					dispose();
@@ -1015,10 +1017,10 @@ public class InterfaceJogo extends JFrame {
 							} else if (x == 6){
 								mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
 							}
-							mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
-							mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
-							mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
-							mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+							mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
+							mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
+							mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
+							mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 							JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 
 							dispose();
@@ -1064,10 +1066,10 @@ public class InterfaceJogo extends JFrame {
 					
 					Participante vencedor = part.checkEmpate();
 					String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";
-					mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
-					mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
-					mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
-					mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+					mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
+					mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
+					mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
+					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 
 					dispose();
@@ -1170,10 +1172,10 @@ public class InterfaceJogo extends JFrame {
 				} else if (x == 6){
 					mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
 				}
-				mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
-				mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
-				mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
-				mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
+				mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
+				mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
+				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 
 				dispose();
@@ -1217,10 +1219,10 @@ public class InterfaceJogo extends JFrame {
 				
 				Participante vencedor = part.checkEmpate();
 				String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";
-				mensagem += part.participantes.get(0).getNome() + " possui " + part.participantes.get(0).getPontuacao() + " pontos.\n";
-				mensagem += part.participantes.get(1).getNome() + " possui " + part.participantes.get(1).getPontuacao() + " pontos.\n";
-				mensagem += part.participantes.get(2).getNome() + " possui " + part.participantes.get(2).getPontuacao() + " pontos.\n";
-				mensagem += part.participantes.get(3).getNome() + " possui " + part.participantes.get(3).getPontuacao() + " pontos.\n";
+				mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
+				mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
+				mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
+				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 
 				dispose();
