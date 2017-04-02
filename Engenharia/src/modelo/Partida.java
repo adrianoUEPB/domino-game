@@ -74,22 +74,18 @@ public class Partida {
 	 */
 	
 	public Participante checkWinner() {
-		int id = -1;
+		int id = 0;
 		for (Participante participante : participantes) {
-			
-			int pontos = this.pontuacao();
-			id++;
-			
-			pontuacao_jogadores[id] += pontos;
-			
 			if(participante.noHasPeca()) {
+				int pontos = this.pontuacao();
+				pontuacao_jogadores[id] += pontos;
 				participante.setPontuacao(participante.getPontuacao() + pontos);
 				rodada++;
 				id_lastWin = id;
 				return participante;
 			}
+			id++;
 		}
-		
 		return null;		
 	}
 	
