@@ -13,17 +13,24 @@ import modelo.Jogador;
 public class DAO {
 	
 	private Connection con;
+	private PreparedStatement stmt;
 	
 	public void resetarRanking() {
-		
+		ArrayList<Jogador> jogadores = searchJogador();
 		try {
+			
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
+			
+			for (Jogador jogador : jogadores) {
+				stmt = con.prepareStatement("UPDATE jogador SET pontuacao = 0, "
+						+ "tempo_rodadas = 0, ultima_partida = null, partidas_vencidas = 0 WHERE id_jogador = ?");
+				stmt.setInt(1, jogador.getId());
+				stmt.executeUpdate();
+				con.commit();
+			}
+			
 
-			PreparedStatement stmt = con.prepareStatement("UPDATE jogador SET pontuacao = null, "
-					+ "tempo_rodadas = null, ultima_partida = null, partidas_vencidas = null");
-			stmt.executeUpdate();
-			con.commit();
 			stmt.close();			
 			con.close();
 			JOptionPane.showMessageDialog(null, "Ranking resetado com sucesso!");
@@ -37,7 +44,7 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			PreparedStatement stmt = con.prepareStatement("INSERT INTO jogador (nome, icone, senha)"
+			stmt = con.prepareStatement("INSERT INTO jogador (nome, icone, senha)"
 					+ "VALUES (?, ?, ?);");
 			stmt.setString(1, jogador.getNome());
 			stmt.setString(2, jogador.getIcone());
@@ -58,7 +65,7 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 
-			PreparedStatement stmt = con.prepareStatement("UPDATE jogador "
+			stmt = con.prepareStatement("UPDATE jogador "
 					+ "SET pontuacao = ?, tempo_rodadas = ?, ultima_partida = ?, partidas_vencidas = ? WHERE id_jogador= ?");
 			stmt.setInt(1, jogador.getPontuacao());
 			stmt.setDouble(2, jogador.getTempo_rodadas());
@@ -82,7 +89,7 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 
-			PreparedStatement stmt = con.prepareStatement("UPDATE jogador "
+			stmt = con.prepareStatement("UPDATE jogador "
 					+ "SET nome= ?, senha= ?, icone= ? WHERE id_jogador= ?");
 			stmt.setString(1, novo.getNome());
 			stmt.setString(2, novo.getSenha());
@@ -108,9 +115,9 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			Statement stmt = con.createStatement();
+			stmt = con.prepareStatement("SELECT * FROM jogador;");
 			
-			ResultSet rs = stmt.executeQuery(" SELECT * FROM jogador;");
+			ResultSet rs = stmt.executeQuery();
 			while ( rs.next() ) {
 				jogador = new Jogador();
 				jogador.setId(rs.getInt("id_jogador"));
@@ -141,7 +148,7 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 					
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ?;");
+			stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ?;");
 			stmt.setString(1, nome);
 			ResultSet rs = stmt.executeQuery();
 
@@ -170,7 +177,7 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ?;");
+			stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ?;");
 			stmt.setString(1, nome);
 			ResultSet rs = stmt.executeQuery();
 			//se existir um proximo
@@ -193,7 +200,7 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ? AND senha = ?;");
+			stmt = con.prepareStatement("SELECT * FROM jogador WHERE nome = ? AND senha = ?;");
 			stmt.setString(1, jogador.getNome());
 			stmt.setString(2, jogador.getSenha());
 			rs = stmt.executeQuery();
@@ -215,7 +222,7 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			PreparedStatement stmt = con.prepareStatement("SELECT id_jogador FROM jogador WHERE nome = ?;");
+			stmt = con.prepareStatement("SELECT id_jogador FROM jogador WHERE nome = ?;");
 			stmt.setString(1, nome);
 			ResultSet rs = stmt.executeQuery();
 		
@@ -239,7 +246,7 @@ public class DAO {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			PreparedStatement stmt = con.prepareStatement("UPDATE jogador SET pontuacao = ? WHERE id_jogador = ?;");
+			stmt = con.prepareStatement("UPDATE jogador SET pontuacao = ? WHERE id_jogador = ?;");
 			stmt.setInt(1, pontuacao);
 			stmt.setInt(2, id_jogador);
 			
@@ -261,7 +268,7 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao "
+			stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao "
 					+ "DESC, partidas_vencidas DESC, tempo_rodadas DESC, ultima_partida DESC LIMIT 5;");
 			ResultSet rs = stmt.executeQuery();
 			
