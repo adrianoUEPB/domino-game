@@ -307,7 +307,6 @@ public class InterfaceRanking extends JFrame {
 		
 		JButton voltarBt = new JButton();
 		voltarBt.setBounds(15, 0, 90, 90);
-		inforRanking.add(voltarBt);
 		voltarBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-disabled.png"));
 		voltarBt.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-rollover.png"));
 		voltarBt.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-rollover.png"));
@@ -320,14 +319,21 @@ public class InterfaceRanking extends JFrame {
 		voltarBt.setMaximumSize(new Dimension(90, 90));
 		voltarBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		voltarBt.setAlignmentX(Component.CENTER_ALIGNMENT);
+		inforRanking.add(voltarBt);
 		
 		JButton resetarBt = new JButton();
-		resetarBt.setMinimumSize(new Dimension(90, 90));
-		resetarBt.setMaximumSize(new Dimension(90, 90));
+		resetarBt.setBounds(664, 23, 110, 40);
+		resetarBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-disabled.png"));
+		resetarBt.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-rollover.png"));
+		resetarBt.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-rollover.png"));
+		resetarBt.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-pressed.png"));
+		resetarBt.setIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-normal.png"));
+		resetarBt.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-disabled.png"));
+		resetarBt.setMinimumSize(new Dimension(110, 40));
+		resetarBt.setMaximumSize(new Dimension(110, 40));
 		resetarBt.setHorizontalTextPosition(SwingConstants.CENTER);
 		resetarBt.setBorder(null);
-		resetarBt.setAlignmentX(0.5f);
-		resetarBt.setBounds(684, 0, 90, 90);
+		resetarBt.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforRanking.add(resetarBt);
 		
 		// actions listeners

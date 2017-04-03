@@ -335,7 +335,6 @@ public class InterfaceJogo extends JFrame {
 		tabuleiro.setLayout(null);
 		
 		if(part.pontuacao_jogadores[0] >= 6){
-			System.out.println(part.pontuacao_jogadores[0]);
 			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
@@ -485,6 +484,7 @@ public class InterfaceJogo extends JFrame {
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
+								part.pecas_campo.add(peca);
 								peca.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
 								part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 								part.extremidade1 = peca.getValor1();
@@ -530,6 +530,7 @@ public class InterfaceJogo extends JFrame {
 					Peca p = primeiro.getPecas().get(i);
 					if(p.getValor1() == 6 && p.getValor2() == 6){
 						primeiro.getPecas().remove(p);
+						part.pecas_campo.add(p);
 						if (part.jogadorDaVez == 1){ //ia esquerda
 							iaEsquerdaPecas.remove(i);
 						}
@@ -609,6 +610,7 @@ public class InterfaceJogo extends JFrame {
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
+								part.pecas_campo.add(peca);
 								peca.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
 								part.jogadorDaVez = part.checkNext(part.jogadorDaVez);
 								part.extremidade1 = peca.getValor1();
@@ -678,6 +680,7 @@ public class InterfaceJogo extends JFrame {
 					p = primeiro.getPecas().get(i);
 					if(p.getValor1() == p.getValor2()){ // pega o primeiro carrocao q aparecer
 						primeiro.getPecas().remove(p);
+						part.pecas_campo.add(p);
 						if (part.jogadorDaVez == 1){ //ia esquerda
 							iaEsquerdaPecas.remove(i);
 						}
@@ -729,6 +732,7 @@ public class InterfaceJogo extends JFrame {
 	private int contadorEmpate = 0;
 	
 	public void JogadasSeguintes(final Partida part){
+		
 		if(part.jogadorDaVez == 0){ // jogador
 			inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 			inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
@@ -772,6 +776,7 @@ public class InterfaceJogo extends JFrame {
 								
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
+								part.pecas_campo.add(peca);
 								
 								if (peca.getValor1() == peca.getValor2()){
 									if (peca.getValor1() == part.extremidade1){
@@ -967,6 +972,7 @@ public class InterfaceJogo extends JFrame {
 					if (p.getValor1() == part.extremidade1 || p.getValor1() == part.extremidade2 ||
 							p.getValor2() == part.extremidade2 || p.getValor2() == part.extremidade1){
 						part.participantes.get(part.jogadorDaVez).getPecas().remove(p);
+						part.pecas_campo.add(p);
 						if (part.jogadorDaVez == 1){ //ia esquerda
 							iaEsquerdaPecas.remove(i);
 						}
@@ -980,6 +986,7 @@ public class InterfaceJogo extends JFrame {
 						p.virada = true;
 						if (p.getValor1() == part.extremidade1){
 							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
+							//p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
 							part.extremidade1 = p.getValor2();
 							part.ext1Peca = p;
 						} else if (p.getValor2() == part.extremidade1){
@@ -1112,6 +1119,7 @@ public class InterfaceJogo extends JFrame {
 				aux = part.participantes.get(part.jogadorDaVez).getPecas().get(i);
 				if (p.equals(aux)){
 					part.participantes.get(part.jogadorDaVez).getPecas().remove(p);
+					part.pecas_campo.add(p);
 					if (part.jogadorDaVez == 1){ //ia esquerda
 						iaEsquerdaPecas.remove(i);
 						break;
