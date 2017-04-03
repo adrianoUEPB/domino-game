@@ -13,25 +13,22 @@ import modelo.Jogador;
 public class DAO {
 	
 	private Connection con;
-	//private String sql = null;
 	
-	public void deleteJogador(String nome) {
+	public void resetarRanking() {
 		
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			
-			//int id = buscaId(nome);
 
-			PreparedStatement stmt = con.prepareStatement("DELETE FROM jogador WHERE id_jogador = ?;");
-			stmt.setString(1, nome);
+			PreparedStatement stmt = con.prepareStatement("UPDATE jogador SET pontuacao = null, "
+					+ "tempo_rodadas = null, ultima_partida = null, partidas_vencidas = null");
 			stmt.executeUpdate();
 			con.commit();
 			stmt.close();			
 			con.close();
-			JOptionPane.showMessageDialog(null,"Jogador deletado com sucesso!");
+			JOptionPane.showMessageDialog(null, "Ranking resetado com sucesso!");
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao deletar jogador!");
+			JOptionPane.showMessageDialog(null, "Erro ao resetar o ranking!");
 		}
 	}
 	
@@ -73,9 +70,9 @@ public class DAO {
 			con.commit();
 			stmt.close();
 			con.close();			
-			JOptionPane.showMessageDialog(null, "PontuaÃ§Ã£o atualizada com sucesso!");
+			JOptionPane.showMessageDialog(null, "Pontuação atualizada com sucesso!");
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuaÃ§Ã£o do jogador " + jogador.getNome() + "!");
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuação do jogador " + jogador.getNome() + "!");
 		}
 	}
 	
@@ -123,8 +120,6 @@ public class DAO {
 				jogador.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
 				jogador.setUltima_partida(rs.getDate("ultima_partida"));
 				jogador.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
-//				jogador.setPecas(rs.getInt("pecas"));
-//				tem que colocar pra pegar o id da partida
 				
 				jogadores.add(jogador);				
 			}
@@ -164,7 +159,7 @@ public class DAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador nï¿½o encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
 		} 		
 		return jogador;
 	}
@@ -185,7 +180,7 @@ public class DAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador nï¿½o encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
 		}
 		return false;
 	}
@@ -266,7 +261,8 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao DESC, partidas_vencidas DESC, tempo_rodadas ASC LIMIT 5;");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao "
+					+ "DESC, partidas_vencidas DESC, tempo_rodadas DESC, ultima_partida DESC LIMIT 5;");
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
