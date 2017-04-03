@@ -17,9 +17,8 @@ public class Partida {
 	public int rodada;
 	public int jogadorDaVez;
 	private Peca ultima_peca;
-	private boolean dificil;
-	
-	public String tempoPartida; //teste
+	private boolean dificil;	
+	public int tempoPartida; //teste
 
 	public Partida(ArrayList<Participante> participantes, boolean dificil){
 		this.participantes = participantes;
@@ -80,6 +79,7 @@ public class Partida {
 				int pontos = this.pontuacao();
 				pontuacao_jogadores[id] += pontos;
 				participante.setPontuacao(participante.getPontuacao() + pontos);
+				participante.setPartidas_vencidas(1);
 				rodada++;
 				id_lastWin = id;
 				return participante;
