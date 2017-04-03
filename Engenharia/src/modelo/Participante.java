@@ -8,7 +8,7 @@ public class Participante {
 	private int pontuacao;
 	private String icone;
 	private int partidas_vencidas;
-	private double tempo_rodadas;
+	private int tempo_rodadas;
 	private ArrayList<Peca> pecas;
 	
 	public Participante() {
@@ -23,17 +23,6 @@ public class Participante {
 		}		
 		return false;
 	}
-	
-//	public Peca pegaPeca(Peca jogar) {
-//		if(pecas.isEmpty())
-//			return null;
-//		
-//		for (Peca peca : pecas) {
-//			if (jogar.equals(peca))
-//				return peca;
-//		}
-//		return null;		
-//	}
 	
 	public boolean VerificarJogadaPossivel(int extremidade1, int extremidade2){
 		for(Peca p: this.pecas){
@@ -77,13 +66,13 @@ public class Participante {
 		return partidas_vencidas;
 	}
 	public void setPartidas_vencidas(int partidas_vencidas) {
-		this.partidas_vencidas = partidas_vencidas;
+		this.partidas_vencidas += partidas_vencidas;
 	}
-	public double getTempo_rodadas() {
+	public int getTempo_rodadas() {
 		return tempo_rodadas;
 	}
-	public void setTempo_rodadas(double tempo_rodadas) {
-		this.tempo_rodadas = tempo_rodadas;
+	public void setTempo_rodadas(int tempo_rodadas) {
+		this.tempo_rodadas += tempo_rodadas; //soma pois ira pegar o valor da partida que possui e atualizar com a nova partida
 	}
 	public ArrayList<Peca> getPecas() {
 		return pecas;

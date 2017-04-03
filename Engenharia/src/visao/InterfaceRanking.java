@@ -31,7 +31,7 @@ public class InterfaceRanking extends JFrame {
 	public InterfaceRanking(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
 		
-		ArrayList<Jogador> listaJogadores = dao.searchJogador();
+		ArrayList<Jogador> listaJogadores = dao.rankingDAO();
 		
 		JPanel inforRanking = new JPanel();
 		inforRanking.setBackground(new Color(139, 0, 0));
@@ -68,7 +68,7 @@ public class InterfaceRanking extends JFrame {
 		ponto1.setBounds(315, 11, 176, 38);
 		inforTopOne.add(ponto1);
 		
-		JLabel tempo1 = new JLabel("Tempo: " + listaJogadores.get(0).getTempo_rodadas());
+		JLabel tempo1 = new JLabel("Tempo: " + formatTime(listaJogadores.get(0).getTempo_rodadas()));
 		tempo1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo1.setForeground(Color.WHITE);
 		tempo1.setBounds(315, 60, 176, 25);
@@ -116,7 +116,7 @@ public class InterfaceRanking extends JFrame {
 		ponto2.setBounds(315, 11, 176, 38);
 		inforTopTwo.add(ponto2);
 		
-		JLabel tempo2 = new JLabel("Tempo: " + listaJogadores.get(1).getTempo_rodadas());
+		JLabel tempo2 = new JLabel("Tempo: " + formatTime(listaJogadores.get(1).getTempo_rodadas()));
 		tempo2.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo2.setForeground(Color.WHITE);
 		tempo2.setBounds(315, 60, 176, 25);
@@ -164,7 +164,7 @@ public class InterfaceRanking extends JFrame {
 		ponto3.setBounds(315, 11, 176, 38);
 		inforTopThree.add(ponto3);
 		
-		JLabel tempo3 = new JLabel("Tempo: " + listaJogadores.get(2).getTempo_rodadas());
+		JLabel tempo3 = new JLabel("Tempo: " + formatTime(listaJogadores.get(2).getTempo_rodadas()));
 		tempo3.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo3.setForeground(Color.WHITE);
 		tempo3.setBounds(315, 60, 176, 25);
@@ -212,7 +212,7 @@ public class InterfaceRanking extends JFrame {
 		ponto4.setBounds(315, 11, 176, 38);
 		inforTopFour.add(ponto4);
 		
-		JLabel tempo4 = new JLabel("Tempo: " + listaJogadores.get(3).getTempo_rodadas());
+		JLabel tempo4 = new JLabel("Tempo: " + formatTime(listaJogadores.get(3).getTempo_rodadas()));
 		tempo4.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo4.setForeground(Color.WHITE);
 		tempo4.setBounds(315, 60, 176, 25);
@@ -260,7 +260,7 @@ public class InterfaceRanking extends JFrame {
 		ponto5.setBounds(315, 11, 176, 38);
 		inforTopFive.add(ponto5);
 		
-		JLabel tempo5 = new JLabel("Tempo: " + listaJogadores.get(4).getTempo_rodadas());
+		JLabel tempo5 = new JLabel("Tempo: " + formatTime(listaJogadores.get(4).getTempo_rodadas()));
 		tempo5.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		tempo5.setForeground(Color.WHITE);
 		tempo5.setBounds(315, 60, 176, 25);
@@ -377,5 +377,16 @@ public class InterfaceRanking extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setVisible(true);
+	}
+	
+	private String formatTime(int tempo) {
+		int seg = tempo % 60;
+		int min = tempo / 60;
+		int hora = min / 60;
+		min %= 60;
+		
+		return String.format("%d:%d:%d", hora, min, seg);
+		
+		
 	}
 }
