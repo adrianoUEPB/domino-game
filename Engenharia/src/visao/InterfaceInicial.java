@@ -131,7 +131,7 @@ public class InterfaceInicial extends JFrame {
 		botaoLogin.setDisabledIcon(new ImageIcon(".\\image\\graphics\\Bt-login-disabled.png"));
 		botaoLogin.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoLogin.setBorder(null);
-		botaoLogin.setBounds(39, 246, 120, 35);
+		botaoLogin.setBounds(39, 253, 120, 35);
 		getContentPane().add(botaoLogin);
 		
 		JButton botaoSair = new JButton();
@@ -144,7 +144,7 @@ public class InterfaceInicial extends JFrame {
 		botaoSair.setRolloverIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-rollover.png"));
 		botaoSair.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\Bt-sair-rollover.png"));
 		botaoSair.setHorizontalTextPosition(SwingConstants.CENTER);
-		botaoSair.setBounds(39, 285, 120, 35);
+		botaoSair.setBounds(39, 299, 120, 35);
 		getContentPane().add(botaoSair);
 		
 		JLabel labelDomino = new JLabel("Dominó");
