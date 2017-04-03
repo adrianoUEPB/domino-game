@@ -137,7 +137,9 @@ public class Partida {
 		} else {
 			// lá e ló
 			if (extremidade1 == ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2() ||
-				extremidade2 == ultima_peca.getValor1() && extremidade1 == ultima_peca.getValor2()){
+				extremidade2 == ultima_peca.getValor1() && extremidade1 == ultima_peca.getValor2() ||
+				extremidade1 == ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor1() ||
+				extremidade1 == ultima_peca.getValor2() && extremidade2 == ultima_peca.getValor2()){
 				return 3;
 			}
 			// batida normal
