@@ -156,6 +156,7 @@ public class InterfaceJogo extends JFrame {
 					@Override
 					public void run() {
 						contador++;
+						part.tempoPartida++;
 						int seg = contador % 60;
 						int min = contador / 60;
 						int hora = min / 60;
@@ -366,24 +367,28 @@ public class InterfaceJogo extends JFrame {
 		if(part.pontuacao_jogadores[0] >= 6){
 			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
+			jogador_logado.setTempo_rodadas(part.tempoPartida);			
 			dao.updatePontuacao(jogador_logado);
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[1] >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(1).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
+			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[2] >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(2).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
+			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[3] >= 6) {
 			JOptionPane.showMessageDialog(null, part.participantes.get(3).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);			
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
+			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
 			new InterfaceMenu(jogador_logado);
 			return;

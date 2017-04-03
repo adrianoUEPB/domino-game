@@ -44,8 +44,8 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			stmt = con.prepareStatement("INSERT INTO jogador (nome, icone, senha)"
-					+ "VALUES (?, ?, ?);");
+			stmt = con.prepareStatement("INSERT INTO jogador (nome, icone, senha, pontuacao, tempo_rodadas, partidas_vencidas)"
+					+ "VALUES (?, ?, ?, 0, 0, 0);");
 			stmt.setString(1, jogador.getNome());
 			stmt.setString(2, jogador.getIcone());
 			stmt.setString(3, jogador.getSenha());
@@ -124,7 +124,7 @@ public class DAO {
 				jogador.setNome(rs.getString("nome"));
 				jogador.setPontuacao(rs.getInt("pontuacao"));				
 				jogador.setIcone(rs.getString("icone"));
-				jogador.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
+				jogador.setTempo_rodadas(rs.getInt("tempo_rodadas"));
 				jogador.setUltima_partida(rs.getDate("ultima_partida"));
 				jogador.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
 				
@@ -160,6 +160,8 @@ public class DAO {
 			jogador.setNome(rs.getString("nome"));
 			jogador.setSenha(rs.getString("senha"));
 			jogador.setIcone(rs.getString("icone"));
+			jogador.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
+			jogador.setTempo_rodadas(rs.getInt("tempo_rodadas"));
 			jogador.setPontuacao(rs.getInt("pontuacao"));
 			
 			rs.close();
@@ -268,8 +270,7 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao "
-					+ "DESC, partidas_vencidas DESC, tempo_rodadas DESC, ultima_partida DESC LIMIT 5;");
+			stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao DESC, partidas_vencidas DESC, tempo_rodadas DESC, ultima_partida DESC LIMIT 5;");
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -278,7 +279,7 @@ public class DAO {
 				jogador_ranking.setNome(rs.getString("nome"));
 				jogador_ranking.setIcone(rs.getString("icone"));
 				jogador_ranking.setPontuacao(rs.getInt("pontuacao"));
-				jogador_ranking.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
+				jogador_ranking.setTempo_rodadas(rs.getInt("tempo_rodadas"));
 				jogador_ranking.setUltima_partida(rs.getDate("ultima_partida"));
 				jogador_ranking.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
 				

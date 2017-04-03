@@ -31,7 +31,7 @@ public class InterfaceRanking extends JFrame {
 	public InterfaceRanking(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
 		
-		ArrayList<Jogador> listaJogadores = dao.searchJogador();
+		ArrayList<Jogador> listaJogadores = dao.rankingDAO();
 		
 		JPanel inforRanking = new JPanel();
 		inforRanking.setBackground(new Color(139, 0, 0));
