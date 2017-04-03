@@ -2,8 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 public class Partida {
 	private int id_partida;
 	public int id_lastWin; //flag para identificar ultimo participante ganhador
