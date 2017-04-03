@@ -68,7 +68,7 @@ public class Participante {
 	public void setPartidas_vencidas(int partidas_vencidas) {
 		this.partidas_vencidas += partidas_vencidas;
 	}
-	public double getTempo_rodadas() {
+	public int getTempo_rodadas() {
 		return tempo_rodadas;
 	}
 	public void setTempo_rodadas(int tempo_rodadas) {
