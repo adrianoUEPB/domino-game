@@ -266,7 +266,7 @@ public class DAO {
 		try {
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao DESC LIMIT 5;");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao DESC, partidas_vencidas DESC, tempo_rodadas ASC LIMIT 5;");
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
