@@ -94,6 +94,10 @@ public class Peca {
 		this.posicaoX = posicaoX;
 		this.posicaoY = posicaoY;
 		
+		if (rotacao == -1){
+			rotacao = 3;
+		}
+		
 		Image img = imagem.getImage();
 		Image scaledImg = img.getScaledInstance(largura/2 + (largura/2)/2, altura/2 + (altura/2)/2,  java.awt.Image.SCALE_SMOOTH);
 		imagem = new ImageIcon(scaledImg);
@@ -135,6 +139,12 @@ public class Peca {
 	public void calcularPosicaoPeca(JPanel painel, Peca ext, Peca first, int direcao, int rotacao){
 		int[] posicoes = new int[]{ext.posicaoX, ext.posicaoY};
 		
+		if (rotacao == -1)
+			rotacao = 3;
+		if (direcao == -1)
+			direcao = 3;
+		
+		// coloca a primeira após a peça que inicia o jogo
 		if (ext.equals(first)){
 			if (direcao == 1){
 				drawPecaScaled(painel, posicoes[0] - 60, posicoes[1] + 20, rotacao, 1);
@@ -144,18 +154,14 @@ public class Peca {
 				return;
 			}
 		} else {
-			// direção para baixo
-			if (ext.direcao == 0){
-				if ((ext.posicaoY + 130) > painel.getHeight()){
-					if (rotacao == 0){
-						if (ext.rotacao == 0 || ext.rotacao == 2){
-							drawPecaScaled(painel, posicoes[0] + 27, posicoes[1] + 38, 3, 3);
-							return;
-						} else {
-							calcularPosicaoPeca(painel, ext, first, 3, 3);
-							return;
-						}
-					} else {
+			if (ext.direcao != direcao){
+				System.out.println("ext.direcao " + ext.direcao + " -- direcao " + direcao);
+				calcularPosicaoPeca(painel, ext, first, direcao-1, rotacao-1);
+				return;
+			} else {
+				// direção para baixo
+				if (direcao == 0){
+					if ((ext.posicaoY + 130) > painel.getHeight()){
 						if (ext.rotacao == 0 || ext.rotacao == 2){
 							drawPecaScaled(painel, posicoes[0] + 27, posicoes[1] + 38, rotacao-1, 3);
 							return;
@@ -163,28 +169,23 @@ public class Peca {
 							calcularPosicaoPeca(painel, ext, first, 3, rotacao-1);
 							return;
 						}
-					}
-				} else {
-					if (rotacao == 1 || rotacao == 3){
-						drawPecaScaled(painel, posicoes[0], posicoes[1] + 60, rotacao-1, 0);
-						return;
 					} else {
-						drawPecaScaled(painel, posicoes[0], posicoes[1] + 60, rotacao, 0);
-						return;
-					}
-				}
-			// direção para esquerda
-			} else if (ext.direcao == 1){
-				if ((ext.posicaoX - 60) < 0){
-					if (rotacao == 0){
-						if (ext.rotacao == 1 || ext.rotacao == 3){
-							drawPecaScaled(painel, posicoes[0] - 22, posicoes[1] + 22, 3, 0);
-							return;
+						if (ext.direcao == 0){
+							if (rotacao == 1 || rotacao == 3){
+								drawPecaScaled(painel, posicoes[0], posicoes[1] + 60, rotacao-1, 0);
+								return;
+							} else {
+								drawPecaScaled(painel, posicoes[0], posicoes[1] + 60, rotacao, 0);
+								return;
+							}
 						} else {
-							calcularPosicaoPeca(painel, ext, first, 0, 3);
+							calcularPosicaoPeca(painel, ext, first, ext.direcao, rotacao);
 							return;
 						}
-					} else {
+					}
+				// direção para esquerda
+				} else if (direcao == 1){
+					if ((ext.posicaoX - 60) < 0){
 						if (ext.rotacao == 1 || ext.rotacao == 3){
 							drawPecaScaled(painel, posicoes[0], posicoes[1] + 22, rotacao-1, 0);
 							return;
@@ -192,57 +193,47 @@ public class Peca {
 							calcularPosicaoPeca(painel, ext, first, 0, rotacao-1);
 							return;
 						}
-					}
-				} else {
-					if (rotacao == 0 || rotacao == 2){
-						drawPecaScaled(painel, posicoes[0] - 60, posicoes[1], rotacao-1, 1);
-						return;
 					} else {
-						drawPecaScaled(painel, posicoes[0] - 60, posicoes[1], rotacao, 1);
-						return;						
-					}
-				}
-			// direção para cima
-			} else if (ext.direcao == 2){
-				if ((ext.posicaoY - 60) < 0){
-					if (rotacao == 0){
-						if (ext.rotacao == 0 || ext.rotacao == 2){
-							drawPecaScaled(painel, posicoes[0] + 22, posicoes[1] - 22, 3, 1);
-							return;
+						if (ext.direcao == 1){
+							if (rotacao == 0 || rotacao == 2){
+								drawPecaScaled(painel, posicoes[0] - 60, posicoes[1], rotacao-1, 1);
+								return;
+							} else {
+								drawPecaScaled(painel, posicoes[0] - 60, posicoes[1], rotacao, 1);
+								return;		
+							}
 						} else {
-							calcularPosicaoPeca(painel, ext, first, 1, 3);
+							calcularPosicaoPeca(painel, ext, first, ext.direcao, rotacao);
 							return;
 						}
-					} else {
+					}
+				// direção para cima
+				} else if (direcao == 2){
+					if ((ext.posicaoY - 60) < 0){
 						if (ext.rotacao == 0 || ext.rotacao == 2){
-							drawPecaScaled(painel, posicoes[0] + 22, posicoes[1] - 22, rotacao-1, 1);
+							drawPecaScaled(painel, posicoes[0] - 60, posicoes[1] + 7, rotacao-1, 1);
 							return;
 						} else {
 							calcularPosicaoPeca(painel, ext, first, 1, rotacao-1);
 							return;
 						}
-					}
-				} else {
-					if (rotacao == 1 || rotacao == 3){
-						drawPecaScaled(painel, posicoes[0], posicoes[1] - 60, rotacao-1, 2);
-						return;
 					} else {
-						drawPecaScaled(painel, posicoes[0], posicoes[1] - 60, rotacao, 2);
-						return;						
-					}
-				}
-			// direção para direita
-			} else if (ext.direcao == 3){
-				if ((ext.posicaoX + 110) > painel.getWidth()){
-					if (rotacao == 0){
-						if (ext.rotacao == 1 || ext.rotacao == 3){
-							drawPecaScaled(painel, posicoes[0] + 31, posicoes[1] - 38, 3, 2);
-							return;
+						if (ext.direcao == 2){
+							if (rotacao == 1 || rotacao == 3){
+								drawPecaScaled(painel, posicoes[0], posicoes[1] - 60, rotacao-1, 2);
+								return;
+							} else {
+								drawPecaScaled(painel, posicoes[0], posicoes[1] - 60, rotacao, 2);
+								return;		
+							}
 						} else {
-							calcularPosicaoPeca(painel, ext, first, 2, 3);
+							calcularPosicaoPeca(painel, ext, first, ext.direcao, rotacao);
 							return;
 						}
-					} else {
+					}
+				// direção para direita
+				} else if (direcao == 3){
+					if ((ext.posicaoX + 110) > painel.getWidth()){
 						if (ext.rotacao == 1 || ext.rotacao == 3){
 							drawPecaScaled(painel, posicoes[0] + 31, posicoes[1] - 65, rotacao-1, 2);
 							return;
@@ -250,84 +241,23 @@ public class Peca {
 							calcularPosicaoPeca(painel, ext, first, 2, rotacao-1);
 							return;
 						}
-					}
-				} else {
-					if (rotacao == 0 || rotacao == 2){
-						drawPecaScaled(painel, posicoes[0] + 60, posicoes[1], rotacao-1, 3);
-						return;
 					} else {
-						drawPecaScaled(painel, posicoes[0] + 60, posicoes[1], rotacao, 3);
-						return;						
+						if (ext.direcao == 3){
+							if (rotacao == 0 || rotacao == 2){
+								drawPecaScaled(painel, posicoes[0] + 60, posicoes[1], rotacao-1, 3);
+								return;
+							} else {
+								drawPecaScaled(painel, posicoes[0] + 60, posicoes[1], rotacao, 3);
+								return;
+							}
+						} else {
+							calcularPosicaoPeca(painel, ext, first, ext.direcao, rotacao);
+							return;
+						}
 					}
 				}
 			}
 		}
-//		// extremidade à esquerda
-//		if (direcao == 1){
-//			if ((ext1.posicaoX - 60) < 0){ //era - 80
-//				posicoes = new int[]{ext1.posicaoX, ext1.posicaoY + 22}; //era + 37
-//				if (rotacao == 0){
-//					if (ext1.rotacao == 1 || ext1.rotacao == 3){
-//						drawPecaScaled(painel, posicoes[0] - 22, posicoes[1], 3); //era posicoes[0] - 37
-//						return;
-//					} else {
-//						drawPecaScaled(painel, posicoes[0], posicoes[1] + 60, 3); //era posicoes[1] + 80
-//						return;
-//					}
-//				} else {
-//					if (ext1.rotacao == 1 || ext1.rotacao == 3){
-//						drawPecaScaled(painel, posicoes[0], posicoes[1], rotacao-1);
-//						return;
-//					} else {
-//						drawPecaScaled(painel, posicoes[0], posicoes[1] + 38, rotacao-1); //era posicoes[1] + 43
-//						return;
-//					}
-//				}
-//			} else {
-//				if (ext1.equals(first)){
-//					posicoes = new int[]{ext1.posicaoX - 60, ext1.posicaoY + 20}; //era - 80
-//					drawPecaScaled(painel, posicoes[0], posicoes[1], rotacao);
-//					return;
-//				} else {
-//					posicoes = new int[]{ext1.posicaoX - 60, ext1.posicaoY}; //era - 80
-//					drawPecaScaled(painel, posicoes[0], posicoes[1], rotacao);
-//					return;
-//				}
-//			}
-//			
-//		// extremidade à direita
-//		} else if (direcao == 3){
-//			if (ext2.equals(first)){
-//				posicoes = new int[]{ext2.posicaoX + 27, ext2.posicaoY + 20}; //era + 37, y não tinha soma nem subtração
-//				drawPecaScaled(painel, posicoes[0], posicoes[1], rotacao);
-//				return;
-//			} else {
-//				if ((ext2.posicaoX + 90) > painel.getWidth()){ //era + 160
-//					posicoes = new int[]{ext2.posicaoX, ext2.posicaoY - 38}; //era - 37
-//					if (rotacao == 0){
-//						if (ext2.rotacao == 1 || ext2.rotacao == 3){
-//							drawPecaScaled(painel, posicoes[0] + 31, posicoes[1], 3); //era posicoes[0] + 43
-//							return;
-//						} else {
-//							drawPecaScaled(painel, posicoes[0], posicoes[1] - 22, 3); //era posicoes[1] - 43
-//							return;
-//						}
-//					} else {
-//						if (ext2.rotacao == 1 || ext2.rotacao == 3){
-//							drawPecaScaled(painel, posicoes[0] + 31, posicoes[1] - 27, rotacao-1); //era posicoes[0] + 43, posicoes[1] - 43
-//							return;
-//						} else {
-//							drawPecaScaled(painel, posicoes[0], posicoes[1] - 22, rotacao-1); //era posicoes[1] - 43
-//							return;
-//						}
-//					}
-//				} else {
-//					posicoes = new int[]{ext2.posicaoX + 60, ext2.posicaoY}; //era + 80
-//					drawPecaScaled(painel, posicoes[0], posicoes[1], rotacao);
-//					return;
-//				}
-//			}
-//		}
 	}
 
 	public int getValor1() {
