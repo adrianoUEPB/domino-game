@@ -679,7 +679,7 @@ public class InterfaceJogo extends JFrame {
 					}
 				}
 				if (quantidadeCarrocao == 0){ // passa a vez
-					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " n√£o tem carro√ß√£o para iniciar, ent√£o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " n„o tem carroÁ„o para iniciar, ent„o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 					int j = part.jogadorDaVez;
 					part.jogadorDaVez = part.checkNext(j);
 					part.id_lastWin = part.checkNext(j);
@@ -751,7 +751,7 @@ public class InterfaceJogo extends JFrame {
 						}
 					}
 				}
-				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " n√£o tem carro√ß√£o para iniciar, ent√£o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " n„o tem carroÁ„o para iniciar, ent„o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 				int j = part.jogadorDaVez;
 				part.jogadorDaVez = part.checkNext(j);
 				part.id_lastWin = part.checkNext(j);
@@ -899,7 +899,7 @@ public class InterfaceJogo extends JFrame {
 									if (x == 1){
 										mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
 									} else if (x == 2){
-										mensagem = vencedor.getNome() + " venceu a partida com um carro√ß√£o!\n\n";
+										mensagem = vencedor.getNome() + " venceu a partida com um carroÁ„o!\n\n";
 									} else if (x == 3){
 										mensagem = vencedor.getNome() + " venceu a partida com l· e lÙ!\n\n";
 									} else if (x == 6){
@@ -1052,7 +1052,7 @@ public class InterfaceJogo extends JFrame {
 							if (x == 1){
 								mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
 							} else if (x == 2){
-								mensagem = vencedor.getNome() + " venceu a partida com um carro√ß√£o!\n\n";
+								mensagem = vencedor.getNome() + " venceu a partida com um carroÁ„o!\n\n";
 							} else if (x == 3){
 								mensagem = vencedor.getNome() + " venceu a partida com l· e lÙ!\n\n";
 							} else if (x == 6){
@@ -1209,7 +1209,7 @@ public class InterfaceJogo extends JFrame {
 				if (x == 1){
 					mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
 				} else if (x == 2){
-					mensagem = vencedor.getNome() + " venceu a partida com um carro√ß√£o!\n\n";
+					mensagem = vencedor.getNome() + " venceu a partida com um carroÁ„o!\n\n";
 				} else if (x == 3){
 					mensagem = vencedor.getNome() + " venceu a partida com l· e lÙ!\n\n";
 				} else if (x == 6){
