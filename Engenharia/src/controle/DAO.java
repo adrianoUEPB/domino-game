@@ -140,7 +140,7 @@ public class DAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador nï¿½o encontrado!");
 		} 		
 		return jogador;
 	}
@@ -161,7 +161,7 @@ public class DAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador nï¿½o encontrado!");
 		}
 		return false;
 	}
@@ -203,6 +203,10 @@ public class DAO {
 			if (rs.next())
 				id = rs.getInt(1);
 			
+			rs.close();
+			stmt.close();
+			con.close();
+			
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
@@ -231,6 +235,39 @@ public class DAO {
 
 	}
 	
+	public ArrayList<Jogador> rankingDAO() {
+		
+		ArrayList<Jogador> top5 = new ArrayList<>();
+		
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao DESC LIMIT 5;");
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Jogador jogador_ranking = new Jogador();
+				jogador_ranking.setId(rs.getInt("id_jogador"));
+				jogador_ranking.setNome(rs.getString("nome"));
+				jogador_ranking.setIcone(rs.getString("icone"));
+				jogador_ranking.setPontuacao(rs.getInt("pontuacao"));
+				jogador_ranking.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
+				jogador_ranking.setUltima_partida(rs.getDate("ultima_partida"));
+				jogador_ranking.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
+				
+				top5.add(jogador_ranking);
+			}
+			
+			rs.close();
+			stmt.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return top5;
+	}
 	
 	public static int buscaId(Statement stmt) {
 		int lastId = 0;
