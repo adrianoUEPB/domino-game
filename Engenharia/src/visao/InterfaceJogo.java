@@ -804,6 +804,8 @@ public class InterfaceJogo extends JFrame {
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
 								part.pecas_campo.add(peca);
+								part.setUltima_peca(peca);
+								int x = part.pontuacao();
 								
 								if (peca.getValor1() == peca.getValor2()){
 									if (peca.getValor1() == part.extremidade1){
@@ -863,7 +865,6 @@ public class InterfaceJogo extends JFrame {
 									}
 								}
 								
-								part.setUltima_peca(peca);
 								tabuleiro.updateUI();
 								jogadorPecas.updateUI();
 								repaint();
@@ -887,7 +888,6 @@ public class InterfaceJogo extends JFrame {
 										return;
 									}
 								} else {
-									int x = part.pontuacao();
 									String mensagem = "";
 									if (x == 1){
 										mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
@@ -961,7 +961,7 @@ public class InterfaceJogo extends JFrame {
 					part.criarPartida();
 					new InterfaceJogo(part);
 					
-				} else {
+				} else {					
 					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 					if (part.isDificil()){
 						InteligenciaArtificial iaAnterior = (InteligenciaArtificial) part.participantes.get(3);
@@ -1010,10 +1010,12 @@ public class InterfaceJogo extends JFrame {
 							iaDireitaPecas.remove(i);
 						}
 
+						part.setUltima_peca(p);
+						int x = part.pontuacao();
 						p.virada = true;
+						
 						if (p.getValor1() == part.extremidade1){
 							p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
-							//p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
 							part.extremidade1 = p.getValor2();
 							part.ext1Peca = p;
 						} else if (p.getValor2() == part.extremidade1){
@@ -1030,7 +1032,6 @@ public class InterfaceJogo extends JFrame {
 							part.ext2Peca = p;
 						}
 
-						part.setUltima_peca(p);
 						tabuleiro.updateUI();
 						repaint();
 						
@@ -1040,7 +1041,6 @@ public class InterfaceJogo extends JFrame {
 							JogadasSeguintes(part);
 							return;
 						} else {
-							int x = part.pontuacao();
 							String mensagem = "";
 							if (x == 1){
 								mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
@@ -1162,7 +1162,10 @@ public class InterfaceJogo extends JFrame {
 				}
 			}
 
+			part.setUltima_peca(p);
+			int x = part.pontuacao();
 			p.virada = true;
+			
 			if (p.getValor1() == part.extremidade1){
 				p.calcularPosicaoPeca(tabuleiro, part.ext1Peca, part.primeiraPecaJogada, 1, 1);
 				part.extremidade1 = p.getValor2();
@@ -1181,7 +1184,6 @@ public class InterfaceJogo extends JFrame {
 				part.ext2Peca = p;
 			}
 
-			part.setUltima_peca(p);
 			tabuleiro.updateUI();
 			repaint();
 			
@@ -1196,7 +1198,6 @@ public class InterfaceJogo extends JFrame {
 					return;
 				}
 			} else {
-				int x = part.pontuacao();
 				String mensagem = "";
 				if (x == 1){
 					mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
@@ -1265,6 +1266,17 @@ public class InterfaceJogo extends JFrame {
 				new InterfaceJogo(part);
 				
 			} else {
+				if (part.jogadorDaVez == 1){
+					inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				} else if (part.jogadorDaVez == 2){
+					inforCima.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				} else if (part.jogadorDaVez == 3){
+					inforDireita.setBorder(new LineBorder(new Color(0, 200, 0), 5));
+					inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+				}
+				
 				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 				if (part.jogadorDaVez > 1){
 					InteligenciaArtificial iaAnterior = (InteligenciaArtificial) part.participantes.get(part.jogadorDaVez - 1);
