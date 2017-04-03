@@ -1,6 +1,7 @@
 package controle;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,6 +53,29 @@ public class DAO {
 			JOptionPane.showMessageDialog(null,"Jogador cadastrado com sucesso!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao cadastrar jogador!");
+		}
+	}
+	
+	public void updatePontuacao(Jogador jogador) {
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+
+			PreparedStatement stmt = con.prepareStatement("UPDATE jogador "
+					+ "SET pontuacao = ?, tempo_rodadas = ?, ultima_partida = ?, partidas_vencidas = ? WHERE id_jogador= ?");
+			stmt.setInt(1, jogador.getPontuacao());
+			stmt.setDouble(2, jogador.getTempo_rodadas());
+			stmt.setDate(3, (Date) jogador.getUltima_partida());
+			stmt.setInt(4, jogador.getPartidas_vencidas());
+			stmt.setInt(5, jogador.getId());			
+			
+			stmt.executeUpdate();
+			con.commit();
+			stmt.close();
+			con.close();			
+			JOptionPane.showMessageDialog(null, "Pontuação atualizada com sucesso!");
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuação do jogador " + jogador.getNome() + "!");
 		}
 	}
 	
