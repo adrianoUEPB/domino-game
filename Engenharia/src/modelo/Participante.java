@@ -24,17 +24,6 @@ public class Participante {
 		return false;
 	}
 	
-//	public Peca pegaPeca(Peca jogar) {
-//		if(pecas.isEmpty())
-//			return null;
-//		
-//		for (Peca peca : pecas) {
-//			if (jogar.equals(peca))
-//				return peca;
-//		}
-//		return null;		
-//	}
-	
 	public boolean VerificarJogadaPossivel(int extremidade1, int extremidade2){
 		for(Peca p: this.pecas){
 			if(p.getValor1() == extremidade1 || p.getValor1() == extremidade2 ||
