@@ -155,7 +155,6 @@ public class Peca {
 			}
 		} else {
 			if (ext.direcao != direcao){
-				System.out.println("ext.direcao " + ext.direcao + " -- direcao " + direcao);
 				calcularPosicaoPeca(painel, ext, first, direcao-1, rotacao-1);
 				return;
 			} else {

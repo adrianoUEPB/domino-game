@@ -30,6 +30,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import modelo.*;
+import java.awt.FlowLayout;
 
 public class InterfaceJogo extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -75,7 +76,7 @@ public class InterfaceJogo extends JFrame {
 		iaCimaPecas = new JPanel();
 		iaCimaPecas.setBackground(new Color(139, 0, 0));
 		iaCimaPecas.setMinimumSize(new Dimension(100, 100));
-		iaCimaPecas.setMaximumSize(new Dimension(494, 100));
+		iaCimaPecas.setMaximumSize(new Dimension(396, 100));
 		iaUpPainel.add(iaCimaPecas);
 		
 		JPanel inforCimaP = new JPanel();
@@ -83,29 +84,39 @@ public class InterfaceJogo extends JFrame {
 		inforCimaP.setMinimumSize(new Dimension(100, 100));
 		inforCimaP.setMaximumSize(new Dimension(100, 100));
 		iaUpPainel.add(inforCimaP);
-		inforCimaP.setLayout(new BoxLayout(inforCimaP, BoxLayout.PAGE_AXIS));
+		inforCimaP.setLayout(new BoxLayout(inforCimaP, BoxLayout.LINE_AXIS));
+		
+		JPanel inforCimaP2 = new JPanel();
+		inforCimaP2.setBackground(new Color(139, 0, 0));
+		inforCimaP2.setPreferredSize(new Dimension(100, 100));
+		inforCimaP2.setMinimumSize(new Dimension(100, 100));
+		inforCimaP2.setMaximumSize(new Dimension(100, 100));
+		inforCimaP.add(inforCimaP2);
 		
 		JLabel nomeCim = new JLabel(part.participantes.get(2).getNome());
+		inforCimaP2.add(nomeCim);
 		nomeCim.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inforCimaP.add(nomeCim);
 		nomeCim.setHorizontalAlignment(SwingConstants.RIGHT);
-		nomeCim.setFont(new Font("Brush Script MT", Font.BOLD, 17));
+		nomeCim.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		nomeCim.setForeground(Color.WHITE);
 		
 		JLabel pontosCim = new JLabel("Pontos: " + part.pontuacao_jogadores[2]);
+		pontosCim.setPreferredSize(new Dimension(90, 30));
+		pontosCim.setMinimumSize(new Dimension(90, 14));
+		inforCimaP2.add(pontosCim);
 		pontosCim.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosCim.setMaximumSize(new Dimension(90, 14));
-		pontosCim.setFont(new Font("Brush Script MT", Font.BOLD, 14));
+		pontosCim.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
 		pontosCim.setForeground(Color.WHITE);
 		pontosCim.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inforCimaP.add(pontosCim);
 		
 		inforCima = new JLabel(new ImageIcon(part.participantes.get(2).getIcone()));
+		inforCima.setPreferredSize(new Dimension(100, 100));
+		iaUpPainel.add(inforCima);
+		inforCima.setMaximumSize(new Dimension(100, 100));
 		inforCima.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inforCimaP.add(inforCima);
 		inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-		inforCima.setMinimumSize(new Dimension(100, 60));
-		inforCima.setMaximumSize(new Dimension(100, 60));
+		inforCima.setMinimumSize(new Dimension(100, 100));
 		
 		JPanel blockCimDir = new JPanel();
 		blockCimDir.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -163,38 +174,42 @@ public class InterfaceJogo extends JFrame {
 		getContentPane().add(iaLeftPainel, BorderLayout.WEST);
 		iaLeftPainel.setLayout(new BoxLayout(iaLeftPainel, BoxLayout.PAGE_AXIS));
 		
+		inforEsquerda = new JLabel(new ImageIcon(part.participantes.get(1).getIcone()));
+		inforEsquerda.setPreferredSize(new Dimension(10, 100));
+		iaLeftPainel.add(inforEsquerda);
+		inforEsquerda.setAlignmentX(Component.CENTER_ALIGNMENT);
+		inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+		inforEsquerda.setMinimumSize(new Dimension(100, 100));
+		inforEsquerda.setMaximumSize(new Dimension(100, 100));
+		
 		JPanel inforEsquerdaP = new JPanel();
+		inforEsquerdaP.setPreferredSize(new Dimension(100, 100));
 		inforEsquerdaP.setBackground(new Color(139, 0, 0));
 		inforEsquerdaP.setMinimumSize(new Dimension(100, 100));
 		inforEsquerdaP.setMaximumSize(new Dimension(100, 100));
 		iaLeftPainel.add(inforEsquerdaP);
-		inforEsquerdaP.setLayout(new BoxLayout(inforEsquerdaP, BoxLayout.PAGE_AXIS));
+		inforEsquerdaP.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel nomeEsq = new JLabel(part.participantes.get(1).getNome());
 		nomeEsq.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforEsquerdaP.add(nomeEsq);
-		nomeEsq.setFont(new Font("Brush Script MT", Font.BOLD, 17));
+		nomeEsq.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		nomeEsq.setForeground(Color.WHITE);
 		
 		JLabel pontosEsq = new JLabel("Pontos: " + part.pontuacao_jogadores[1]);
+		pontosEsq.setMinimumSize(new Dimension(90, 14));
+		pontosEsq.setPreferredSize(new Dimension(90, 30));
 		pontosEsq.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosEsq.setMaximumSize(new Dimension(90, 14));
-		pontosEsq.setFont(new Font("Brush Script MT", Font.BOLD, 14));
+		pontosEsq.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
 		pontosEsq.setForeground(Color.WHITE);
 		pontosEsq.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforEsquerdaP.add(pontosEsq);
 		
-		inforEsquerda = new JLabel(new ImageIcon(part.participantes.get(1).getIcone()));
-		inforEsquerda.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inforEsquerdaP.add(inforEsquerda);
-		inforEsquerda.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-		inforEsquerda.setMinimumSize(new Dimension(100, 60));
-		inforEsquerda.setMaximumSize(new Dimension(100, 60));
-		
 		iaEsquerdaPecas = new JPanel();
 		iaEsquerdaPecas.setBackground(new Color(139, 0, 0));
 		iaEsquerdaPecas.setMinimumSize(new Dimension(100, 100));
-		iaEsquerdaPecas.setMaximumSize(new Dimension(100, 494));
+		iaEsquerdaPecas.setMaximumSize(new Dimension(100, 396));
 		iaLeftPainel.add(iaEsquerdaPecas);
 		
 		JPanel jogadorPainel = new JPanel();
@@ -213,36 +228,45 @@ public class InterfaceJogo extends JFrame {
 		
 		JPanel inforBaixoP = new JPanel();
 		inforBaixoP.setBackground(new Color(139, 0, 0));
-		inforBaixoP.setMinimumSize(new Dimension(100, 100));
-		inforBaixoP.setMaximumSize(new Dimension(100, 100));
+		inforBaixoP.setMinimumSize(new Dimension(200, 100));
+		inforBaixoP.setMaximumSize(new Dimension(200, 100));
 		jogadorPainel.add(inforBaixoP);
-		inforBaixoP.setLayout(new BoxLayout(inforBaixoP, BoxLayout.PAGE_AXIS));
-		
-		JLabel nomeBai = new JLabel(part.participantes.get(0).getNome());
-		nomeBai.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inforBaixoP.add(nomeBai);
-		nomeBai.setFont(new Font("Brush Script MT", Font.BOLD, 17));
-		nomeBai.setForeground(Color.WHITE);
-		
-		JLabel pontosBai = new JLabel("Pontos: " + part.pontuacao_jogadores[0]);
-		pontosBai.setHorizontalAlignment(SwingConstants.CENTER);
-		pontosBai.setMaximumSize(new Dimension(90, 14));
-		pontosBai.setFont(new Font("Brush Script MT", Font.BOLD, 14));
-		pontosBai.setForeground(Color.WHITE);
-		pontosBai.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inforBaixoP.add(pontosBai);
+		inforBaixoP.setLayout(new BoxLayout(inforBaixoP, BoxLayout.LINE_AXIS));
 		
 		inforBaixo = new JLabel(new ImageIcon(part.participantes.get(0).getIcone()));
+		inforBaixo.setPreferredSize(new Dimension(100, 100));
 		inforBaixo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforBaixoP.add(inforBaixo);
 		inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-		inforBaixo.setMinimumSize(new Dimension(100, 60));
-		inforBaixo.setMaximumSize(new Dimension(100, 60));
+		inforBaixo.setMinimumSize(new Dimension(100, 100));
+		inforBaixo.setMaximumSize(new Dimension(100, 100));
+		
+		JPanel inforBaixoP2 = new JPanel();
+		inforBaixoP2.setBackground(new Color(139, 0, 0));
+		inforBaixoP2.setPreferredSize(new Dimension(100, 100));
+		inforBaixoP2.setMinimumSize(new Dimension(100, 100));
+		inforBaixoP2.setMaximumSize(new Dimension(100, 100));
+		inforBaixoP.add(inforBaixoP2);
+		
+		JLabel nomeBai = new JLabel(part.participantes.get(0).getNome());
+		inforBaixoP2.add(nomeBai);
+		nomeBai.setAlignmentX(Component.CENTER_ALIGNMENT);
+		nomeBai.setFont(new Font("Brush Script MT", Font.BOLD, 25));
+		nomeBai.setForeground(Color.WHITE);
+		
+		JLabel pontosBai = new JLabel("Pontos: " + part.pontuacao_jogadores[0]);
+		pontosBai.setPreferredSize(new Dimension(90, 30));
+		inforBaixoP2.add(pontosBai);
+		pontosBai.setHorizontalAlignment(SwingConstants.CENTER);
+		pontosBai.setMaximumSize(new Dimension(90, 14));
+		pontosBai.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		pontosBai.setForeground(Color.WHITE);
+		pontosBai.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		jogadorPecas = new JPanel();
 		jogadorPecas.setBackground(new Color(139, 0, 0));
 		jogadorPecas.setMinimumSize(new Dimension(100, 100));
-		jogadorPecas.setMaximumSize(new Dimension(494, 100));
+		jogadorPecas.setMaximumSize(new Dimension(396, 100));
 		jogadorPainel.add(jogadorPecas);
 		
 		JPanel blockBxoDir = new JPanel();
@@ -293,37 +317,40 @@ public class InterfaceJogo extends JFrame {
 		iaDireitaPecas = new JPanel();
 		iaDireitaPecas.setBackground(new Color(139, 0, 0));
 		iaDireitaPecas.setMinimumSize(new Dimension(100, 100));
-		iaDireitaPecas.setMaximumSize(new Dimension(100, 494));
+		iaDireitaPecas.setMaximumSize(new Dimension(100, 396));
 		iaRightPainel.add(iaDireitaPecas);
 		
 		JPanel inforDireitaP = new JPanel();
+		inforDireitaP.setPreferredSize(new Dimension(100, 100));
 		inforDireitaP.setMinimumSize(new Dimension(100, 100));
 		inforDireitaP.setMaximumSize(new Dimension(100, 100));
 		inforDireitaP.setBackground(new Color(139, 0, 0));
 		iaRightPainel.add(inforDireitaP);
-		inforDireitaP.setLayout(new BoxLayout(inforDireitaP, BoxLayout.PAGE_AXIS));
+		inforDireitaP.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel nomeDir = new JLabel(part.participantes.get(3).getNome());
 		nomeDir.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforDireitaP.add(nomeDir);
 		nomeDir.setHorizontalAlignment(SwingConstants.RIGHT);
-		nomeDir.setFont(new Font("Brush Script MT", Font.BOLD, 17));
+		nomeDir.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		nomeDir.setForeground(Color.WHITE);
 		
 		JLabel pontosDir = new JLabel("Pontos: " + part.pontuacao_jogadores[3]);
+		pontosDir.setPreferredSize(new Dimension(90, 30));
 		pontosDir.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosDir.setMaximumSize(new Dimension(90, 14));
-		pontosDir.setFont(new Font("Brush Script MT", Font.BOLD, 14));
+		pontosDir.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
 		pontosDir.setForeground(Color.WHITE);
 		pontosDir.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforDireitaP.add(pontosDir);
 		
 		inforDireita = new JLabel(new ImageIcon(part.participantes.get(3).getIcone()));
+		inforDireita.setPreferredSize(new Dimension(100, 100));
+		iaRightPainel.add(inforDireita);
 		inforDireita.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inforDireitaP.add(inforDireita);
 		inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-		inforDireita.setMinimumSize(new Dimension(100, 60));
-		inforDireita.setMaximumSize(new Dimension(100, 60));
+		inforDireita.setMinimumSize(new Dimension(100, 100));
+		inforDireita.setMaximumSize(new Dimension(100, 100));
 		
 		tabuleiro = new JPanel();
 		tabuleiro.setSize(new Dimension(600, 600));
