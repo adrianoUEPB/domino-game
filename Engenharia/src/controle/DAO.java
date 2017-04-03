@@ -1,6 +1,7 @@
 package controle;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,6 +53,29 @@ public class DAO {
 			JOptionPane.showMessageDialog(null,"Jogador cadastrado com sucesso!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao cadastrar jogador!");
+		}
+	}
+	
+	public void updatePontuacao(Jogador jogador) {
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+
+			PreparedStatement stmt = con.prepareStatement("UPDATE jogador "
+					+ "SET pontuacao = ?, tempo_rodadas = ?, ultima_partida = ?, partidas_vencidas = ? WHERE id_jogador= ?");
+			stmt.setInt(1, jogador.getPontuacao());
+			stmt.setDouble(2, jogador.getTempo_rodadas());
+			stmt.setDate(3, (Date) jogador.getUltima_partida());
+			stmt.setInt(4, jogador.getPartidas_vencidas());
+			stmt.setInt(5, jogador.getId());			
+			
+			stmt.executeUpdate();
+			con.commit();
+			stmt.close();
+			con.close();			
+			JOptionPane.showMessageDialog(null, "Pontuação atualizada com sucesso!");
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuação do jogador " + jogador.getNome() + "!");
 		}
 	}
 	
@@ -140,7 +164,7 @@ public class DAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador n�o encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador n�o encontrado!");
 		} 		
 		return jogador;
 	}
@@ -161,7 +185,7 @@ public class DAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador n�o encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador n�o encontrado!");
 		}
 		return false;
 	}
@@ -203,6 +227,10 @@ public class DAO {
 			if (rs.next())
 				id = rs.getInt(1);
 			
+			rs.close();
+			stmt.close();
+			con.close();
+			
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
@@ -231,6 +259,39 @@ public class DAO {
 
 	}
 	
+	public ArrayList<Jogador> rankingDAO() {
+		
+		ArrayList<Jogador> top5 = new ArrayList<>();
+		
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao DESC, partidas_vencidas DESC, tempo_rodadas ASC LIMIT 5;");
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Jogador jogador_ranking = new Jogador();
+				jogador_ranking.setId(rs.getInt("id_jogador"));
+				jogador_ranking.setNome(rs.getString("nome"));
+				jogador_ranking.setIcone(rs.getString("icone"));
+				jogador_ranking.setPontuacao(rs.getInt("pontuacao"));
+				jogador_ranking.setTempo_rodadas(rs.getDouble("tempo_rodadas"));
+				jogador_ranking.setUltima_partida(rs.getDate("ultima_partida"));
+				jogador_ranking.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
+				
+				top5.add(jogador_ranking);
+			}
+			
+			rs.close();
+			stmt.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return top5;
+	}
 	
 	public static int buscaId(Statement stmt) {
 		int lastId = 0;

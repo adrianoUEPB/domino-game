@@ -1,18 +1,19 @@
 package modelo;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class InteligenciaArtificial extends Participante {
+public class InteligenciaArtificial extends Participante implements Runnable {
 
 	private boolean dificil;
-	// aqui a IA guarda a contagem das peças, o ID significa o valor da peça
+	// aqui a IA guarda a contagem das peï¿½as, o ID significa o valor da peï¿½a
 	private int[] contagemPecasTotal; // = new int[]{0,0,0,0,0,0,0};
 	private int[] contagemPecasMao; // = new int[]{0,0,0,0,0,0,0};
 	private Set<String> pecasConhecidas = new HashSet<String>();
-	// aqui a IA lembra as peças que o seu alvo (jogador q joga depois dele) não possui
-	// de princípio, a IA supõe que o jogador possui todos os valores
+	// aqui a IA lembra as peï¿½as que o seu alvo (jogador q joga depois dele) nï¿½o possui
+	// de princï¿½pio, a IA supï¿½e que o jogador possui todos os valores
 	private boolean[] alvoPossui = new boolean[]{true, true, true, true, true, true, true};
 
 	public InteligenciaArtificial(String nome, String icone, boolean dificil) {
@@ -33,7 +34,7 @@ public class InteligenciaArtificial extends Participante {
 		// atualiza os conhecimentos antes de pensar numa jogada
 		atualizaConhecimento(part);
 		
-		// todas as peças que a IA pode jogar, levando em consideração as extremidades
+		// todas as peï¿½as que a IA pode jogar, levando em consideraï¿½ï¿½o as extremidades
 		ArrayList<Peca> possiveisEscolhas = new ArrayList<Peca>();
 		for (Peca p: super.getPecas()){
 			if (p.getValor1() == part.extremidade1 || p.getValor1() == part.extremidade2 ||
@@ -42,9 +43,9 @@ public class InteligenciaArtificial extends Participante {
 				possiveisEscolhas.add(p);
 			}
 		}
-		// a prioridade será fazer o alvo passar a vez
+		// a prioridade serï¿½ fazer o alvo passar a vez
 		for (Peca p: possiveisEscolhas){
-			// se alvo não possui nenhuma peça com os valores das duas extremidades
+			// se alvo nï¿½o possui nenhuma peï¿½a com os valores das duas extremidades
 			if (!alvoPossui[part.extremidade1] && !alvoPossui[part.extremidade2]){
 				if (p.getValor1() == part.extremidade1 && p.getValor2() == part.extremidade2 ||
 					p.getValor2() == part.extremidade1 && p.getValor1() == part.extremidade2) {
@@ -61,7 +62,7 @@ public class InteligenciaArtificial extends Participante {
 				}
 			}
 		}
-		// se alvo possui peças com as duas extremidades, vai fazer contagem planejada
+		// se alvo possui peï¿½as com as duas extremidades, vai fazer contagem planejada
 		for (Peca p: possiveisEscolhas){
 			if ((contagemPecasMao[part.extremidade1] + contagemPecasTotal[part.extremidade1]) == 7){
 				if (contagemPecasMao[part.extremidade1] > 0 && contagemPecasTotal[part.extremidade1] > 0){
@@ -73,7 +74,7 @@ public class InteligenciaArtificial extends Participante {
 				}
 			}
 		}
-		// vai jogar a peça com maior valor, mas irá ignorar as peças que poderiam fechar o alvo nas próximas jogadas
+		// vai jogar a peï¿½a com maior valor, mas irï¿½ ignorar as peï¿½as que poderiam fechar o alvo nas prï¿½ximas jogadas
 		Peca maiorValor = null;
 		for (Peca p: possiveisEscolhas){
 			if (maiorValor == null){
@@ -88,7 +89,7 @@ public class InteligenciaArtificial extends Participante {
 				}
 			}
 		}
-		// caso nenhuma das opções acima deram certo, jogará a peça com maior valor númerico
+		// caso nenhuma das opï¿½ï¿½es acima deram certo, jogarï¿½ a peï¿½a com maior valor nï¿½merico
 		if (maiorValor == null){
 			for (Peca p: possiveisEscolhas){
 				if (maiorValor == null){
@@ -109,7 +110,10 @@ public class InteligenciaArtificial extends Participante {
 		contagemPecasMao = new int[]{0,0,0,0,0,0,0};
 		contagemPecasTotal = new int[]{0,0,0,0,0,0,0};
 
-		// atualiza conhecimento das peças na mão
+
+
+
+		// atualiza conhecimento das peï¿½as na mï¿½o
 		for (Peca p: super.getPecas()){
 			String peca = "" + p.getValor1() + p.getValor2();
 			contagemPecasMao[p.getValor1()]++;
@@ -119,7 +123,7 @@ public class InteligenciaArtificial extends Participante {
 			pecasConhecidas.add(peca);
 		}
 		
-		// atualiza conhecimento das peças no campo
+		// atualiza conhecimento das peï¿½as no campo
 		for (Peca p: part.pecas_campo){
 			String peca = "" + p.getValor1() + p.getValor2();
 			contagemPecasTotal[p.getValor1()]++;
@@ -132,6 +136,17 @@ public class InteligenciaArtificial extends Participante {
 		alvoPossui[extremidade1] = true;
 		alvoPossui[extremidade2] = true;
 	}
+	
+	@Override
+	public void run() {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+
 }
 
 

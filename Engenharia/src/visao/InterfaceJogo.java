@@ -362,28 +362,28 @@ public class InterfaceJogo extends JFrame {
 		tabuleiro.setLayout(null);
 		
 		if(part.pontuacao_jogadores[0] >= 6){
-			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "VocÃª venceu a rodada! ParabÃ©ns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
-			// aqui terá o método de atualizar o banco de dados para o ranking
+			// aqui terÃ¡ o mÃ©todo de atualizar o banco de dados para o ranking
 			return;
 		} else if(part.pontuacao_jogadores[1] >= 6) {
-			JOptionPane.showMessageDialog(null, part.participantes.get(1).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, part.participantes.get(1).getNome() + " venceu a rodada! VocÃª perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
-			// aqui terá o método de atualizar o banco de dados para o ranking
+			// aqui terÃ¡ o mÃ©todo de atualizar o banco de dados para o ranking
 			return;
 		} else if(part.pontuacao_jogadores[2] >= 6) {
-			JOptionPane.showMessageDialog(null, part.participantes.get(2).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, part.participantes.get(2).getNome() + " venceu a rodada! VocÃª perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
-			// aqui terá o método de atualizar o banco de dados para o ranking
+			// aqui terÃ¡ o mÃ©todo de atualizar o banco de dados para o ranking
 			return;
 		} else if(part.pontuacao_jogadores[3] >= 6) {
-			JOptionPane.showMessageDialog(null, part.participantes.get(3).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);			
+			JOptionPane.showMessageDialog(null, part.participantes.get(3).getNome() + " venceu a rodada! VocÃª perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);			
 			Jogador jogador_logado = (Jogador) part.participantes.get(0);
 			new InterfaceMenu(jogador_logado);
-			// aqui terá o método de atualizar o banco de dados para o ranking
+			// aqui terÃ¡ o mÃ©todo de atualizar o banco de dados para o ranking
 			return;
 		}
 		
@@ -469,17 +469,17 @@ public class InterfaceJogo extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	// método da primeira jogada de cada rodada
+	// mÃ©todo da primeira jogada de cada rodada
 	public void IniciaPartida(final Partida part) {
 		Participante primeiro;
 		if (part.id_lastWin == -1){
-			// verifica quem é o jogador da vez
+			// verifica quem Ã© o jogador da vez
 			primeiro = part.firstBegin();
 			if(part.jogadorDaVez == 0){ // jogador
 				
 				inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 				inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-				JOptionPane.showMessageDialog(jogadorPecas, "Você inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, "VocÃª inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				
 				Component[] c = jogadorPecas.getComponents();
 				for (int i = 0; i < c.length; i++){
@@ -541,7 +541,7 @@ public class InterfaceJogo extends JFrame {
 						lab.setEnabled(false);
 					}
 				}
-			} else { // inteligência artificial
+			} else { // inteligÃªncia artificial
 				if (part.jogadorDaVez == 1){
 					inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 					inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
@@ -604,7 +604,7 @@ public class InterfaceJogo extends JFrame {
 
 				inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 				inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-				JOptionPane.showMessageDialog(jogadorPecas, "Você inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, "VocÃª inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				
 				Component[] c = jogadorPecas.getComponents();
 				for (int i = 0; i < c.length; i++){
@@ -649,7 +649,7 @@ public class InterfaceJogo extends JFrame {
 								jogadorPecas.updateUI();
 								repaint();
 
-								// tirando os listeners dos botões do mouse
+								// tirando os listeners dos botÃµes do mouse
 								Component[] c = jogadorPecas.getComponents();
 								for (Component j: c){
 									MouseListener[] m = j.getMouseListeners();
@@ -672,13 +672,13 @@ public class InterfaceJogo extends JFrame {
 					}
 				}
 				if (quantidadeCarrocao == 0){ // passa a vez
-					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroção para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " nÃ£o tem carroÃ§Ã£o para iniciar, entÃ£o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 					int j = part.jogadorDaVez;
 					part.jogadorDaVez = part.checkNext(j);
 					part.id_lastWin = part.checkNext(j);
 					contadorEmpate++;
 					
-					// tirando os listeners dos botões do mouse
+					// tirando os listeners dos botÃµes do mouse
 					Component[] compArray = jogadorPecas.getComponents();
 					for (Component comp: compArray){
 						MouseListener[] m = comp.getMouseListeners();
@@ -690,7 +690,7 @@ public class InterfaceJogo extends JFrame {
 					IniciaPartida(part);
 					return;
 				}
-			} else { // inteligência artificial
+			} else { // inteligÃªncia artificial
 				Peca p;
 				if (part.jogadorDaVez == 1){
 					inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
@@ -744,7 +744,7 @@ public class InterfaceJogo extends JFrame {
 						}
 					}
 				}
-				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroção para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " nÃ£o tem carroÃ§Ã£o para iniciar, entÃ£o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 				int j = part.jogadorDaVez;
 				part.jogadorDaVez = part.checkNext(j);
 				part.id_lastWin = part.checkNext(j);
@@ -892,9 +892,9 @@ public class InterfaceJogo extends JFrame {
 									if (x == 1){
 										mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
 									} else if (x == 2){
-										mensagem = vencedor.getNome() + " venceu a partida com um carroção!\n\n";
+										mensagem = vencedor.getNome() + " venceu a partida com um carroÃ§Ã£o!\n\n";
 									} else if (x == 3){
-										mensagem = vencedor.getNome() + " venceu a partida com lá e lô!\n\n";
+										mensagem = vencedor.getNome() + " venceu a partida com lÃ¡ e lÃ´!\n\n";
 									} else if (x == 6){
 										mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
 									}
@@ -978,7 +978,7 @@ public class InterfaceJogo extends JFrame {
 					}
 				}
 			}
-		} else { // inteligência artificial fácil
+		} else { // inteligÃªncia artificial fÃ¡cil
 			Peca p;
 			if (part.jogadorDaVez == 1){
 				inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
@@ -990,7 +990,7 @@ public class InterfaceJogo extends JFrame {
 				inforDireita.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 				inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 			}
-			// esse if verifica se tem peça que pode ser jogada
+			// esse if verifica se tem peÃ§a que pode ser jogada
 			if (part.participantes.get(part.jogadorDaVez).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
 				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " tem a vez!", "Partida em andamento", JOptionPane.INFORMATION_MESSAGE);							
 				contadorEmpate = 0;
@@ -1045,9 +1045,9 @@ public class InterfaceJogo extends JFrame {
 							if (x == 1){
 								mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
 							} else if (x == 2){
-								mensagem = vencedor.getNome() + " venceu a partida com um carroção!\n\n";
+								mensagem = vencedor.getNome() + " venceu a partida com um carroÃ§Ã£o!\n\n";
 							} else if (x == 3){
-								mensagem = vencedor.getNome() + " venceu a partida com lá e lô!\n\n";
+								mensagem = vencedor.getNome() + " venceu a partida com lÃ¡ e lÃ´!\n\n";
 							} else if (x == 6){
 								mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
 							}
@@ -1121,11 +1121,11 @@ public class InterfaceJogo extends JFrame {
 		}
 	}
 	
-	// IA difícil
+	// IA difÃ­cil
 	public void JogadasSeguintesDificil(final Partida part){
 		Peca p;
 		Peca aux;
-		// esse if verifica se tem peça que pode ser jogada
+		// esse if verifica se tem peÃ§a que pode ser jogada
 		if (part.participantes.get(part.jogadorDaVez).VerificarJogadaPossivel(part.extremidade1, part.extremidade2)){
 			if (part.jogadorDaVez == 1){
 				inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
@@ -1202,9 +1202,9 @@ public class InterfaceJogo extends JFrame {
 				if (x == 1){
 					mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
 				} else if (x == 2){
-					mensagem = vencedor.getNome() + " venceu a partida com um carroção!\n\n";
+					mensagem = vencedor.getNome() + " venceu a partida com um carroÃ§Ã£o!\n\n";
 				} else if (x == 3){
-					mensagem = vencedor.getNome() + " venceu a partida com lá e lô!\n\n";
+					mensagem = vencedor.getNome() + " venceu a partida com lÃ¡ e lÃ´!\n\n";
 				} else if (x == 6){
 					mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
 				}
