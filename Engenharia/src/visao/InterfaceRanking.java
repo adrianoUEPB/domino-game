@@ -27,6 +27,7 @@ public class InterfaceRanking extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	DAO dao = new DAO();
+	JPanel inforTopOne, inforTopTwo, inforTopThree, inforTopFour, inforTopFive;
 
 	public InterfaceRanking(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
@@ -40,7 +41,7 @@ public class InterfaceRanking extends JFrame {
 		getContentPane().add(inforRanking);
 		inforRanking.setLayout(null);
 		
-		JPanel inforTopOne = new JPanel();
+		inforTopOne = new JPanel();
 		inforTopOne.setBackground(new Color(139,0,0));
 		inforTopOne.setBounds(71, 95, 713, 85);
 		inforRanking.add(inforTopOne);
@@ -56,7 +57,7 @@ public class InterfaceRanking extends JFrame {
 		nome1.setForeground(Color.WHITE);
 		nome1.setBounds(95, 11, 283, 25);
 		inforTopOne.add(nome1);
-		
+
 		JLabel vitorias1 = new JLabel("Vitórias: " + listaJogadores.get(0).getPartidas_vencidas());
 		vitorias1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		vitorias1.setForeground(Color.WHITE);
@@ -88,7 +89,7 @@ public class InterfaceRanking extends JFrame {
 		name1.setBounds(95, 35, 283, 39);
 		inforTopOne.add(name1);
 		
-		JPanel inforTopTwo = new JPanel();
+		inforTopTwo = new JPanel();
 		inforTopTwo.setBackground(new Color(139,0,0));
 		inforTopTwo.setBounds(71, 191, 713, 85);
 		inforRanking.add(inforTopTwo);
@@ -136,7 +137,7 @@ public class InterfaceRanking extends JFrame {
 		name2.setBounds(95, 35, 283, 39);
 		inforTopTwo.add(name2);
 		
-		JPanel inforTopThree = new JPanel();
+		inforTopThree = new JPanel();
 		inforTopThree.setBackground(new Color(139,0,0));
 		inforTopThree.setBounds(71, 287, 713, 85);
 		inforRanking.add(inforTopThree);
@@ -184,7 +185,7 @@ public class InterfaceRanking extends JFrame {
 		name3.setBounds(95, 35, 283, 39);
 		inforTopThree.add(name3);
 		
-		JPanel inforTopFour = new JPanel();
+		inforTopFour = new JPanel();
 		inforTopFour.setBackground(new Color(139,0,0));
 		inforTopFour.setBounds(71, 383, 713, 85);
 		inforRanking.add(inforTopFour);
@@ -232,7 +233,7 @@ public class InterfaceRanking extends JFrame {
 		name4.setBounds(95, 35, 283, 39);
 		inforTopFour.add(name4);
 		
-		JPanel inforTopFive = new JPanel();
+		inforTopFive = new JPanel();
 		inforTopFive.setBackground(new Color(139,0,0));
 		inforTopFive.setBounds(71, 479, 713, 85);
 		inforRanking.add(inforTopFive);
@@ -322,6 +323,23 @@ public class InterfaceRanking extends JFrame {
 		quinto.setBounds(10, 479, 54, 85);
 		inforRanking.add(quinto);
 		
+		if(listaJogadores.get(0).getPontuacao() == 0){
+			inforTopOne.setVisible(false);
+		}
+		if(listaJogadores.get(1).getPontuacao() == 0){
+			inforTopTwo.setVisible(false);
+		}
+		if(listaJogadores.get(2).getPontuacao() == 0){
+			inforTopThree.setVisible(false);
+		}
+		if(listaJogadores.get(3).getPontuacao() == 0){
+			inforTopFour.setVisible(false);
+		}
+		if(listaJogadores.get(4).getPontuacao() == 0){
+			inforTopFive.setVisible(false);
+		}
+
+		
 		JButton voltarBt = new JButton();
 		voltarBt.setBounds(10, 0, 90, 90);
 		voltarBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-disabled.png"));
@@ -345,7 +363,9 @@ public class InterfaceRanking extends JFrame {
 				int i = JOptionPane.showOptionDialog(null, "Tem certeza que deseja resetar o ranking?", "Resetar", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				if (i == 0){
 					dao.resetarRanking();
-					//tabuleiro.updateUI();
+					jogador_logado.setPartidasVencidasNula();
+					jogador_logado.setTempo_rodadas(0);
+					jogador_logado.setUltima_partida("0");
 					repaint();
 				}
 			}
