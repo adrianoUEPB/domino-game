@@ -62,7 +62,7 @@ public class InteligenciaArtificial extends Participante implements Runnable {
 				}
 			}
 		}
-		// se alvo possui pe�as com as duas extremidades, vai fazer contagem planejada
+		// se alvo possui peca com as duas extremidades, vai fazer contagem planejada
 		for (Peca p: possiveisEscolhas){
 			if ((contagemPecasMao[part.extremidade1] + contagemPecasTotal[part.extremidade1]) == 7){
 				if (contagemPecasMao[part.extremidade1] > 0 && contagemPecasTotal[part.extremidade1] > 0){
@@ -74,7 +74,7 @@ public class InteligenciaArtificial extends Participante implements Runnable {
 				}
 			}
 		}
-		// vai jogar a pe�a com maior valor, mas ir� ignorar as pe�as que poderiam fechar o alvo nas pr�ximas jogadas
+		// vai jogar a peca com maior valor, mas ira ignorar as pecas que poderiam fechar o alvo nas proximas jogadas
 		Peca maiorValor = null;
 		for (Peca p: possiveisEscolhas){
 			if (maiorValor == null){
