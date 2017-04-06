@@ -1,12 +1,12 @@
 package modelo;
 
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class InteligenciaArtificial extends Participante implements Runnable {
-
+	private static final long serialVersionUID = 1L;
+	
 	private boolean dificil;
 	// aqui a IA guarda a contagem das pe�as, o ID significa o valor da pe�a
 	private int[] contagemPecasTotal; // = new int[]{0,0,0,0,0,0,0};
@@ -110,9 +110,6 @@ public class InteligenciaArtificial extends Participante implements Runnable {
 		contagemPecasMao = new int[]{0,0,0,0,0,0,0};
 		contagemPecasTotal = new int[]{0,0,0,0,0,0,0};
 
-
-
-
 		// atualiza conhecimento das pe�as na m�o
 		for (Peca p: super.getPecas()){
 			String peca = "" + p.getValor1() + p.getValor2();
@@ -142,7 +139,6 @@ public class InteligenciaArtificial extends Participante implements Runnable {
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}

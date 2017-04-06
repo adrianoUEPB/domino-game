@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import controle.RotatedIcon;
 
 public class Peca implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private int valor1;
 	private int valor2;
 	public ImageIcon imagem;

@@ -1,7 +1,8 @@
 package modelo;
 
 public class Jogador extends Participante {
-
+	private static final long serialVersionUID = 1L;
+	
 	private String senha;
 	private String ultima_partida;
 	
