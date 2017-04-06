@@ -15,36 +15,37 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import modelo.Jogador;
-import modelo.Partida;
 
 public class DAO {
 	
 	private Connection con;
 	private PreparedStatement stmt;
 	
-	public void salvarPartida(int id, Partida partida) {
+	public void salvarPartida(int id, Object partida) {
 		
 		con = new Conexao().conexao();		
 		try {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(bos);
 			oos.writeObject(partida);
-			oos.flush();
-			oos.close();
-			bos.close();
 			
 			byte[] data = bos.toByteArray();
 			
-			stmt = con.prepareStatement("INSERT INTO jogador (id_jogador, partida) VALUES (?, ?);");
+			stmt = con.prepareStatement("INSERT INTO partida (id_jogador, partida) VALUES (?, ?);");
 			stmt.setInt(1, id);			
 			stmt.setObject(2, data);
-			stmt.executeUpdate();			
+			stmt.executeUpdate();	
+			oos.flush();
+			oos.close();
+			bos.close();
 			stmt.close();
 			con.close();
 			JOptionPane.showMessageDialog(null, "Partida salva com sucesso!");
 		} catch (IOException e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro na entrada de dados!");
 		} catch (SQLException e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
 		}	
 	}

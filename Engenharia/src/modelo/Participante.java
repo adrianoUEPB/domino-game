@@ -1,8 +1,9 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Participante {
+public class Participante implements Serializable {
 	private int id;
 	private String nome;
 	private int pontuacao;
