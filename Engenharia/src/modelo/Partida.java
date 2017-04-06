@@ -112,6 +112,7 @@ public class Partida {
 		}
 		
 		pontuacao_jogadores[idVencedor] += 1;
+		vencedor.setPartidas_vencidas(1);
 		vencedor.setPontuacao(vencedor.getPontuacao() + 1);
 		rodada++;
 		id_lastWin = idVencedor;

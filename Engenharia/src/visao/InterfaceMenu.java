@@ -23,7 +23,7 @@ public class InterfaceMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	JPanel opcoes;
-	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking, jogoFacil, jogoDificil;
+	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking, botaoSobre, jogoFacil, jogoDificil;
 
 	public InterfaceMenu(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
@@ -33,7 +33,7 @@ public class InterfaceMenu extends JFrame {
 		labelDomino.setForeground(Color.WHITE);
 		labelDomino.setHorizontalAlignment(SwingConstants.CENTER);
 		labelDomino.setFont(new Font("Brush Script MT", Font.PLAIN, 180));
-		labelDomino.setBounds(36, 11, 527, 202);
+		labelDomino.setBounds(20, 20, 571, 153);
 		getContentPane().add(labelDomino);
 		
 		botaoNovaPartida = new JButton();
@@ -46,7 +46,7 @@ public class InterfaceMenu extends JFrame {
 		botaoNovaPartida.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-novojogo-disabled.png"));
 		botaoNovaPartida.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoNovaPartida.setBorder(null);
-		botaoNovaPartida.setBounds(20, 251, 240, 70);
+		botaoNovaPartida.setBounds(20, 210, 240, 70);
 		getContentPane().add(botaoNovaPartida);
 		
 		botaoContinuarPartida = new JButton();
@@ -59,7 +59,7 @@ public class InterfaceMenu extends JFrame {
 		botaoContinuarPartida.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-continuar-disabled.png"));
 		botaoContinuarPartida.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoContinuarPartida.setBorder(null);
-		botaoContinuarPartida.setBounds(20, 332, 240, 70);
+		botaoContinuarPartida.setBounds(20, 281, 240, 70);
 		getContentPane().add(botaoContinuarPartida);
 		
 		botaoRanking = new JButton();
@@ -72,7 +72,7 @@ public class InterfaceMenu extends JFrame {
 		botaoRanking.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-ranking-disabled.png"));
 		botaoRanking.setHorizontalTextPosition(SwingConstants.CENTER);
 		botaoRanking.setBorder(null);
-		botaoRanking.setBounds(20, 413, 240, 70);
+		botaoRanking.setBounds(20, 352, 240, 70);
 		getContentPane().add(botaoRanking);
 		
 		JButton botaoLogout = new JButton();
@@ -88,8 +88,21 @@ public class InterfaceMenu extends JFrame {
 		botaoLogout.setBounds(20, 494, 240, 70);
 		getContentPane().add(botaoLogout);
 		
+		botaoSobre = new JButton();
+		botaoSobre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		botaoSobre.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtG-sobre-pressed.png"));
+		botaoSobre.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-sobre-rollover.png"));
+		botaoSobre.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtG-sobre-rollover.png"));
+		botaoSobre.setIcon(new ImageIcon(".\\image\\graphics\\BtG-sobre-normal.png"));
+		botaoSobre.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtG-sobre-disabled.png"));
+		botaoSobre.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtG-sobre-disabled.png"));
+		botaoSobre.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoSobre.setBorder(null);
+		botaoSobre.setBounds(20, 423, 240, 70);
+		getContentPane().add(botaoSobre);
+		
 		JLabel imagemLabel = new JLabel();
-		imagemLabel.setBounds(521, 11, 263, 227);
+		imagemLabel.setBounds(485, 11, 263, 227);
 		imagemLabel.setIcon(new ImageIcon(".\\image\\peca\\pecasMenu.png"));
 		getContentPane().add(imagemLabel);
 		
@@ -97,7 +110,7 @@ public class InterfaceMenu extends JFrame {
 		bemVindo.setHorizontalAlignment(SwingConstants.RIGHT);
 		bemVindo.setForeground(Color.WHITE);
 		bemVindo.setFont(new Font("Brush Script MT", Font.PLAIN, 38));
-		bemVindo.setBounds(270, 251, 386, 70);
+		bemVindo.setBounds(398, 200, 386, 70);
 		getContentPane().add(bemVindo);
 		
 		opcoes = new JPanel();
@@ -148,7 +161,7 @@ public class InterfaceMenu extends JFrame {
 
 		JLabel icone = new JLabel(new ImageIcon(jogador_logado.getIcone()));
 		icone.setBorder(new LineBorder(new Color(0, 0, 0)));
-		icone.setBounds(666, 249, 100, 100);
+		icone.setBounds(669, 261, 100, 100);
 		getContentPane().add(icone);
 		
 		// actions listeners
@@ -158,6 +171,7 @@ public class InterfaceMenu extends JFrame {
 				botaoContinuarPartida.setEnabled(false);
 				botaoNovaPartida.setEnabled(false);
 				botaoRanking.setEnabled(false);
+				botaoSobre.setEnabled(false);
 			}
 		});
 		
@@ -252,6 +266,7 @@ public class InterfaceMenu extends JFrame {
 				botaoContinuarPartida.setEnabled(true);
 				botaoNovaPartida.setEnabled(true);
 				botaoRanking.setEnabled(true);
+				botaoSobre.setEnabled(true);
 			}
 		});
 		
