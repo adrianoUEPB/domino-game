@@ -18,12 +18,17 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.Cursor;
 import javax.swing.border.LineBorder;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 
 public class InterfaceMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	JPanel opcoes;
-	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking, botaoSobre, jogoFacil, jogoDificil;
+	JPanel opcoes, sobre;
+	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking, botaoSobre, jogoFacil, jogoDificil, botaoHelp;
+	JLabel sobreLabel1, sobreLabel2, sobreLabel3, sobreLabel4, sobreLabel5, sobreLabel6, sobreLabel7, bemVindo, icone;
+	JButton botaoVoltar;
 
 	public InterfaceMenu(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
@@ -106,7 +111,7 @@ public class InterfaceMenu extends JFrame {
 		imagemLabel.setIcon(new ImageIcon(".\\image\\peca\\pecasMenu.png"));
 		getContentPane().add(imagemLabel);
 		
-		JLabel bemVindo = new JLabel("Bem vindo, "+ jogador_logado.getNome() +"! ");
+		bemVindo = new JLabel("Bem vindo, "+ jogador_logado.getNome() +"! ");
 		bemVindo.setHorizontalAlignment(SwingConstants.RIGHT);
 		bemVindo.setForeground(Color.WHITE);
 		bemVindo.setFont(new Font("Brush Script MT", Font.PLAIN, 38));
@@ -115,7 +120,7 @@ public class InterfaceMenu extends JFrame {
 		
 		opcoes = new JPanel();
 		opcoes.setBackground(new Color(139, 0, 0));
-		opcoes.setBounds(270, 405, 514, 139);
+		opcoes.setBounds(270, 372, 514, 139);
 		opcoes.setLayout(null);
 		opcoes.setVisible(false);
 		getContentPane().add(opcoes);
@@ -159,10 +164,95 @@ public class InterfaceMenu extends JFrame {
 		jogoDificil.setBounds(264, 11, 240, 70);
 		opcoes.add(jogoDificil);
 
-		JLabel icone = new JLabel(new ImageIcon(jogador_logado.getIcone()));
+		icone = new JLabel(new ImageIcon(jogador_logado.getIcone()));
 		icone.setBorder(new LineBorder(new Color(0, 0, 0)));
 		icone.setBounds(669, 261, 100, 100);
 		getContentPane().add(icone);
+		
+		botaoHelp = new JButton();
+		botaoHelp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		botaoHelp.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-help-disabled.png"));
+		botaoHelp.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-help-rollover.png"));
+		botaoHelp.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-help-rollover.png"));
+		botaoHelp.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtP-help-pressed.png"));
+		botaoHelp.setIcon(new ImageIcon(".\\image\\graphics\\BtP-help-normal.png"));
+		botaoHelp.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtP-help-disabled.png"));
+		botaoHelp.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoHelp.setBorder(null);
+		botaoHelp.setBounds(739, 519, 45, 45);
+		getContentPane().add(botaoHelp);
+		
+		sobre = new JPanel();
+		sobre.setVisible(false);
+		sobre.setBackground(new Color(139, 0, 0));
+		sobre.setBounds(326, 232, 389, 332);
+		getContentPane().add(sobre);
+		sobre.setLayout(null);
+		
+		sobreLabel1 = new JLabel(" Engenharia de Software ");
+		sobreLabel1.setBounds(21, 5, 346, 44);
+		sobreLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		sobreLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+		sobreLabel1.setForeground(Color.WHITE);
+		sobreLabel1.setFont(new Font("Brush Script MT", Font.BOLD, 35));
+		sobre.add(sobreLabel1);
+		
+		sobreLabel2 = new JLabel("Equipe:                          ");
+		sobreLabel2.setBounds(86, 54, 217, 29);
+		sobreLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		sobreLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+		sobreLabel2.setForeground(Color.WHITE);
+		sobreLabel2.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		sobre.add(sobreLabel2);
+		
+		sobreLabel3 = new JLabel(" Adriano Araújo Felisberto ");
+		sobreLabel3.setBounds(90, 88, 209, 29);
+		sobreLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
+		sobreLabel3.setForeground(Color.WHITE);
+		sobreLabel3.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		sobre.add(sobreLabel3);
+		
+		sobreLabel4 = new JLabel(" Eleonilia Monteiro Rodrigues ");
+		sobreLabel4.setBounds(79, 122, 231, 29);
+		sobreLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
+		sobreLabel4.setForeground(Color.WHITE);
+		sobreLabel4.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		sobre.add(sobreLabel4);
+		
+		sobreLabel5 = new JLabel(" Maria José Oliveira Costa ");
+		sobreLabel5.setBounds(89, 156, 210, 29);
+		sobreLabel5.setHorizontalAlignment(SwingConstants.RIGHT);
+		sobreLabel5.setForeground(Color.WHITE);
+		sobreLabel5.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		sobre.add(sobreLabel5);
+		
+		sobreLabel6 = new JLabel(" Wendell Gomes Silva ");
+		sobreLabel6.setBounds(109, 190, 170, 29);
+		sobreLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
+		sobreLabel6.setForeground(Color.WHITE);
+		sobreLabel6.setFont(new Font("Brush Script MT", Font.PLAIN, 23));
+		sobre.add(sobreLabel6);
+		
+		sobreLabel7 = new JLabel("  Desenvolvido em 2017  ");
+		sobreLabel7.setBounds(52, 224, 285, 44);
+		sobreLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
+		sobreLabel7.setForeground(Color.WHITE);
+		sobreLabel7.setFont(new Font("Brush Script MT", Font.PLAIN, 35));
+		sobreLabel7.setAlignmentX(0.5f);
+		sobre.add(sobreLabel7);
+		
+		botaoVoltar = new JButton();
+		botaoVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		botaoVoltar.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-disabled.png"));
+		botaoVoltar.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-rollover.png"));
+		botaoVoltar.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-rollover.png"));
+		botaoVoltar.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-pressed.png"));
+		botaoVoltar.setIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-normal.png"));
+		botaoVoltar.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-disabled.png"));
+		botaoVoltar.setHorizontalTextPosition(SwingConstants.CENTER);
+		botaoVoltar.setBorder(null);
+		botaoVoltar.setBounds(161, 259, 90, 90);
+		sobre.add(botaoVoltar);
 		
 		// actions listeners
 		botaoNovaPartida.addActionListener(new ActionListener() {
@@ -172,6 +262,7 @@ public class InterfaceMenu extends JFrame {
 				botaoNovaPartida.setEnabled(false);
 				botaoRanking.setEnabled(false);
 				botaoSobre.setEnabled(false);
+				botaoHelp.setEnabled(false);
 			}
 		});
 		
@@ -179,6 +270,32 @@ public class InterfaceMenu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 				new InterfaceRanking(jogador_logado);
+			}
+		});
+
+		botaoSobre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sobre.setVisible(true);
+				botaoContinuarPartida.setEnabled(false);
+				botaoNovaPartida.setEnabled(false);
+				botaoRanking.setEnabled(false);
+				botaoSobre.setEnabled(false);
+				botaoHelp.setEnabled(false);
+				bemVindo.setVisible(false);
+				icone.setVisible(false);
+			}
+		});
+		
+		botaoVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sobre.setVisible(false);
+				botaoContinuarPartida.setEnabled(true);
+				botaoNovaPartida.setEnabled(true);
+				botaoRanking.setEnabled(true);
+				botaoSobre.setEnabled(true);
+				botaoHelp.setEnabled(true);
+				bemVindo.setVisible(true);
+				icone.setVisible(true);
 			}
 		});
 		
@@ -267,6 +384,7 @@ public class InterfaceMenu extends JFrame {
 				botaoNovaPartida.setEnabled(true);
 				botaoRanking.setEnabled(true);
 				botaoSobre.setEnabled(true);
+				botaoHelp.setEnabled(true);
 			}
 		});
 		
