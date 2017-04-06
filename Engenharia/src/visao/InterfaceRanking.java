@@ -281,12 +281,12 @@ public class InterfaceRanking extends JFrame {
 		name5.setBounds(95, 35, 283, 39);
 		inforTopFive.add(name5);
 		
-		JLabel lblNewLabel = new JLabel("Top Five");
-		lblNewLabel.setFont(new Font("Brush Script MT", Font.PLAIN, 65));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(115, 11, 539, 69);
-		inforRanking.add(lblNewLabel);
+		JLabel topFiveLbl = new JLabel("Top Five");
+		topFiveLbl.setFont(new Font("Brush Script MT", Font.PLAIN, 75));
+		topFiveLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		topFiveLbl.setForeground(Color.WHITE);
+		topFiveLbl.setBounds(115, 11, 379, 73);
+		inforRanking.add(topFiveLbl);
 		
 		JLabel primeiro = new JLabel("1º");
 		primeiro.setForeground(Color.WHITE);
@@ -324,21 +324,45 @@ public class InterfaceRanking extends JFrame {
 		inforRanking.add(quinto);
 		
 		if(listaJogadores.get(0).getPontuacao() == 0){
-			inforTopOne.setVisible(false);
+			icon1.setVisible(false);
+			vitorias1.setText("Vitórias: ");
+			ponto1.setText("Pontuação: ");
+			tempo1.setText("Tempo: ");
+			data1.setText("Data: ");
+			name1.setVisible(false);
 		}
 		if(listaJogadores.get(1).getPontuacao() == 0){
-			inforTopTwo.setVisible(false);
+			icon2.setVisible(false);
+			vitorias2.setText("Vitórias: ");
+			ponto2.setText("Pontuação: ");
+			tempo2.setText("Tempo: ");
+			data2.setText("Data: ");
+			name2.setVisible(false);
 		}
 		if(listaJogadores.get(2).getPontuacao() == 0){
-			inforTopThree.setVisible(false);
+			icon3.setVisible(false);
+			vitorias3.setText("Vitórias: ");
+			ponto3.setText("Pontuação: ");
+			tempo3.setText("Tempo: ");
+			data3.setText("Data: ");
+			name3.setVisible(false);
 		}
 		if(listaJogadores.get(3).getPontuacao() == 0){
-			inforTopFour.setVisible(false);
+			icon4.setVisible(false);
+			vitorias4.setText("Vitórias: ");
+			ponto4.setText("Pontuação: ");
+			tempo4.setText("Tempo: ");
+			data4.setText("Data: ");
+			name4.setVisible(false);
 		}
 		if(listaJogadores.get(4).getPontuacao() == 0){
-			inforTopFive.setVisible(false);
+			icon5.setVisible(false);
+			vitorias5.setText("Vitórias: ");
+			ponto5.setText("Pontuação: ");
+			tempo5.setText("Tempo: ");
+			data5.setText("Data: ");
+			name5.setVisible(false);
 		}
-
 		
 		JButton voltarBt = new JButton();
 		voltarBt.setBounds(10, 0, 90, 90);
@@ -357,20 +381,7 @@ public class InterfaceRanking extends JFrame {
 		inforRanking.add(voltarBt);
 		
 		JButton resetarBt = new JButton();
-		resetarBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Object[] options = { "Sim", "Não" };
-				int i = JOptionPane.showOptionDialog(null, "Tem certeza que deseja resetar o ranking?", "Resetar", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-				if (i == 0){
-					dao.resetarRanking();
-					jogador_logado.setPartidasVencidasNula();
-					jogador_logado.setTempo_rodadas(0);
-					jogador_logado.setUltima_partida("0");
-					repaint();
-				}
-			}
-		});
-		resetarBt.setBounds(664, 23, 110, 40);
+		resetarBt.setBounds(674, 23, 110, 40);
 		resetarBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-disabled.png"));
 		resetarBt.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-rollover.png"));
 		resetarBt.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-rollover.png"));
@@ -384,6 +395,22 @@ public class InterfaceRanking extends JFrame {
 		resetarBt.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforRanking.add(resetarBt);
 		
+		JButton pdfBt = new JButton();
+		pdfBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-disabled.png"));
+		pdfBt.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-rollover.png"));
+		pdfBt.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-rollover.png"));
+		pdfBt.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-pressed.png"));
+		pdfBt.setIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-normal.png"));
+		pdfBt.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-disabled.png"));
+		pdfBt.setMinimumSize(new Dimension(110, 40));
+		pdfBt.setMaximumSize(new Dimension(110, 40));
+		pdfBt.setHorizontalTextPosition(SwingConstants.CENTER);
+		pdfBt.setBorder(null);
+		pdfBt.setAlignmentX(0.5f);
+		pdfBt.setBounds(504, 23, 160, 40);
+		pdfBt.setAlignmentX(Component.CENTER_ALIGNMENT);
+		inforRanking.add(pdfBt);
+		
 		// actions listeners
 		voltarBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -391,7 +418,26 @@ public class InterfaceRanking extends JFrame {
 				dispose();		
 			}
 		});
+		
+		pdfBt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 
+		resetarBt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object[] options = { "Sim", "Não" };
+				int i = JOptionPane.showOptionDialog(null, "Tem certeza que deseja resetar o ranking?", "Resetar", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+				if (i == 0){
+					dao.resetarRanking();
+					jogador_logado.setPartidasVencidasNula();
+					jogador_logado.setTempo_rodadas(0);
+					jogador_logado.setUltima_partida("0");
+					repaint();
+				}
+			}
+		});
+		
 		setSize(800, 600);
 		setResizable(false);
 		setLocationRelativeTo(null);
