@@ -18,9 +18,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.Cursor;
 import javax.swing.border.LineBorder;
-import javax.swing.BoxLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
 
 public class InterfaceMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
