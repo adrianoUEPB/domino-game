@@ -47,10 +47,7 @@ public class Peca implements Serializable {
 	public void drawPeca(JPanel painel, int posicaoX, int posicaoY, int rotacao){
 		this.posicaoX = posicaoX;
 		this.posicaoY = posicaoY;
-		
-		//teste
-		virada = true;
-		//teste
+
 		
 		JLabel l = new JLabel();
 		l.setName("" + valor1 + valor2);
