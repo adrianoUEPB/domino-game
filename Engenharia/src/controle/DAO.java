@@ -1,7 +1,6 @@
 package controle;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,19 +17,15 @@ public class DAO {
 	private PreparedStatement stmt;
 	
 	public void resetarRanking() {
-		ArrayList<Jogador> jogadores = searchJogador();
 		try {
 			
 			con = new Conexao().conexao();
 			con.setAutoCommit(false);
 			
-			for (Jogador jogador : jogadores) {
-				stmt = con.prepareStatement("UPDATE jogador SET pontuacao = 0, "
-						+ "tempo_rodadas = 0, ultima_partida = null, partidas_vencidas = 0 WHERE id_jogador = ?");
-				stmt.setInt(1, jogador.getId());
-				stmt.executeUpdate();
-				con.commit();
-			}
+			stmt = con.prepareStatement("UPDATE jogador SET pontuacao = 0, "
+					+ "tempo_rodadas = 0, ultima_partida = null, partidas_vencidas = 0");
+			stmt.executeUpdate();
+			con.commit();
 			
 
 			stmt.close();			

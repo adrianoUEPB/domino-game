@@ -27,6 +27,7 @@ public class InterfaceRanking extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	DAO dao = new DAO();
+	JPanel inforTopOne, inforTopTwo, inforTopThree, inforTopFour, inforTopFive;
 
 	public InterfaceRanking(final Jogador jogador_logado) {
 		getContentPane().setBackground(new Color(139, 0, 0));
@@ -40,7 +41,7 @@ public class InterfaceRanking extends JFrame {
 		getContentPane().add(inforRanking);
 		inforRanking.setLayout(null);
 		
-		JPanel inforTopOne = new JPanel();
+		inforTopOne = new JPanel();
 		inforTopOne.setBackground(new Color(139,0,0));
 		inforTopOne.setBounds(71, 95, 713, 85);
 		inforRanking.add(inforTopOne);
@@ -56,7 +57,7 @@ public class InterfaceRanking extends JFrame {
 		nome1.setForeground(Color.WHITE);
 		nome1.setBounds(95, 11, 283, 25);
 		inforTopOne.add(nome1);
-		
+
 		JLabel vitorias1 = new JLabel("Vitórias: " + listaJogadores.get(0).getPartidas_vencidas());
 		vitorias1.setFont(new Font("Brush Script MT", Font.PLAIN, 25));
 		vitorias1.setForeground(Color.WHITE);
@@ -88,7 +89,7 @@ public class InterfaceRanking extends JFrame {
 		name1.setBounds(95, 35, 283, 39);
 		inforTopOne.add(name1);
 		
-		JPanel inforTopTwo = new JPanel();
+		inforTopTwo = new JPanel();
 		inforTopTwo.setBackground(new Color(139,0,0));
 		inforTopTwo.setBounds(71, 191, 713, 85);
 		inforRanking.add(inforTopTwo);
@@ -136,7 +137,7 @@ public class InterfaceRanking extends JFrame {
 		name2.setBounds(95, 35, 283, 39);
 		inforTopTwo.add(name2);
 		
-		JPanel inforTopThree = new JPanel();
+		inforTopThree = new JPanel();
 		inforTopThree.setBackground(new Color(139,0,0));
 		inforTopThree.setBounds(71, 287, 713, 85);
 		inforRanking.add(inforTopThree);
@@ -184,7 +185,7 @@ public class InterfaceRanking extends JFrame {
 		name3.setBounds(95, 35, 283, 39);
 		inforTopThree.add(name3);
 		
-		JPanel inforTopFour = new JPanel();
+		inforTopFour = new JPanel();
 		inforTopFour.setBackground(new Color(139,0,0));
 		inforTopFour.setBounds(71, 383, 713, 85);
 		inforRanking.add(inforTopFour);
@@ -232,7 +233,7 @@ public class InterfaceRanking extends JFrame {
 		name4.setBounds(95, 35, 283, 39);
 		inforTopFour.add(name4);
 		
-		JPanel inforTopFive = new JPanel();
+		inforTopFive = new JPanel();
 		inforTopFive.setBackground(new Color(139,0,0));
 		inforTopFive.setBounds(71, 479, 713, 85);
 		inforRanking.add(inforTopFive);
@@ -280,12 +281,12 @@ public class InterfaceRanking extends JFrame {
 		name5.setBounds(95, 35, 283, 39);
 		inforTopFive.add(name5);
 		
-		JLabel lblNewLabel = new JLabel("Top Five");
-		lblNewLabel.setFont(new Font("Brush Script MT", Font.PLAIN, 65));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(115, 11, 539, 69);
-		inforRanking.add(lblNewLabel);
+		JLabel topFiveLbl = new JLabel("Top Five");
+		topFiveLbl.setFont(new Font("Brush Script MT", Font.PLAIN, 75));
+		topFiveLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		topFiveLbl.setForeground(Color.WHITE);
+		topFiveLbl.setBounds(115, 11, 379, 73);
+		inforRanking.add(topFiveLbl);
 		
 		JLabel primeiro = new JLabel("1º");
 		primeiro.setForeground(Color.WHITE);
@@ -322,6 +323,47 @@ public class InterfaceRanking extends JFrame {
 		quinto.setBounds(10, 479, 54, 85);
 		inforRanking.add(quinto);
 		
+		if(listaJogadores.get(0).getPontuacao() == 0){
+			icon1.setVisible(false);
+			vitorias1.setText("Vitórias: ");
+			ponto1.setText("Pontuação: ");
+			tempo1.setText("Tempo: ");
+			data1.setText("Data: ");
+			name1.setVisible(false);
+		}
+		if(listaJogadores.get(1).getPontuacao() == 0){
+			icon2.setVisible(false);
+			vitorias2.setText("Vitórias: ");
+			ponto2.setText("Pontuação: ");
+			tempo2.setText("Tempo: ");
+			data2.setText("Data: ");
+			name2.setVisible(false);
+		}
+		if(listaJogadores.get(2).getPontuacao() == 0){
+			icon3.setVisible(false);
+			vitorias3.setText("Vitórias: ");
+			ponto3.setText("Pontuação: ");
+			tempo3.setText("Tempo: ");
+			data3.setText("Data: ");
+			name3.setVisible(false);
+		}
+		if(listaJogadores.get(3).getPontuacao() == 0){
+			icon4.setVisible(false);
+			vitorias4.setText("Vitórias: ");
+			ponto4.setText("Pontuação: ");
+			tempo4.setText("Tempo: ");
+			data4.setText("Data: ");
+			name4.setVisible(false);
+		}
+		if(listaJogadores.get(4).getPontuacao() == 0){
+			icon5.setVisible(false);
+			vitorias5.setText("Vitórias: ");
+			ponto5.setText("Pontuação: ");
+			tempo5.setText("Tempo: ");
+			data5.setText("Data: ");
+			name5.setVisible(false);
+		}
+		
 		JButton voltarBt = new JButton();
 		voltarBt.setBounds(10, 0, 90, 90);
 		voltarBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-voltar-disabled.png"));
@@ -339,18 +381,7 @@ public class InterfaceRanking extends JFrame {
 		inforRanking.add(voltarBt);
 		
 		JButton resetarBt = new JButton();
-		resetarBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Object[] options = { "Sim", "Não" };
-				int i = JOptionPane.showOptionDialog(null, "Tem certeza que deseja resetar o ranking?", "Resetar", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-				if (i == 0){
-					dao.resetarRanking();
-					//tabuleiro.updateUI();
-					repaint();
-				}
-			}
-		});
-		resetarBt.setBounds(664, 23, 110, 40);
+		resetarBt.setBounds(674, 23, 110, 40);
 		resetarBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-disabled.png"));
 		resetarBt.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-rollover.png"));
 		resetarBt.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-rollover.png"));
@@ -364,6 +395,22 @@ public class InterfaceRanking extends JFrame {
 		resetarBt.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inforRanking.add(resetarBt);
 		
+		JButton pdfBt = new JButton();
+		pdfBt.setDisabledSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-disabled.png"));
+		pdfBt.setRolloverSelectedIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-rollover.png"));
+		pdfBt.setRolloverIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-rollover.png"));
+		pdfBt.setPressedIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-pressed.png"));
+		pdfBt.setIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-normal.png"));
+		pdfBt.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-disabled.png"));
+		pdfBt.setMinimumSize(new Dimension(110, 40));
+		pdfBt.setMaximumSize(new Dimension(110, 40));
+		pdfBt.setHorizontalTextPosition(SwingConstants.CENTER);
+		pdfBt.setBorder(null);
+		pdfBt.setAlignmentX(0.5f);
+		pdfBt.setBounds(504, 23, 160, 40);
+		pdfBt.setAlignmentX(Component.CENTER_ALIGNMENT);
+		inforRanking.add(pdfBt);
+		
 		// actions listeners
 		voltarBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -371,7 +418,26 @@ public class InterfaceRanking extends JFrame {
 				dispose();		
 			}
 		});
+		
+		pdfBt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 
+		resetarBt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object[] options = { "Sim", "Não" };
+				int i = JOptionPane.showOptionDialog(null, "Tem certeza que deseja resetar o ranking?", "Resetar", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+				if (i == 0){
+					dao.resetarRanking();
+					jogador_logado.setPartidasVencidasNula();
+					jogador_logado.setTempo_rodadas(0);
+					jogador_logado.setUltima_partida("0");
+					repaint();
+				}
+			}
+		});
+		
 		setSize(800, 600);
 		setResizable(false);
 		setLocationRelativeTo(null);
