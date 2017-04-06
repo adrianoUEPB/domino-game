@@ -33,6 +33,16 @@ public class Participante {
 		}
 		return false;
 	}
+	
+	public int quantidadeCarrocao() {
+		int quantia = 0;
+		for (Peca peca : pecas) {
+			if(peca.getValor1() == peca.getValor2()){
+				quantia++;
+			}
+		}
+		return quantia;
+	}
 
 	public boolean noHasPeca() {
 		return pecas.isEmpty();
