@@ -1,8 +1,9 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Partida {
+public class Partida implements Serializable {
 	private int id_partida;
 	public int id_lastWin; //flag para identificar ultimo participante ganhador
 	public int[] pontuacao_jogadores;
