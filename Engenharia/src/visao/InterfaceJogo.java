@@ -481,6 +481,14 @@ public class InterfaceJogo extends JFrame {
 			}
 		});
 		
+		salvarBt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Jogador jogador_logado = (Jogador) part.participantes.get(0);
+				dao.salvarPartida(jogador_logado.getId(), part);
+				dispose();
+			}
+		});
+		
 		setVisible(true);
 		setSize(800, 800);
 		setResizable(false);
