@@ -20,6 +20,7 @@ public class Partida implements Serializable {
 	private Peca ultima_peca;
 	private boolean dificil;	
 	public int tempoPartida; //teste
+	public int multiplicador;
 
 	public Partida(ArrayList<Participante> participantes, boolean dificil){
 		this.participantes = participantes;
@@ -29,6 +30,7 @@ public class Partida implements Serializable {
 		pecas_campo = new ArrayList<Peca>();
 		jogadorDaVez = 0;
 		id_lastWin = -1;
+		multiplicador = 1;
 		this.dificil = dificil;
 	}
 	
@@ -112,28 +114,35 @@ public class Partida implements Serializable {
 			}
 		}
 		
-		pontuacao_jogadores[idVencedor] += 1;
+		pontuacao_jogadores[idVencedor] += 1 * multiplicador;
 		vencedor.setPartidas_vencidas(1);
-		vencedor.setPontuacao(vencedor.getPontuacao() + 1);
+		vencedor.setPontuacao(vencedor.getPontuacao() + (1 * multiplicador));
 		rodada++;
 		id_lastWin = idVencedor;
-		
 		return vencedor;		
 	}
 	
+	public void setWinner(Participante partic) {
+			
+		pontuacao_jogadores[jogadorDaVez] += 1;
+		partic.setPontuacao(partic.getPontuacao() + 1);
+		partic.setPartidas_vencidas(1);
+		rodada++;
+		id_lastWin = jogadorDaVez;
+	}
+	
 	public int pontuacao() {
-	//private int pontuacao() {
 		
 		// se venceu com carroção
 		if (ultima_peca.getValor1() == ultima_peca.getValor2()){
 			// cruzada
 			if (extremidade1 == ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2()){
-				return 6;
+				return (6 * multiplicador);
 			}
 			// batida carroção
 			if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor2() ||
 				extremidade1 != ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2()){
-				return 2;
+				return (2 * multiplicador);
 			}
 		// se venceu com peça normal
 		} else {
@@ -142,14 +151,14 @@ public class Partida implements Serializable {
 				extremidade2 == ultima_peca.getValor1() && extremidade1 == ultima_peca.getValor2() ||
 				extremidade1 == ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor1() ||
 				extremidade1 == ultima_peca.getValor2() && extremidade2 == ultima_peca.getValor2()){
-				return 3;
+				return (3 * multiplicador);
 			}
 			// batida normal
 			if (extremidade1 == ultima_peca.getValor1() && extremidade2 != ultima_peca.getValor2() ||
 				extremidade1 != ultima_peca.getValor1() && extremidade2 == ultima_peca.getValor2() ||
 				extremidade2 == ultima_peca.getValor1() && extremidade1 != ultima_peca.getValor2() ||
 				extremidade2 != ultima_peca.getValor1() && extremidade1 == ultima_peca.getValor2()){
-				return 1;
+				return (1 * multiplicador);
 			}
 		}		
 		return 0;		

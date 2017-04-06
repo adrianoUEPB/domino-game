@@ -46,6 +46,10 @@ public class Peca implements Serializable {
 		this.posicaoX = posicaoX;
 		this.posicaoY = posicaoY;
 		
+		//teste
+		virada = true;
+		//teste
+		
 		JLabel l = new JLabel();
 		l.setName("" + valor1 + valor2);
 		if (this.virada){

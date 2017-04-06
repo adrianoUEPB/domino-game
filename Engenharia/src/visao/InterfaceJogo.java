@@ -1,6 +1,7 @@
 package visao;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -42,6 +43,7 @@ public class InterfaceJogo extends JFrame {
 	
 	JPanel jogadorPecas, iaCimaPecas, iaEsquerdaPecas, iaDireitaPecas, tabuleiro;
 	JLabel inforCima, inforBaixo, inforEsquerda, inforDireita;
+	JLabel pontosCim, pontosBai, pontosEsq, pontosDir;
 	DAO dao = new DAO();
 	Som som = new Som();
 
@@ -69,10 +71,15 @@ public class InterfaceJogo extends JFrame {
 		rodadaLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 		blockCimEsq.add(rodadaLbl);
 		
-		JLabel rodadaInt = new JLabel("" + part.rodada);
+		JLabel rodadaInt = new JLabel();
+		if (part.multiplicador == 1){
+			rodadaInt.setText("" + part.rodada);
+		} else {
+			rodadaInt.setText("" + part.rodada + " x" + part.multiplicador);
+		}
 		rodadaInt.setHorizontalAlignment(SwingConstants.CENTER);
-		rodadaInt.setMinimumSize(new Dimension(50, 50));
-		rodadaInt.setMaximumSize(new Dimension(50, 50));
+		rodadaInt.setMinimumSize(new Dimension(80, 50));
+		rodadaInt.setMaximumSize(new Dimension(80, 50));
 		rodadaInt.setFont(new Font("Brush Script MT", Font.BOLD, 45));
 		rodadaInt.setForeground(Color.WHITE);
 		rodadaInt.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -105,7 +112,7 @@ public class InterfaceJogo extends JFrame {
 		nomeCim.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		nomeCim.setForeground(Color.WHITE);
 		
-		JLabel pontosCim = new JLabel("Pontos: " + part.pontuacao_jogadores[2]);
+		pontosCim = new JLabel("Pontos: " + part.pontuacao_jogadores[2]);
 		pontosCim.setPreferredSize(new Dimension(90, 30));
 		pontosCim.setMinimumSize(new Dimension(90, 14));
 		inforCimaP2.add(pontosCim);
@@ -171,7 +178,6 @@ public class InterfaceJogo extends JFrame {
 			}			
 		});
 		
-		
 		blockCimDir.add(tempoInt);
 		
 		JPanel iaLeftPainel = new JPanel();
@@ -202,7 +208,7 @@ public class InterfaceJogo extends JFrame {
 		nomeEsq.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		nomeEsq.setForeground(Color.WHITE);
 		
-		JLabel pontosEsq = new JLabel("Pontos: " + part.pontuacao_jogadores[1]);
+		pontosEsq = new JLabel("Pontos: " + part.pontuacao_jogadores[1]);
 		pontosEsq.setMinimumSize(new Dimension(90, 14));
 		pontosEsq.setPreferredSize(new Dimension(90, 30));
 		pontosEsq.setHorizontalAlignment(SwingConstants.CENTER);
@@ -260,7 +266,7 @@ public class InterfaceJogo extends JFrame {
 		nomeBai.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		nomeBai.setForeground(Color.WHITE);
 		
-		JLabel pontosBai = new JLabel("Pontos: " + part.pontuacao_jogadores[0]);
+		pontosBai = new JLabel("Pontos: " + part.pontuacao_jogadores[0]);
 		pontosBai.setPreferredSize(new Dimension(90, 30));
 		inforBaixoP2.add(pontosBai);
 		pontosBai.setHorizontalAlignment(SwingConstants.CENTER);
@@ -341,7 +347,7 @@ public class InterfaceJogo extends JFrame {
 		nomeDir.setFont(new Font("Brush Script MT", Font.BOLD, 25));
 		nomeDir.setForeground(Color.WHITE);
 		
-		JLabel pontosDir = new JLabel("Pontos: " + part.pontuacao_jogadores[3]);
+		pontosDir = new JLabel("Pontos: " + part.pontuacao_jogadores[3]);
 		pontosDir.setPreferredSize(new Dimension(90, 30));
 		pontosDir.setHorizontalAlignment(SwingConstants.CENTER);
 		pontosDir.setMaximumSize(new Dimension(90, 14));
@@ -370,27 +376,27 @@ public class InterfaceJogo extends JFrame {
 		Jogador jogador_logado = (Jogador) part.participantes.get(0);
 		
 		if(part.pontuacao_jogadores[0] >= v){
-			JOptionPane.showMessageDialog(null, "Vocï¿½ venceu a rodada! Parabï¿½ns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[1] >= v) {
-			JOptionPane.showMessageDialog(null, part.participantes.get(1).getNome() + " venceu a rodada! Vocï¿½ perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, part.participantes.get(1).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[2] >= v) {
-			JOptionPane.showMessageDialog(null, part.participantes.get(2).getNome() + " venceu a rodada! Vocï¿½ perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, part.participantes.get(2).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[3] >= v) {
-			JOptionPane.showMessageDialog(null, part.participantes.get(3).getNome() + " venceu a rodada! Vocï¿½ perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);			
+			JOptionPane.showMessageDialog(null, part.participantes.get(3).getNome() + " venceu a rodada! Você perdeu.", "Perdedor", JOptionPane.INFORMATION_MESSAGE);			
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
@@ -475,14 +481,6 @@ public class InterfaceJogo extends JFrame {
 			}
 		});
 		
-		salvarBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Jogador jogador_logado = (Jogador) part.participantes.get(0);
-				dao.salvarPartida(jogador_logado.getId(), part);
-				dispose();
-			}
-		});
-		
 		setVisible(true);
 		setSize(800, 800);
 		setResizable(false);
@@ -490,17 +488,64 @@ public class InterfaceJogo extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	// mÃ©todo da primeira jogada de cada rodada
+	// metodo da primeira jogada de cada rodada
 	public void IniciaPartida(final Partida part) {
+		
+		int id = 0;
+		for (Participante p : part.participantes){
+			boolean flag = false;
+			int pq = p.quantidadeCarrocao();
+			String mensagem;
+			
+			switch (pq) {
+				case 4:
+					part.multiplicador += 1;
+					mensagem = p.getNome() + " possui 4 carroças, a partida será reiniciada e valerá x" + part.multiplicador + " pontos!";
+					JOptionPane.showMessageDialog(null, mensagem, "Reiniciando", JOptionPane.INFORMATION_MESSAGE);
+					flag = true;
+					dispose();
+					part.criarPartida();
+					part.jogadorDaVez = id;
+					new InterfaceJogo(part);
+					break;
+				case 5:
+					p.setPontuacao(p.getPontuacao() + 1);
+					part.pontuacao_jogadores[id] += 1;
+					mensagem = p.getNome() + " ganhou +1 ponto pois iniciou com 5 carroças e agora possui " + part.pontuacao_jogadores[id] + " pontos.\n\nO jogo continua...";
+					JOptionPane.showMessageDialog(null, mensagem, "Pontuação extra", JOptionPane.INFORMATION_MESSAGE);
+					pontosBai.setText("Pontos: " + part.pontuacao_jogadores[0]);
+					pontosEsq.setText("Pontos: " + part.pontuacao_jogadores[1]);
+					pontosCim.setText("Pontos: " + part.pontuacao_jogadores[2]);
+					pontosDir.setText("Pontos: " + part.pontuacao_jogadores[3]);
+					repaint();
+					break;
+				case 6:
+					part.setWinner(p);
+					mensagem = p.getNome() + " venceu a partida e ganhou +1 ponto pois iniciou com 6 carroças!\n\n";
+					mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
+					mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
+					mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
+					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
+					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+					part.criarPartida();
+					new InterfaceJogo(part);
+					break;
+			}
+			if(flag)
+				return;
+			id++;
+		}
+	
 		Participante primeiro;
 		if (part.id_lastWin == -1){
-			// verifica quem Ã© o jogador da vez
+			// verifica quem eh o jogador da vez
 			primeiro = part.firstBegin();
 			if(part.jogadorDaVez == 0){ // jogador
 				
 				inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 				inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-				JOptionPane.showMessageDialog(jogadorPecas, "Vocï¿½ inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, "Você inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				
 				Component[] c = jogadorPecas.getComponents();
 				for (int i = 0; i < c.length; i++){
@@ -528,7 +573,7 @@ public class InterfaceJogo extends JFrame {
 								        it.remove();
 								    }
 								}
-
+	
 								som.somJogaPeca();
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
@@ -563,7 +608,7 @@ public class InterfaceJogo extends JFrame {
 						lab.setEnabled(false);
 					}
 				}
-			} else { // inteligÃªncia artificial
+			} else { // inteligencia artificial
 				if (part.jogadorDaVez == 1){
 					inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 					inforBaixo.setBorder(new LineBorder(new Color(0, 0, 0), 5));
@@ -574,7 +619,8 @@ public class InterfaceJogo extends JFrame {
 					inforDireita.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 					inforCima.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 				}
-				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, primeiro.getNome() + " inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
+				//JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " inicia a partida!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				for(int i = 0; i < primeiro.getPecas().size(); i++){
 					Peca p = primeiro.getPecas().get(i);
 					if(p.getValor1() == 6 && p.getValor2() == 6){
@@ -589,7 +635,7 @@ public class InterfaceJogo extends JFrame {
 						if (part.jogadorDaVez == 3){ //ia direita
 							iaDireitaPecas.remove(i);
 						}
-
+	
 						som.somJogaPeca();
 						part.setUltima_peca(p);
 						p.virada = true;
@@ -624,10 +670,10 @@ public class InterfaceJogo extends JFrame {
 			int quantidadeCarrocao = 0;
 			
 			if(part.jogadorDaVez == 0){	// jogador
-
+	
 				inforBaixo.setBorder(new LineBorder(new Color(0, 200, 0), 5));
 				inforDireita.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-				JOptionPane.showMessageDialog(jogadorPecas, "Vocï¿½ inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, "Você inicia!", "Partida iniciada", JOptionPane.INFORMATION_MESSAGE);
 				
 				Component[] c = jogadorPecas.getComponents();
 				for (int i = 0; i < c.length; i++){
@@ -656,7 +702,7 @@ public class InterfaceJogo extends JFrame {
 								        it.remove();
 								    }
 								}
-
+	
 								som.somJogaPeca();
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
@@ -672,8 +718,8 @@ public class InterfaceJogo extends JFrame {
 								tabuleiro.updateUI();
 								jogadorPecas.updateUI();
 								repaint();
-
-								// tirando os listeners dos botÃµes do mouse
+	
+								// tirando os listeners dos botoes do mouse
 								Component[] c = jogadorPecas.getComponents();
 								for (Component j: c){
 									MouseListener[] m = j.getMouseListeners();
@@ -696,13 +742,13 @@ public class InterfaceJogo extends JFrame {
 					}
 				}
 				if (quantidadeCarrocao == 0){ // passa a vez
-					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " nï¿½o tem carroï¿½ï¿½o para iniciar, entï¿½o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroça para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 					int j = part.jogadorDaVez;
 					part.jogadorDaVez = part.checkNext(j);
 					part.id_lastWin = part.checkNext(j);
 					contadorEmpate++;
 					
-					// tirando os listeners dos botÃµes do mouse
+					// tirando os listeners dos botoes do mouse
 					Component[] compArray = jogadorPecas.getComponents();
 					for (Component comp: compArray){
 						MouseListener[] m = comp.getMouseListeners();
@@ -714,7 +760,7 @@ public class InterfaceJogo extends JFrame {
 					IniciaPartida(part);
 					return;
 				}
-			} else { // inteligÃªncia artificial
+			} else { // inteligencia artificial
 				Peca p;
 				if (part.jogadorDaVez == 1){
 					inforEsquerda.setBorder(new LineBorder(new Color(0, 200, 0), 5));
@@ -741,7 +787,7 @@ public class InterfaceJogo extends JFrame {
 						if (part.jogadorDaVez == 3){ //ia direita
 							iaDireitaPecas.remove(i);
 						}
-
+	
 						som.somJogaPeca();
 						part.setUltima_peca(p);
 						p.virada = true;
@@ -769,7 +815,7 @@ public class InterfaceJogo extends JFrame {
 						}
 					}
 				}
-				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " nï¿½o tem carroï¿½ï¿½o para iniciar, entï¿½o passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(jogadorPecas, part.participantes.get(part.jogadorDaVez).getNome() + " não tem carroça para iniciar, então passou a vez!", "Passou a vez", JOptionPane.INFORMATION_MESSAGE);
 				int j = part.jogadorDaVez;
 				part.jogadorDaVez = part.checkNext(j);
 				part.id_lastWin = part.checkNext(j);
@@ -915,21 +961,21 @@ public class InterfaceJogo extends JFrame {
 									}
 								} else {
 									String mensagem = "";
-									if (x == 1){
-										mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
-									} else if (x == 2){
-										mensagem = vencedor.getNome() + " venceu a partida com um carroï¿½ï¿½o!\n\n";
-									} else if (x == 3){
-										mensagem = vencedor.getNome() + " venceu a partida com lï¿½ e lï¿½!\n\n";
-									} else if (x == 6){
-										mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
+									if (x == 1 || x/part.multiplicador == 1){
+										mensagem = vencedor.getNome() + " venceu a partida com uma batida simples e ganhou " + x + " pontos!\n\n";
+									} else if (x == 2 || x/part.multiplicador == 2){
+										mensagem = vencedor.getNome() + " venceu a partida com um carroça e ganhou " + x + " pontos!\n\n";
+									} else if (x == 3 || x/part.multiplicador == 3){
+										mensagem = vencedor.getNome() + " venceu a partida com lá e lô e ganhou " + x + " pontos!\n\n";
+									} else if (x == 6 || x/part.multiplicador == 6){
+										mensagem = vencedor.getNome() + " venceu a partida com uma cruzada e ganhou " + x + " pontos!\n\n";
 									}
 									mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
 									mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
 									mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
 									mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
-									
 									JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+									part.multiplicador = 1;
 
 									dispose();
 									part.criarPartida();
@@ -977,12 +1023,13 @@ public class InterfaceJogo extends JFrame {
 					repaint();
 					
 					Participante vencedor = part.checkEmpate();
-					String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";
+					String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos e ganhou " + 1*part.multiplicador + " pontos!\n\n";
 					mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
 					mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
 					mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
 					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+					part.multiplicador = 1;
 
 					dispose();
 					part.criarPartida();
@@ -1070,21 +1117,22 @@ public class InterfaceJogo extends JFrame {
 							return;
 						} else {
 							String mensagem = "";
-							if (x == 1){
-								mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
-							} else if (x == 2){
-								mensagem = vencedor.getNome() + " venceu a partida com um carroï¿½ï¿½o!\n\n";
-							} else if (x == 3){
-								mensagem = vencedor.getNome() + " venceu a partida com lï¿½ e lï¿½!\n\n";
-							} else if (x == 6){
-								mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
+							if (x == 1 || x/part.multiplicador == 1){
+								mensagem = vencedor.getNome() + " venceu a partida com uma batida simples e ganhou " + x + " pontos!\n\n";
+							} else if (x == 2 || x/part.multiplicador == 2){
+								mensagem = vencedor.getNome() + " venceu a partida com um carroça e ganhou " + x + " pontos!\n\n";
+							} else if (x == 3 || x/part.multiplicador == 3){
+								mensagem = vencedor.getNome() + " venceu a partida com lá e lô e ganhou " + x + " pontos!\n\n";
+							} else if (x == 6 || x/part.multiplicador == 6){
+								mensagem = vencedor.getNome() + " venceu a partida com uma cruzada e ganhou " + x + " pontos!\n\n";
 							}
 							mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
 							mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
 							mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
 							mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 							JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
-
+							part.multiplicador = 1;
+							
 							dispose();
 							part.criarPartida();
 							new InterfaceJogo(part);
@@ -1127,12 +1175,13 @@ public class InterfaceJogo extends JFrame {
 					repaint();
 					
 					Participante vencedor = part.checkEmpate();
-					String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";
+					String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos e ganhou " + 1*part.multiplicador + " pontos!\n\n";
 					mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
 					mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
 					mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
 					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+					part.multiplicador = 1;
 
 					dispose();
 					part.criarPartida();
@@ -1228,20 +1277,21 @@ public class InterfaceJogo extends JFrame {
 				}
 			} else {
 				String mensagem = "";
-				if (x == 1){
-					mensagem = vencedor.getNome() + " venceu a partida com uma batida simples!\n\n";
-				} else if (x == 2){
-					mensagem = vencedor.getNome() + " venceu a partida com um carroï¿½ï¿½o!\n\n";
-				} else if (x == 3){
-					mensagem = vencedor.getNome() + " venceu a partida com lï¿½ e lï¿½!\n\n";
-				} else if (x == 6){
-					mensagem = vencedor.getNome() + " venceu a partida com uma cruzada!\n\n";
+				if (x == 1 || x/part.multiplicador == 1){
+					mensagem = vencedor.getNome() + " venceu a partida com uma batida simples e ganhou " + x + " pontos!\n\n";
+				} else if (x == 2 || x/part.multiplicador == 2){
+					mensagem = vencedor.getNome() + " venceu a partida com um carroça e ganhou " + x + " pontos!\n\n";
+				} else if (x == 3 || x/part.multiplicador == 3){
+					mensagem = vencedor.getNome() + " venceu a partida com lá e lô e ganhou " + x + " pontos!\n\n";
+				} else if (x == 6 || x/part.multiplicador == 6){
+					mensagem = vencedor.getNome() + " venceu a partida com uma cruzada e ganhou " + x + " pontos!\n\n";
 				}
 				mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
 				mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
 				mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
 				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+				part.multiplicador = 1;
 
 				dispose();
 				part.criarPartida();
@@ -1283,12 +1333,13 @@ public class InterfaceJogo extends JFrame {
 				repaint();
 				
 				Participante vencedor = part.checkEmpate();
-				String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos!\n\n";
+				String mensagem = "Empatou! " + vencedor.getNome() + " venceu pela contagem dos pontos e ganhou " + 1*part.multiplicador + " pontos!\n\n";
 				mensagem += part.participantes.get(0).getNome() + " possui " + part.pontuacao_jogadores[0] + " pontos.\n";
 				mensagem += part.participantes.get(1).getNome() + " possui " + part.pontuacao_jogadores[1] + " pontos.\n";
 				mensagem += part.participantes.get(2).getNome() + " possui " + part.pontuacao_jogadores[2] + " pontos.\n";
 				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
+				part.multiplicador = 1;
 
 				dispose();
 				part.criarPartida();
