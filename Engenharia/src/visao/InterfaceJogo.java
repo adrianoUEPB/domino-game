@@ -30,7 +30,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import controle.DAO;
+import controle.Som;
 import modelo.*;
+
 import java.awt.FlowLayout;
 
 public class InterfaceJogo extends JFrame {
@@ -41,6 +43,7 @@ public class InterfaceJogo extends JFrame {
 	JPanel jogadorPecas, iaCimaPecas, iaEsquerdaPecas, iaDireitaPecas, tabuleiro;
 	JLabel inforCima, inforBaixo, inforEsquerda, inforDireita;
 	DAO dao = new DAO();
+	Som som = new Som();
 
 	public InterfaceJogo(final Partida part){
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -363,7 +366,7 @@ public class InterfaceJogo extends JFrame {
 		tabuleiro.setBackground(new Color(20, 75, 20));
 		getContentPane().add(tabuleiro, BorderLayout.CENTER);
 		tabuleiro.setLayout(null);
-		int v = 2;// seis
+		int v = 6;// seis
 		Jogador jogador_logado = (Jogador) part.participantes.get(0);
 		
 		if(part.pontuacao_jogadores[0] >= v){
@@ -400,6 +403,8 @@ public class InterfaceJogo extends JFrame {
 		int maiorY = tabuleiro.getHeight() - 110;
 		int resultX;
 		int resultY;
+		
+		som.somEmbaralha();
 		
 		for (Peca p: part.pecas_dormidas){
 			resultX = r.nextInt(maiorX);
@@ -516,6 +521,7 @@ public class InterfaceJogo extends JFrame {
 								    }
 								}
 
+								som.somJogaPeca();
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
@@ -576,6 +582,7 @@ public class InterfaceJogo extends JFrame {
 							iaDireitaPecas.remove(i);
 						}
 
+						som.somJogaPeca();
 						part.setUltima_peca(p);
 						p.virada = true;
 						p.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
@@ -642,6 +649,7 @@ public class InterfaceJogo extends JFrame {
 								    }
 								}
 
+								som.somJogaPeca();
 								part.setUltima_peca(peca);
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
@@ -726,6 +734,7 @@ public class InterfaceJogo extends JFrame {
 							iaDireitaPecas.remove(i);
 						}
 
+						som.somJogaPeca();
 						part.setUltima_peca(p);
 						p.virada = true;
 						p.drawPecaScaled(tabuleiro, tabuleiro.getWidth()/2 - 47, tabuleiro.getHeight()/2 - 50, 0, 0);
@@ -808,7 +817,7 @@ public class InterfaceJogo extends JFrame {
 									    }
 									}
 								}
-								
+
 								jogadorPecas.remove(e.getComponent());
 								part.participantes.get(0).getPecas().remove(peca);
 								part.pecas_campo.add(peca);
@@ -872,7 +881,8 @@ public class InterfaceJogo extends JFrame {
 										}
 									}
 								}
-								
+
+								som.somJogaPeca();
 								tabuleiro.updateUI();
 								jogadorPecas.updateUI();
 								repaint();
@@ -1019,6 +1029,7 @@ public class InterfaceJogo extends JFrame {
 							iaDireitaPecas.remove(i);
 						}
 
+						som.somJogaPeca();
 						part.setUltima_peca(p);
 						int x = part.pontuacao();
 						p.virada = true;
@@ -1171,6 +1182,7 @@ public class InterfaceJogo extends JFrame {
 				}
 			}
 
+			som.somJogaPeca();
 			part.setUltima_peca(p);
 			int x = part.pontuacao();
 			p.virada = true;
