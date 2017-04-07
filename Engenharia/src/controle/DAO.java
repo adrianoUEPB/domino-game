@@ -194,7 +194,6 @@ public class DAO {
 					+ "tempo_rodadas = 0, ultima_partida = null, partidas_vencidas = 0");
 			stmt.executeUpdate();
 			con.commit();
-			
 
 			stmt.close();			
 			con.close();
