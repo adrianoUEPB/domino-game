@@ -480,6 +480,22 @@ public class InterfaceJogo extends JFrame {
 			});
 		}
 		
+		for(Peca p: part.participantes.get(0).getPecas()){
+			p.drawPeca(jogadorPecas, 0, 0, 0);
+		}
+		for(Peca p: part.participantes.get(1).getPecas()){
+			p.drawPeca(iaEsquerdaPecas, 0, 0, 1);
+		}
+		for(Peca p: part.participantes.get(2).getPecas()){
+			p.drawPeca(iaCimaPecas, 0, 0, 2);
+		}
+		for(Peca p: part.participantes.get(3).getPecas()){
+			p.drawPeca(iaDireitaPecas, 0, 0, 3);
+		}
+		for(Peca p: part.pecas_campo){
+			p.drawPecaScaled(tabuleiro, p.posicaoX, p.posicaoY, p.rotacao, p.direcao);
+		}
+		
 		voltarBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Jogador jogador_logado = (Jogador) part.participantes.get(0);
