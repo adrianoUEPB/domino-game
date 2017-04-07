@@ -1,5 +1,8 @@
 package controle;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,13 +11,44 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+
 import modelo.Jogador;
 
 public class DAO {
 	
 	private Connection con;
 	private PreparedStatement stmt;
+	
+	public void salvarPartida(int id, Object partida) {
+		
+		con = new Conexao().conexao();		
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(bos);
+			oos.writeObject(partida);
+			
+			byte[] data = bos.toByteArray();
+			
+			stmt = con.prepareStatement("INSERT INTO partida (id_jogador, partida) VALUES (?, ?);");
+			stmt.setInt(1, id);			
+			stmt.setObject(2, data);
+			stmt.executeUpdate();	
+			oos.flush();
+			oos.close();
+			bos.close();
+			stmt.close();
+			con.close();
+			JOptionPane.showMessageDialog(null, "Partida salva com sucesso!");
+		} catch (IOException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro na entrada de dados!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
+		}	
+	}
 	
 	public void resetarRanking() {
 		try {
@@ -79,9 +113,9 @@ public class DAO {
 			con.commit();
 			stmt.close();
 			con.close();			
-			JOptionPane.showMessageDialog(null, "Pontuação atualizada com sucesso!");
+			JOptionPane.showMessageDialog(null, "Pontuaï¿½ï¿½o atualizada com sucesso!");
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuação do jogador " + jogador.getNome() + "!");
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuaï¿½ï¿½o do jogador " + jogador.getNome() + "!");
 		}
 	}
 	
@@ -170,7 +204,7 @@ public class DAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador nï¿½o encontrado!");
 		} 		
 		return jogador;
 	}
@@ -191,7 +225,7 @@ public class DAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Jogador não encontrado!");
+			JOptionPane.showMessageDialog(null, "Jogador nï¿½o encontrado!");
 		}
 		return false;
 	}

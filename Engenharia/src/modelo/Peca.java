@@ -2,6 +2,7 @@ package modelo;
 
 import java.awt.Cursor;
 import java.awt.Image;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -9,7 +10,9 @@ import javax.swing.JPanel;
 
 import controle.RotatedIcon;
 
-public class Peca {
+public class Peca implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private int valor1;
 	private int valor2;
 	public ImageIcon imagem;
@@ -44,10 +47,7 @@ public class Peca {
 	public void drawPeca(JPanel painel, int posicaoX, int posicaoY, int rotacao){
 		this.posicaoX = posicaoX;
 		this.posicaoY = posicaoY;
-		
-		//teste
-		virada = true;
-		//teste
+
 		
 		JLabel l = new JLabel();
 		l.setName("" + valor1 + valor2);
