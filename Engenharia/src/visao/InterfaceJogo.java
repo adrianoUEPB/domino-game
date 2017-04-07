@@ -512,7 +512,6 @@ public class InterfaceJogo extends JFrame {
 					flag = true;
 					dispose();
 					part.criarPartida();
-					part.jogadorDaVez = id;
 					new InterfaceJogo(part);
 					break;
 				case 5:
