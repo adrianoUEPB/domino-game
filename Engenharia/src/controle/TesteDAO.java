@@ -2,20 +2,68 @@ package controle;
 
 import java.util.ArrayList;
 
-import modelo.Jogador;
+import modelo.Partida;
+import modelo.Peca;
 
 public class TesteDAO {
 	public static void main(String[] args) {
 		DAO dao = new DAO();
+		ArrayList<Peca> pecas;
 		
-		ArrayList<Jogador> jogador = dao.rankingDAO();
+		Partida partida = dao.resgatarPartida(39);
 		
-		for (Jogador jogador2 : jogador) {
-			if (jogador2.getPontuacao() == 0) {
-				
-			} else {
-			System.out.println(jogador2.getNome() + " " + jogador2.getPontuacao() + " " + jogador2.getTempo_rodadas() + " "  + jogador2.getPartidas_vencidas());
-			}
+		System.out.println(partida.participantes.get(0).getNome());
+		pecas = partida.participantes.get(0).getPecas();
+		
+		for (Peca peca : pecas) {
+			System.out.print(peca.getValor1() + " " + peca.getValor2() +" x = " + peca.posicaoX + " y = " + peca.posicaoY + " rotação = " + peca.rotacao+"\n");
 		}
+		
+		System.out.println();
+		
+		System.out.println(partida.participantes.get(1).getNome());
+		pecas = partida.participantes.get(1).getPecas();
+		
+		for (Peca peca : pecas) {
+			System.out.print(peca.getValor1() + " " + peca.getValor2() +" x = " + peca.posicaoX + " y = " + peca.posicaoY + " rotação = " + peca.rotacao+"\n");
+		}
+		
+		System.out.println();
+		
+		System.out.println(partida.participantes.get(2).getNome());
+		pecas = partida.participantes.get(2).getPecas();
+		
+		for (Peca peca : pecas) {
+			System.out.print(peca.getValor1() + " " + peca.getValor2() +" x = " + peca.posicaoX + " y = " + peca.posicaoY + " rotação = " + peca.rotacao+"\n");
+		}
+		
+		System.out.println();
+		
+		System.out.println(partida.participantes.get(3).getNome());
+		pecas = partida.participantes.get(3).getPecas();
+		
+		for (Peca peca : pecas) {
+			System.out.print(peca.getValor1() + " " + peca.getValor2() +" x = " + peca.posicaoX + " y = " + peca.posicaoY + " rotação = " + peca.rotacao+"\n");
+		}
+		
+		System.out.println();
+		
+		pecas = partida.pecas_dormidas;
+		System.out.println("Peças dormidas");
+		for (Peca peca : pecas) {
+			System.out.print(peca.getValor1() + " " + peca.getValor2() +" x = " + peca.posicaoX + " y = " + peca.posicaoY + " rotação = " + peca.rotacao+"\n");
+		}
+
+		System.out.println();
+		
+		pecas = partida.pecas_dormidas;
+		System.out.println("Peças campo");
+		for (Peca peca : pecas) {
+			System.out.print(peca.getValor1() + " " + peca.getValor2() +" x = " + peca.posicaoX + " y = " + peca.posicaoY + " rotação = " + peca.rotacao+"\n");
+		}
+		System.out.println();
+		
+		
+
 	}
 }

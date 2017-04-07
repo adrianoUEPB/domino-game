@@ -39,7 +39,7 @@ import java.awt.FlowLayout;
 public class InterfaceJogo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	private int contador = 0;
+	
 	
 	JPanel jogadorPecas, iaCimaPecas, iaEsquerdaPecas, iaDireitaPecas, tabuleiro;
 	JLabel inforCima, inforBaixo, inforEsquerda, inforDireita;
@@ -165,10 +165,10 @@ public class InterfaceJogo extends JFrame {
 
 					@Override
 					public void run() {
-						contador++;
+						Partida.contadorTempo++;
 						part.tempoPartida++;
-						int seg = contador % 60;
-						int min = contador / 60;
+						int seg = Partida.contadorTempo % 60;
+						int min = Partida.contadorTempo / 60;
 						int hora = min / 60;
 						min %= 60;
 						tempoInt.setText(String.format("%02d:%02d:%02d", hora, min, seg));
@@ -485,7 +485,6 @@ public class InterfaceJogo extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Jogador jogador_logado = (Jogador) part.participantes.get(0);
 				dao.salvarPartida(jogador_logado.getId(), part);
-				dispose();
 			}
 		});
 		
@@ -513,7 +512,6 @@ public class InterfaceJogo extends JFrame {
 					flag = true;
 					dispose();
 					part.criarPartida();
-					part.jogadorDaVez = id;
 					new InterfaceJogo(part);
 					break;
 				case 5:
