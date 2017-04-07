@@ -273,6 +273,14 @@ public class InterfaceMenu extends JFrame {
 			}
 		});
 		
+		botaoContinuarPartida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new InterfaceJogo(dao.resgatarPartida(jogador_logado.getId()));
+				return;
+			}
+		});
+		
 		botaoRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -379,39 +387,65 @@ public class InterfaceMenu extends JFrame {
 		// nova partida difícil
 		jogoDificil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				ArrayList<Participante> participantes = new ArrayList<Participante>();
-				participantes.add(jogador_logado);
-				
-				Participante IA1;
-				if (jogador_logado.getIcone().contains("Taz")){
-					IA1 = new InteligenciaArtificial("Frajola", ".\\image\\icon\\Frajola.png", true);
+				boolean flag = false;
+				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
+					Object[] options = { "SIM", "NÃO" };
+					int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Warning",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+							null, options, options[0]);	
+					
+					if (opcao == 0) {
+						flag = true;
+						dao.deletarPartida(jogador_logado.getId());
+					} else {
+						opcoes.setVisible(false);
+						if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
+							botaoContinuarPartida.setEnabled(true);
+						} else {
+							botaoContinuarPartida.setEnabled(false);
+						}
+						botaoNovaPartida.setEnabled(true);
+						botaoRanking.setEnabled(true);
+						botaoSobre.setEnabled(true);
+						botaoHelp.setEnabled(true);
+					}
 				} else {
-					IA1 = new InteligenciaArtificial("Taz", ".\\image\\icon\\Taz.png", true);
+					flag = true;
 				}
-				participantes.add(IA1);
-				
-				Participante IA2;
-				if (jogador_logado.getIcone().contains("Eufrazino")){
-					IA2 = new InteligenciaArtificial("Frajola", ".\\image\\icon\\Frajola.png", true);
-				} else {
-					IA2 = new InteligenciaArtificial("Eufrazino", ".\\image\\icon\\Eufrazino.png", true);
+				if (flag) {
+					ArrayList<Participante> participantes = new ArrayList<Participante>();
+					participantes.add(jogador_logado);
+					
+					Participante IA1;
+					if (jogador_logado.getIcone().contains("Taz")){
+						IA1 = new InteligenciaArtificial("Frajola", ".\\image\\icon\\Frajola.png", true);
+					} else {
+						IA1 = new InteligenciaArtificial("Taz", ".\\image\\icon\\Taz.png", true);
+					}
+					participantes.add(IA1);
+					
+					Participante IA2;
+					if (jogador_logado.getIcone().contains("Eufrazino")){
+						IA2 = new InteligenciaArtificial("Frajola", ".\\image\\icon\\Frajola.png", true);
+					} else {
+						IA2 = new InteligenciaArtificial("Eufrazino", ".\\image\\icon\\Eufrazino.png", true);
+					}
+					participantes.add(IA2);
+					
+					Participante IA3;
+					if (jogador_logado.getIcone().contains("Marvin")){
+						IA3 = new InteligenciaArtificial("Frajola", ".\\image\\icon\\Frajola.png", true);
+					} else {
+						IA3 = new InteligenciaArtificial("Marvin", ".\\image\\icon\\Marvin.png", true);
+					}
+					participantes.add(IA3);
+					
+					Partida part = new Partida(participantes, true);
+					part.criarPartida();
+					
+					dispose();
+					new InterfaceJogo(part);
 				}
-				participantes.add(IA2);
-				
-				Participante IA3;
-				if (jogador_logado.getIcone().contains("Marvin")){
-					IA3 = new InteligenciaArtificial("Frajola", ".\\image\\icon\\Frajola.png", true);
-				} else {
-					IA3 = new InteligenciaArtificial("Marvin", ".\\image\\icon\\Marvin.png", true);
-				}
-				participantes.add(IA3);
-				
-				Partida part = new Partida(participantes, true);
-				part.criarPartida();
-				
-				dispose();
-				new InterfaceJogo(part);
 			}
 		});
 		

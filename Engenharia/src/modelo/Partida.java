@@ -21,7 +21,6 @@ public class Partida implements Serializable {
 	public int jogadorDaVez;
 	private Peca ultima_peca;
 	private boolean dificil;
-	public static int contadorTempo = 0;
 	public int tempoPartida; //teste
 	public int multiplicador;
 

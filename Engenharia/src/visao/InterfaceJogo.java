@@ -44,6 +44,7 @@ public class InterfaceJogo extends JFrame {
 	JPanel jogadorPecas, iaCimaPecas, iaEsquerdaPecas, iaDireitaPecas, tabuleiro;
 	JLabel inforCima, inforBaixo, inforEsquerda, inforDireita;
 	JLabel pontosCim, pontosBai, pontosEsq, pontosDir;
+	Timer tm;
 	DAO dao = new DAO();
 	Som som = new Som();
 
@@ -159,16 +160,14 @@ public class InterfaceJogo extends JFrame {
 			}
 
 			private void cronometro() {
-				Timer tm;
 				tm = new Timer();
 				tm.scheduleAtFixedRate(new TimerTask() {
-
+					
 					@Override
 					public void run() {
-						Partida.contadorTempo++;
 						part.tempoPartida++;
-						int seg = Partida.contadorTempo % 60;
-						int min = Partida.contadorTempo / 60;
+						int seg = part.tempoPartida % 60;
+						int min = part.tempoPartida / 60;
 						int hora = min / 60;
 						min %= 60;
 						tempoInt.setText(String.format("%02d:%02d:%02d", hora, min, seg));
@@ -484,6 +483,8 @@ public class InterfaceJogo extends JFrame {
 		voltarBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Jogador jogador_logado = (Jogador) part.participantes.get(0);
+				tm.cancel();
+				part.tempoPartida = 0;
 				new InterfaceMenu(jogador_logado);
 				dispose();
 			}
@@ -992,6 +993,7 @@ public class InterfaceJogo extends JFrame {
 									JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 									part.multiplicador = 1;
 
+									tm.cancel();
 									dispose();
 									part.criarPartida();
 									new InterfaceJogo(part);
@@ -1045,7 +1047,8 @@ public class InterfaceJogo extends JFrame {
 					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 					part.multiplicador = 1;
-
+					
+					tm.cancel();
 					dispose();
 					part.criarPartida();
 					new InterfaceJogo(part);
@@ -1148,6 +1151,7 @@ public class InterfaceJogo extends JFrame {
 							JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 							part.multiplicador = 1;
 							
+							tm.cancel();
 							dispose();
 							part.criarPartida();
 							new InterfaceJogo(part);
@@ -1197,7 +1201,8 @@ public class InterfaceJogo extends JFrame {
 					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 					part.multiplicador = 1;
-
+					
+					tm.cancel();
 					dispose();
 					part.criarPartida();
 					new InterfaceJogo(part);
@@ -1307,7 +1312,8 @@ public class InterfaceJogo extends JFrame {
 				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 				part.multiplicador = 1;
-
+				
+				tm.cancel();
 				dispose();
 				part.criarPartida();
 				new InterfaceJogo(part);
@@ -1355,7 +1361,8 @@ public class InterfaceJogo extends JFrame {
 				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 				part.multiplicador = 1;
-
+				
+				tm.cancel();
 				dispose();
 				part.criarPartida();
 				new InterfaceJogo(part);
