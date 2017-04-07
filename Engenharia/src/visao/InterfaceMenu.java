@@ -314,8 +314,7 @@ public class InterfaceMenu extends JFrame {
 		jogoFacil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				boolean flag = false;
-				if (botaoContinuarPartida.isEnabled()) {
-					System.out.println("IF FLAG");
+				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
 					Object[] options = { "SIM", "NÃO" };
 					int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Warning",
 							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
@@ -323,6 +322,7 @@ public class InterfaceMenu extends JFrame {
 					
 					if (opcao == 0) {
 						flag = true;
+						dao.deletarPartida(jogador_logado.getId());
 					} else {
 						opcoes.setVisible(false);
 						if (dao.PossuiJogoSalvo(jogador_logado.getId())) {

@@ -379,6 +379,8 @@ public class InterfaceJogo extends JFrame {
 			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[1] >= v) {
@@ -386,6 +388,8 @@ public class InterfaceJogo extends JFrame {
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[2] >= v) {
@@ -393,6 +397,8 @@ public class InterfaceJogo extends JFrame {
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[3] >= v) {
@@ -400,6 +406,8 @@ public class InterfaceJogo extends JFrame {
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		}
