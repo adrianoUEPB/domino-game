@@ -324,7 +324,7 @@ public class InterfaceMenu extends JFrame {
 				boolean flag = false;
 				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
 					Object[] options = { "SIM", "NÃO" };
-					int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Warning",
+					int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Aviso",
 							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
 							null, options, options[0]);	
 					
@@ -390,7 +390,7 @@ public class InterfaceMenu extends JFrame {
 				boolean flag = false;
 				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
 					Object[] options = { "SIM", "NÃO" };
-					int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Warning",
+					int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Aviso",
 							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
 							null, options, options[0]);	
 					

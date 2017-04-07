@@ -535,6 +535,7 @@ public class InterfaceJogo extends JFrame {
 					mensagem = p.getNome() + " possui 4 carroças, a partida será reiniciada e valerá x" + part.multiplicador + " pontos!";
 					JOptionPane.showMessageDialog(null, mensagem, "Reiniciando", JOptionPane.INFORMATION_MESSAGE);
 					flag = true;
+					tm.cancel();
 					dispose();
 					part.criarPartida();
 					part.jogadorDaVez = id;

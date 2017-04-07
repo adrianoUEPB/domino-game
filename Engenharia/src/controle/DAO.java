@@ -38,7 +38,7 @@ public class DAO {
 			
 			if (PossuiJogoSalvoSemCon(id)) {
 				Object[] options = { "SIM", "NÃO" };
-				int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Warning",
+				int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Aviso",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
 						null, options, options[0]);				
 				if (opcao == 0) {
@@ -170,7 +170,6 @@ public class DAO {
 
 			stmt.close();
 			con.close();
-			JOptionPane.showMessageDialog(null, "Partida resgatada com sucesso!");
 		} catch (IOException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro na entrada de dados!");
