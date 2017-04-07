@@ -390,6 +390,7 @@ public class InterfaceRanking extends JFrame {
 		resetarBt.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtP-resetar-disabled.png"));
 		resetarBt.setMinimumSize(new Dimension(110, 40));
 		resetarBt.setMaximumSize(new Dimension(110, 40));
+		resetarBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		resetarBt.setHorizontalTextPosition(SwingConstants.CENTER);
 		resetarBt.setBorder(null);
 		resetarBt.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -404,6 +405,7 @@ public class InterfaceRanking extends JFrame {
 		pdfBt.setDisabledIcon(new ImageIcon(".\\image\\graphics\\BtP-gerar-disabled.png"));
 		pdfBt.setMinimumSize(new Dimension(110, 40));
 		pdfBt.setMaximumSize(new Dimension(110, 40));
+		pdfBt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		pdfBt.setHorizontalTextPosition(SwingConstants.CENTER);
 		pdfBt.setBorder(null);
 		pdfBt.setAlignmentX(0.5f);

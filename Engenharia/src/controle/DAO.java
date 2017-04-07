@@ -36,9 +36,9 @@ public class DAO {
 			
 			byte[] data = bos.toByteArray();
 			
-			if (PossuiJogoSalvo(id)) {
+			if (PossuiJogoSalvoSemCon(id)) {
 				Object[] options = { "SIM", "NÃO" };
-				int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salva, deseja continuar?", "Warning",
+				int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Warning",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
 						null, options, options[0]);				
 				if (opcao == 0) {
@@ -73,13 +73,12 @@ public class DAO {
 			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
 		}	
 	}
-	
 	/**
 	 * Verifica se o jogador possui algum jogo já salvo, se possuir emitirá uma mensagem, caso concorde o jogo será salvo
 	 * @param id
 	 * @return boolean
 	 */
-	private boolean PossuiJogoSalvo(int id) {
+	private boolean PossuiJogoSalvoSemCon(int id) {
 		try {
 			stmt = con.prepareStatement("SELECT partida FROM partida WHERE id_jogador = ?");
 			stmt.setInt(1, id);			
@@ -93,6 +92,35 @@ public class DAO {
 			
 			stmt.close();
 			rs.close();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro na verificação do jogador!");
+		} 
+		
+		return false;
+	}
+	/**
+	 * Verifica se o jogador possui algum jogo já salvo, se possuir emitirá uma mensagem, caso concorde o jogo será salvo
+	 * @param id
+	 * @return boolean
+	 */
+	public boolean PossuiJogoSalvo(int id) {
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			stmt = con.prepareStatement("SELECT partida FROM partida WHERE id_jogador = ?");
+			stmt.setInt(1, id);			
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				rs.close();
+				stmt.close();
+				con.close();
+				return true;			
+			}
+			stmt.close();
+			rs.close();
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro na verificação do jogador!");
@@ -201,9 +229,9 @@ public class DAO {
 			con.commit();
 			stmt.close();
 			con.close();			
-			JOptionPane.showMessageDialog(null, "Pontuaï¿½ï¿½o atualizada com sucesso!");
+			JOptionPane.showMessageDialog(null, "Pontuação atualizada com sucesso!");
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuaï¿½ï¿½o do jogador " + jogador.getNome() + "!");
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuação do jogador " + jogador.getNome() + "!");
 		}
 	}
 	

@@ -56,7 +56,7 @@ public class TesteDAO {
 
 		System.out.println();
 		
-		pecas = partida.pecas_dormidas;
+		pecas = partida.pecas_campo;
 		System.out.println("Peças campo");
 		for (Peca peca : pecas) {
 			System.out.print(peca.getValor1() + " " + peca.getValor2() +" x = " + peca.posicaoX + " y = " + peca.posicaoY + " rotação = " + peca.rotacao+"\n");
