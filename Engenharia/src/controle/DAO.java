@@ -36,9 +36,9 @@ public class DAO {
 			
 			byte[] data = bos.toByteArray();
 			
-			if (PossuiJogoSalvo(id)) {
+			if (PossuiJogoSalvoSemCon(id)) {
 				Object[] options = { "SIM", "NÃO" };
-				int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salva, deseja continuar?", "Warning",
+				int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Aviso",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
 						null, options, options[0]);				
 				if (opcao == 0) {
@@ -48,7 +48,7 @@ public class DAO {
 					stmt.setInt(2, id);
 					stmt.executeUpdate();
 					con.commit();
-					JOptionPane.showMessageDialog(null, "Partida atualizada com sucesso!");
+					JOptionPane.showMessageDialog(null, "Partida salva!");
 				}
 			} else {
 				stmt = con.prepareStatement("INSERT INTO partida (id_jogador, partida) VALUES (?, ?);");
@@ -56,7 +56,7 @@ public class DAO {
 				stmt.setObject(2, data);
 				stmt.executeUpdate();
 				con.commit();
-				JOptionPane.showMessageDialog(null, "Partida salva com sucesso!");
+				JOptionPane.showMessageDialog(null, "Partida salva!");
 			}
 			
 			oos.flush();
@@ -70,7 +70,25 @@ public class DAO {
 			JOptionPane.showMessageDialog(null, "Erro na entrada de dados!");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
+			JOptionPane.showMessageDialog(null, "Erro no banco de dados!");
+		}	
+	}
+	
+	public void deletarPartida(int id) {
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			stmt = con.prepareStatement("DELETE FROM partida WHERE id_jogador = ?;");
+			stmt.setInt(1, id);			
+			stmt.executeUpdate();
+			con.commit();
+			
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro no banco de dados!");
 		}	
 	}
 	
@@ -79,7 +97,7 @@ public class DAO {
 	 * @param id
 	 * @return boolean
 	 */
-	private boolean PossuiJogoSalvo(int id) {
+	private boolean PossuiJogoSalvoSemCon(int id) {
 		try {
 			stmt = con.prepareStatement("SELECT partida FROM partida WHERE id_jogador = ?");
 			stmt.setInt(1, id);			
@@ -93,6 +111,35 @@ public class DAO {
 			
 			stmt.close();
 			rs.close();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro na verificação do jogador!");
+		} 
+		
+		return false;
+	}
+	/**
+	 * Verifica se o jogador possui algum jogo já salvo, se possuir emitirá uma mensagem, caso concorde o jogo será salvo
+	 * @param id
+	 * @return boolean
+	 */
+	public boolean PossuiJogoSalvo(int id) {
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			stmt = con.prepareStatement("SELECT partida FROM partida WHERE id_jogador = ?");
+			stmt.setInt(1, id);			
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				rs.close();
+				stmt.close();
+				con.close();
+				return true;			
+			}
+			stmt.close();
+			rs.close();
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro na verificação do jogador!");
@@ -123,13 +170,12 @@ public class DAO {
 
 			stmt.close();
 			con.close();
-			JOptionPane.showMessageDialog(null, "Partida resgatada com sucesso!");
 		} catch (IOException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro na entrada de dados!");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
+			JOptionPane.showMessageDialog(null, "Erro no banco de dados!");
 		} catch (ClassNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "Erro na recuperação dos dados!");
 			e.printStackTrace();
@@ -148,11 +194,10 @@ public class DAO {
 					+ "tempo_rodadas = 0, ultima_partida = null, partidas_vencidas = 0");
 			stmt.executeUpdate();
 			con.commit();
-			
 
 			stmt.close();			
 			con.close();
-			JOptionPane.showMessageDialog(null, "Ranking resetado com sucesso!");
+			JOptionPane.showMessageDialog(null, "Ranking resetado!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao resetar o ranking!");
 		}
@@ -173,7 +218,7 @@ public class DAO {
 			stmt.close();
 			con.commit();
 			con.close();
-			JOptionPane.showMessageDialog(null,"Jogador cadastrado com sucesso!");
+			JOptionPane.showMessageDialog(null,"Jogador cadastrado!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao cadastrar jogador!");
 		}
@@ -200,8 +245,7 @@ public class DAO {
 			stmt.executeUpdate();
 			con.commit();
 			stmt.close();
-			con.close();			
-			JOptionPane.showMessageDialog(null, "Pontuação atualizada com sucesso!");
+			con.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuação do jogador " + jogador.getNome() + "!");
 		}
@@ -225,7 +269,7 @@ public class DAO {
 			con.commit();
 			stmt.close();
 			con.close();			
-			JOptionPane.showMessageDialog(null, "Jogador atualizado com sucesso!");
+			JOptionPane.showMessageDialog(null, "Jogador atualizado!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao atualizar jogador!");
 		}
