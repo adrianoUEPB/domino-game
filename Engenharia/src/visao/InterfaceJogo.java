@@ -44,6 +44,7 @@ public class InterfaceJogo extends JFrame {
 	JPanel jogadorPecas, iaCimaPecas, iaEsquerdaPecas, iaDireitaPecas, tabuleiro;
 	JLabel inforCima, inforBaixo, inforEsquerda, inforDireita;
 	JLabel pontosCim, pontosBai, pontosEsq, pontosDir;
+	Timer tm;
 	DAO dao = new DAO();
 	Som som = new Som();
 
@@ -159,16 +160,14 @@ public class InterfaceJogo extends JFrame {
 			}
 
 			private void cronometro() {
-				Timer tm;
 				tm = new Timer();
 				tm.scheduleAtFixedRate(new TimerTask() {
-
+					
 					@Override
 					public void run() {
-						Partida.contadorTempo++;
 						part.tempoPartida++;
-						int seg = Partida.contadorTempo % 60;
-						int min = Partida.contadorTempo / 60;
+						int seg = part.tempoPartida % 60;
+						int min = part.tempoPartida / 60;
 						int hora = min / 60;
 						min %= 60;
 						tempoInt.setText(String.format("%02d:%02d:%02d", hora, min, seg));
@@ -379,6 +378,8 @@ public class InterfaceJogo extends JFrame {
 			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[1] >= v) {
@@ -386,6 +387,8 @@ public class InterfaceJogo extends JFrame {
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[2] >= v) {
@@ -393,6 +396,8 @@ public class InterfaceJogo extends JFrame {
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		} else if(part.pontuacao_jogadores[3] >= v) {
@@ -400,6 +405,8 @@ public class InterfaceJogo extends JFrame {
 			jogador_logado = (Jogador) part.participantes.get(0);
 			jogador_logado.setTempo_rodadas(part.tempoPartida);
 			dao.updatePontuacao(jogador_logado);
+			if (dao.PossuiJogoSalvo(jogador_logado.getId()))
+				dao.deletarPartida(jogador_logado.getId());
 			new InterfaceMenu(jogador_logado);
 			return;
 		}
@@ -473,9 +480,27 @@ public class InterfaceJogo extends JFrame {
 			});
 		}
 		
+		for(Peca p: part.participantes.get(0).getPecas()){
+			p.drawPeca(jogadorPecas, 0, 0, 0);
+		}
+		for(Peca p: part.participantes.get(1).getPecas()){
+			p.drawPeca(iaEsquerdaPecas, 0, 0, 1);
+		}
+		for(Peca p: part.participantes.get(2).getPecas()){
+			p.drawPeca(iaCimaPecas, 0, 0, 2);
+		}
+		for(Peca p: part.participantes.get(3).getPecas()){
+			p.drawPeca(iaDireitaPecas, 0, 0, 3);
+		}
+		for(Peca p: part.pecas_campo){
+			p.drawPecaScaled(tabuleiro, p.posicaoX, p.posicaoY, p.rotacao, p.direcao);
+		}
+		
 		voltarBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Jogador jogador_logado = (Jogador) part.participantes.get(0);
+				tm.cancel();
+				part.tempoPartida = 0;
 				new InterfaceMenu(jogador_logado);
 				dispose();
 			}
@@ -510,6 +535,7 @@ public class InterfaceJogo extends JFrame {
 					mensagem = p.getNome() + " possui 4 carroças, a partida será reiniciada e valerá x" + part.multiplicador + " pontos!";
 					JOptionPane.showMessageDialog(null, mensagem, "Reiniciando", JOptionPane.INFORMATION_MESSAGE);
 					flag = true;
+					tm.cancel();
 					dispose();
 					part.criarPartida();
 					new InterfaceJogo(part);
@@ -983,6 +1009,7 @@ public class InterfaceJogo extends JFrame {
 									JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 									part.multiplicador = 1;
 
+									tm.cancel();
 									dispose();
 									part.criarPartida();
 									new InterfaceJogo(part);
@@ -1036,7 +1063,8 @@ public class InterfaceJogo extends JFrame {
 					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 					part.multiplicador = 1;
-
+					
+					tm.cancel();
 					dispose();
 					part.criarPartida();
 					new InterfaceJogo(part);
@@ -1139,6 +1167,7 @@ public class InterfaceJogo extends JFrame {
 							JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 							part.multiplicador = 1;
 							
+							tm.cancel();
 							dispose();
 							part.criarPartida();
 							new InterfaceJogo(part);
@@ -1188,7 +1217,8 @@ public class InterfaceJogo extends JFrame {
 					mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 					JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 					part.multiplicador = 1;
-
+					
+					tm.cancel();
 					dispose();
 					part.criarPartida();
 					new InterfaceJogo(part);
@@ -1298,7 +1328,8 @@ public class InterfaceJogo extends JFrame {
 				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 				part.multiplicador = 1;
-
+				
+				tm.cancel();
 				dispose();
 				part.criarPartida();
 				new InterfaceJogo(part);
@@ -1346,7 +1377,8 @@ public class InterfaceJogo extends JFrame {
 				mensagem += part.participantes.get(3).getNome() + " possui " + part.pontuacao_jogadores[3] + " pontos.\n";
 				JOptionPane.showMessageDialog(null, mensagem, "Partida finalizada", JOptionPane.INFORMATION_MESSAGE);
 				part.multiplicador = 1;
-
+				
+				tm.cancel();
 				dispose();
 				part.criarPartida();
 				new InterfaceJogo(part);
