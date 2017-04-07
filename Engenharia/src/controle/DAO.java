@@ -245,11 +245,7 @@ public class DAO {
 			stmt.executeUpdate();
 			con.commit();
 			stmt.close();
-			con.close();			
-<<<<<<< HEAD
-			JOptionPane.showMessageDialog(null, "Pontuação atualizada com sucesso!");
-=======
->>>>>>> refs/remotes/origin/pr/56
+			con.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao atualizar pontuação do jogador " + jogador.getNome() + "!");
 		}
