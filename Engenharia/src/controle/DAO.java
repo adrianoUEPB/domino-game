@@ -1,7 +1,9 @@
 package controle;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import modelo.Jogador;
+import modelo.Partida;
 
 public class DAO {
 	
@@ -23,24 +26,45 @@ public class DAO {
 	
 	public void salvarPartida(int id, Object partida) {
 		
-		con = new Conexao().conexao();		
+		
 		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(bos);
 			oos.writeObject(partida);
 			
 			byte[] data = bos.toByteArray();
 			
-			stmt = con.prepareStatement("INSERT INTO partida (id_jogador, partida) VALUES (?, ?);");
-			stmt.setInt(1, id);			
-			stmt.setObject(2, data);
-			stmt.executeUpdate();	
+			if (PossuiJogoSalvo(id)) {
+				Object[] options = { "SIM", "NÃO" };
+				int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salva, deseja continuar?", "Warning",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+						null, options, options[0]);				
+				if (opcao == 0) {
+
+					stmt = con.prepareStatement("UPDATE partida SET partida = ? WHERE id_jogador = ?;");
+					stmt.setObject(1, data);
+					stmt.setInt(2, id);
+					stmt.executeUpdate();
+					con.commit();
+					JOptionPane.showMessageDialog(null, "Partida atualizada com sucesso!");
+				}
+			} else {
+				stmt = con.prepareStatement("INSERT INTO partida (id_jogador, partida) VALUES (?, ?);");
+				stmt.setInt(1, id);			
+				stmt.setObject(2, data);
+				stmt.executeUpdate();
+				con.commit();
+				JOptionPane.showMessageDialog(null, "Partida salva com sucesso!");
+			}
+			
 			oos.flush();
 			oos.close();
 			bos.close();
 			stmt.close();
 			con.close();
-			JOptionPane.showMessageDialog(null, "Partida salva com sucesso!");
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro na entrada de dados!");
@@ -48,6 +72,70 @@ public class DAO {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
 		}	
+	}
+	
+	/**
+	 * Verifica se o jogador possui algum jogo já salvo, se possuir emitirá uma mensagem, caso concorde o jogo será salvo
+	 * @param id
+	 * @return boolean
+	 */
+	private boolean PossuiJogoSalvo(int id) {
+		try {
+			stmt = con.prepareStatement("SELECT partida FROM partida WHERE id_jogador = ?");
+			stmt.setInt(1, id);			
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				rs.close();
+				stmt.close();
+				return true;			
+			}
+			
+			stmt.close();
+			rs.close();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro na verificação do jogador!");
+		} 
+		
+		return false;
+	}
+	
+	public Partida resgatarPartida(int id) {
+		
+		Partida partida = null;
+			
+		try {
+			con = new Conexao().conexao();
+
+
+			stmt = con.prepareStatement("SELECT partida FROM partida WHERE id_jogador = ?");
+			stmt.setInt(1, id);			
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("partida"));
+				ObjectInputStream ins = new ObjectInputStream(bais);
+				
+				partida = (Partida) ins.readObject();
+				
+			}
+
+			stmt.close();
+			con.close();
+			JOptionPane.showMessageDialog(null, "Partida resgatada com sucesso!");
+		} catch (IOException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro na entrada de dados!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
+		} catch (ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "Erro na recuperação dos dados!");
+			e.printStackTrace();
+		}
+		
+		return partida;
 	}
 	
 	public void resetarRanking() {
@@ -220,9 +308,12 @@ public class DAO {
 			ResultSet rs = stmt.executeQuery();
 			//se existir um proximo
 			if(rs.next()) {
+				rs.close();
+				stmt.close();
 				con.close();
 				return true;			
 			}
+			stmt.close();
 			con.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Jogador nï¿½o encontrado!");
@@ -243,11 +334,12 @@ public class DAO {
 			stmt.setString(2, jogador.getSenha());
 			rs = stmt.executeQuery();
 			if (rs.next()){
+				stmt.close();
 				con.close();
 				return true;
 			}
+			stmt.close();
 			con.close();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -269,8 +361,7 @@ public class DAO {
 			
 			rs.close();
 			stmt.close();
-			con.close();
-			
+			con.close();			
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
@@ -291,8 +382,7 @@ public class DAO {
 			stmt.executeUpdate();
 			stmt.close();
 			con.commit();
-			con.close();
-	
+			con.close();	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -324,8 +414,7 @@ public class DAO {
 			
 			rs.close();
 			stmt.close();
-			con.close();
-			
+			con.close();			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -341,6 +430,7 @@ public class DAO {
 			if (rs.next())
 				lastId = rs.getInt(1);
 			
+			rs.close();
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao recuperar ID!");
 		}
