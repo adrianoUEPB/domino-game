@@ -73,6 +73,25 @@ public class DAO {
 			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
 		}	
 	}
+	
+	public void deletarPartida(int id) {
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			stmt = con.prepareStatement("DELETE FROM partida WHERE id_jogador = ?;");
+			stmt.setInt(1, id);			
+			stmt.executeUpdate();
+			con.commit();
+			
+			stmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro no sql de dados!");
+		}	
+	}
+	
 	/**
 	 * Verifica se o jogador possui algum jogo já salvo, se possuir emitirá uma mensagem, caso concorde o jogo será salvo
 	 * @param id

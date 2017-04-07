@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -312,39 +313,66 @@ public class InterfaceMenu extends JFrame {
 		// nova partida facil
 		jogoFacil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				ArrayList<Participante> participantes = new ArrayList<Participante>();
-				participantes.add(jogador_logado);
-				
-				Participante IA1;
-				if (jogador_logado.getIcone().contains("Pernalonga")){
-					IA1 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+				boolean flag = false;
+				if (botaoContinuarPartida.isEnabled()) {
+					System.out.println("IF FLAG");
+					Object[] options = { "SIM", "NÃO" };
+					int opcao = JOptionPane.showOptionDialog(null, "Já possui jogo salvo, deseja continuar?", "Warning",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+							null, options, options[0]);	
+					
+					if (opcao == 0) {
+						flag = true;
+					} else {
+						opcoes.setVisible(false);
+						if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
+							botaoContinuarPartida.setEnabled(true);
+						} else {
+							botaoContinuarPartida.setEnabled(false);
+						}
+						botaoNovaPartida.setEnabled(true);
+						botaoRanking.setEnabled(true);
+						botaoSobre.setEnabled(true);
+						botaoHelp.setEnabled(true);
+					}
 				} else {
-					IA1 = new InteligenciaArtificial("Pernalonga", ".\\image\\icon\\Pernalonga.png", false);
+					flag = true;
 				}
-				participantes.add(IA1);
-				
-				Participante IA2;
-				if (jogador_logado.getIcone().contains("Lola")){
-					IA2 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
-				} else {
-					IA2 = new InteligenciaArtificial("Lola", ".\\image\\icon\\Lola.png", false);
+				if (flag) {
+					ArrayList<Participante> participantes = new ArrayList<Participante>();
+					participantes.add(jogador_logado);
+					
+					Participante IA1;
+					if (jogador_logado.getIcone().contains("Pernalonga")){
+						IA1 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+					} else {
+						IA1 = new InteligenciaArtificial("Pernalonga", ".\\image\\icon\\Pernalonga.png", false);
+					}
+					participantes.add(IA1);
+					
+					Participante IA2;
+					if (jogador_logado.getIcone().contains("Lola")){
+						IA2 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+					} else {
+						IA2 = new InteligenciaArtificial("Lola", ".\\image\\icon\\Lola.png", false);
+					}
+					participantes.add(IA2);
+					
+					Participante IA3;
+					if (jogador_logado.getIcone().contains("Patolino")){
+						IA3 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
+					} else {
+						IA3 = new InteligenciaArtificial("Patolino", ".\\image\\icon\\Patolino.png", false);
+					}
+					participantes.add(IA3);
+					
+					Partida part = new Partida(participantes, false);
+					part.criarPartida();
+					
+					dispose();
+					new InterfaceJogo(part);
 				}
-				participantes.add(IA2);
-				
-				Participante IA3;
-				if (jogador_logado.getIcone().contains("Patolino")){
-					IA3 = new InteligenciaArtificial("Gaguinho", ".\\image\\icon\\Gaguinho.png", false);
-				} else {
-					IA3 = new InteligenciaArtificial("Patolino", ".\\image\\icon\\Patolino.png", false);
-				}
-				participantes.add(IA3);
-				
-				Partida part = new Partida(participantes, false);
-				part.criarPartida();
-				
-				dispose();
-				new InterfaceJogo(part);
+
 			}
 		});
 		
