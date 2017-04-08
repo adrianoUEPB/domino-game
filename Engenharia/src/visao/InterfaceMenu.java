@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import controle.DAO;
+import controle.Som;
 import modelo.InteligenciaArtificial;
 import modelo.Jogador;
 import modelo.Participante;
@@ -26,6 +27,7 @@ import modelo.Partida;
 public class InterfaceMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private DAO dao;
+	Som som = new Som();
 	JPanel opcoes, sobre;
 	JButton botaoNovaPartida, botaoContinuarPartida, botaoRanking, botaoSobre, jogoFacil, jogoDificil, botaoHelp;
 	JLabel sobreLabel1, sobreLabel2, sobreLabel3, sobreLabel4, sobreLabel5, sobreLabel6, sobreLabel7, bemVindo, icone;
@@ -264,6 +266,7 @@ public class InterfaceMenu extends JFrame {
 		// actions listeners
 		botaoNovaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				opcoes.setVisible(true);
 				botaoContinuarPartida.setEnabled(false);
 				botaoNovaPartida.setEnabled(false);
@@ -275,14 +278,16 @@ public class InterfaceMenu extends JFrame {
 		
 		botaoContinuarPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				dispose();
-				new InterfaceJogo(dao.resgatarPartida(jogador_logado.getId()));
+				new InterfaceJogo(dao.resgatarPartida(jogador_logado.getId()), true);
 				return;
 			}
 		});
 		
 		botaoRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				dispose();
 				new InterfaceRanking(jogador_logado);
 			}
@@ -290,6 +295,7 @@ public class InterfaceMenu extends JFrame {
 
 		botaoSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				sobre.setVisible(true);
 				botaoContinuarPartida.setEnabled(false);
 				botaoNovaPartida.setEnabled(false);
@@ -303,6 +309,7 @@ public class InterfaceMenu extends JFrame {
 		
 		botaoVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				sobre.setVisible(false);
 				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
 					botaoContinuarPartida.setEnabled(true);
@@ -321,6 +328,7 @@ public class InterfaceMenu extends JFrame {
 		// nova partida facil
 		jogoFacil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				boolean flag = false;
 				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
 					Object[] options = { "SIM", "NÃO" };
@@ -378,7 +386,7 @@ public class InterfaceMenu extends JFrame {
 					part.criarPartida();
 					
 					dispose();
-					new InterfaceJogo(part);
+					new InterfaceJogo(part, false);
 				}
 
 			}
@@ -387,6 +395,7 @@ public class InterfaceMenu extends JFrame {
 		// nova partida difícil
 		jogoDificil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				boolean flag = false;
 				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
 					Object[] options = { "SIM", "NÃO" };
@@ -444,13 +453,14 @@ public class InterfaceMenu extends JFrame {
 					part.criarPartida();
 					
 					dispose();
-					new InterfaceJogo(part);
+					new InterfaceJogo(part, false);
 				}
 			}
 		});
 		
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				opcoes.setVisible(false);
 				if (dao.PossuiJogoSalvo(jogador_logado.getId())) {
 					botaoContinuarPartida.setEnabled(true);
@@ -466,6 +476,7 @@ public class InterfaceMenu extends JFrame {
 		
 		botaoLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				som.somClick();
 				dispose();
 				new InterfaceInicial();
 			}
