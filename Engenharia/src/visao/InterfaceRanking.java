@@ -29,6 +29,8 @@ import java.awt.Font;
 
 import javax.swing.border.LineBorder;
 
+import com.itextpdf.text.DocumentException;
+
 public class InterfaceRanking extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -435,6 +437,9 @@ public class InterfaceRanking extends JFrame {
 					PDFRanking.gerarPDFRanking();
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Erro ao criar PDF, verifique se o documento já está aberto");					
+				} catch (DocumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
