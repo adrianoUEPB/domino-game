@@ -15,6 +15,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -430,6 +431,13 @@ public class InterfaceRanking extends JFrame {
 		pdfBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				som.somClick();
+				
+				try {
+					PDFRanking.gerarPDFRanking();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
