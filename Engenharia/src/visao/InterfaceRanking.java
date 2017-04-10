@@ -30,7 +30,6 @@ import javax.swing.border.LineBorder;
 public class InterfaceRanking extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	Som som = new Som();
 	DAO dao = new DAO();
 	JPanel inforTopOne, inforTopTwo, inforTopThree, inforTopFour, inforTopFive;
 
@@ -421,7 +420,7 @@ public class InterfaceRanking extends JFrame {
 		// actions listeners
 		voltarBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				som.somClick();
+				Som.somClick();
 				new InterfaceMenu(jogador_logado);
 				dispose();		
 			}
@@ -429,13 +428,13 @@ public class InterfaceRanking extends JFrame {
 		
 		pdfBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				som.somClick();
+				Som.somClick();
 			}
 		});
 
 		resetarBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				som.somClick();
+				Som.somClick();
 				Object[] options = { "Sim", "Não" };
 				int i = JOptionPane.showOptionDialog(null, "Tem certeza que deseja resetar o ranking?", "Resetar", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				if (i == 0){

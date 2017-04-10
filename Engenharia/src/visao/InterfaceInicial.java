@@ -33,7 +33,6 @@ import java.awt.Cursor;
 public class InterfaceInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	Som som = new Som();
 	boolean loginFlag;
 	JTextField nome;
 	JPasswordField senha;
@@ -160,7 +159,7 @@ public class InterfaceInicial extends JFrame {
 		// actions listeners
 		botaoLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				som.somClick();
+				Som.somClick();
 				loginFlag = true;
 				informacoes.setVisible(true);
 				botaoCadastro.setEnabled(false);
@@ -180,7 +179,7 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				som.somClick();
+				Som.somClick();
 				loginFlag = false;
 				informacoes.setVisible(true);
 				iconeLabel.setVisible(true);
@@ -200,7 +199,7 @@ public class InterfaceInicial extends JFrame {
 
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				som.somClick();
+				Som.somClick();
 				informacoes.setVisible(false);
 				iconeLabel.setVisible(false);
 				iconeCombobox.setVisible(false);
@@ -215,7 +214,7 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				som.somClick();
+				Som.somClick();
 				Jogador jogador = new Jogador();
 				DAO dao = new DAO();
 				String senhaTxt = String.valueOf(senha.getPassword());
@@ -273,7 +272,7 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				som.somClick();
+				Som.somClick();
 				System.exit(0);
 			}
 		});
