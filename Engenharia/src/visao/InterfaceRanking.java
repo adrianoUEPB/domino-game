@@ -15,12 +15,14 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import javax.swing.SwingConstants;
 
 import controle.DAO;
+import controle.PDFRanking;
 import controle.Som;
 
 import java.awt.Font;
@@ -429,6 +431,11 @@ public class InterfaceRanking extends JFrame {
 		pdfBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Som.somClick();
+				try {
+					PDFRanking.gerarPDFRanking();
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, "Erro ao criar PDF, verifique se o documento já está aberto");					
+				}
 			}
 		});
 
