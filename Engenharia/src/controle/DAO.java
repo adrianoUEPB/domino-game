@@ -466,6 +466,39 @@ public class DAO {
 		return top5;
 	}
 	
+	public ArrayList<Jogador> pdfDAO() {
+		
+		ArrayList<Jogador> top5 = new ArrayList<>();
+		
+		try {
+			con = new Conexao().conexao();
+			con.setAutoCommit(false);
+			stmt = con.prepareStatement("SELECT * FROM jogador ORDER BY pontuacao DESC, partidas_vencidas DESC, tempo_rodadas DESC, ultima_partida DESC;");
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Jogador jogador_ranking = new Jogador();
+				jogador_ranking.setId(rs.getInt("id_jogador"));
+				jogador_ranking.setNome(rs.getString("nome"));
+				jogador_ranking.setIcone(rs.getString("icone"));
+				jogador_ranking.setPontuacao(rs.getInt("pontuacao"));
+				jogador_ranking.setTempo_rodadas(rs.getInt("tempo_rodadas"));
+				jogador_ranking.setUltima_partida(rs.getString("ultima_partida"));
+				jogador_ranking.setPartidas_vencidas(rs.getInt("partidas_vencidas"));
+				
+				top5.add(jogador_ranking);
+			}
+			
+			rs.close();
+			stmt.close();
+			con.close();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return top5;
+	}
+	
 	public static int buscaId(Statement stmt) {
 		int lastId = 0;
 		
