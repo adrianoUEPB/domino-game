@@ -29,12 +29,12 @@ public class PDFRanking {
 			PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
 		// Define a text content stream using the selected font, moving the cursor and drawing the text "Hello World"
-			int y = 0;
+			int y = 800;
 			contentStream.beginText();
 			contentStream.setFont( font, 12 );
 
 			contentStream.newLineAtOffset(40, 800);
-			contentStream.showText("Icone                Nome            Pontuação            "
+			contentStream.showText("Icone                Nome                  Pontuação            "
 					+ "Vitórias            Tempo          Data ");
 			contentStream.endText();
 			y = y - 30;
@@ -44,6 +44,11 @@ public class PDFRanking {
 			
 			for (Jogador jogador : listaJogadores) {
 				
+				if (y < 20) {
+					page = new PDPage(PDRectangle.A4);
+					document.addPage( page );
+					y = 800;
+				}
 				pathIcon = jogador.getIcone();
 				pathIcon = pathIcon.replace("\\","/").substring(0, pathIcon.length()); 
 				img = PDImageXObject.createFromFile(pathIcon, document);
@@ -53,9 +58,9 @@ public class PDFRanking {
 				contentStream.setFont( font, 12 );
 				contentStream.newLineAtOffset(100, y );
 				contentStream.showText("        "
-				+jogador.getNome()+"        "+jogador.getPontuacao()
+				+jogador.getNome()+"                 "+jogador.getPontuacao()
 				+"         "+jogador.getPartidas_vencidas()+"         "
-				+jogador.getTempo_rodadas()+"        "+jogador.getUltima_partida());
+				+ transformarTempo(jogador.getTempo_rodadas()) +"        "+jogador.getUltima_partida());
 				contentStream.endText();
 				y = y - 15;	
 			}		
@@ -64,5 +69,14 @@ public class PDFRanking {
 			// Save the results and ensure that the document is properly closed:
 			document.save(System.getProperty("user.home")+"/Desktop/testeDePDF2.pdf");
 			document.close();	
+	}
+		
+	private static String transformarTempo(int num) {
+		int hora, min, seg;
+		seg = num % 60;
+		min = num / 60;
+		hora = min / 60;
+		
+		return String.format("%02d:%02d:%02d", hora, min, seg);		
 	}
 }
