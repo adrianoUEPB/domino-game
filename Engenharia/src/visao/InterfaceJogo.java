@@ -392,8 +392,6 @@ public class InterfaceJogo extends JFrame {
 		int v = 6;// seis
 		Jogador jogador_logado = (Jogador) part.participantes.get(0);
 		
-		Som.somEmbaralha();
-		
 		if(part.pontuacao_jogadores[0] >= v){
 			Som.somVenceuRodada();
 			JOptionPane.showMessageDialog(null, "Você venceu a rodada! Parabéns!", "Vencedor", JOptionPane.INFORMATION_MESSAGE);
@@ -434,6 +432,8 @@ public class InterfaceJogo extends JFrame {
 			new InterfaceMenu(jogador_logado);
 			return;
 		}
+		
+		Som.somEmbaralha();
 		
 		Random r = new Random();
 		int maiorX = tabuleiro.getWidth() - 50;
@@ -1045,6 +1045,8 @@ public class InterfaceJogo extends JFrame {
 									}
 								} else {
 									Som.somVenceuPartida();
+									mostraPecas();
+
 									String mensagem = "";
 									if (x == 1 || x/part.multiplicador == 1){
 										mensagem = vencedor.getNome() + " venceu a partida com uma batida simples e ganhou " + x + " pontos!\n\n";
@@ -1075,32 +1077,7 @@ public class InterfaceJogo extends JFrame {
 				}
 			} else { // passa a vez
 				if(contadorEmpate == 3){
-
-					Component[] c1 = iaCimaPecas.getComponents();
-					for (Component j: c1){
-						JLabel m = (JLabel) j;
-						String nome = m.getName();
-						int v1 = Integer.parseInt("" + nome.charAt(0));
-						int v2 = Integer.parseInt("" + nome.charAt(1));
-						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-					}
-					Component[] c2 = iaDireitaPecas.getComponents();
-					for (Component j: c2){
-						JLabel m = (JLabel) j;
-						String nome = m.getName();
-						int v1 = Integer.parseInt("" + nome.charAt(0));
-						int v2 = Integer.parseInt("" + nome.charAt(1));
-						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-					}
-					Component[] c3 = iaEsquerdaPecas.getComponents();
-					for (Component j: c3){
-						JLabel m = (JLabel) j;
-						String nome = m.getName();
-						int v1 = Integer.parseInt("" + nome.charAt(0));
-						int v2 = Integer.parseInt("" + nome.charAt(1));
-						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-					}
-					
+					mostraPecas();
 					tabuleiro.updateUI();
 					jogadorPecas.updateUI();
 					iaCimaPecas.updateUI();
@@ -1209,8 +1186,10 @@ public class InterfaceJogo extends JFrame {
 							JogadasSeguintes(part);
 							return;
 						} else {
-							String mensagem = "";
 							Som.somPerdeuPartida();
+							mostraPecas();
+
+							String mensagem = "";
 							if (x == 1 || x/part.multiplicador == 1){
 								mensagem = vencedor.getNome() + " venceu a partida com uma batida simples e ganhou " + x + " pontos!\n\n";
 							} else if (x == 2 || x/part.multiplicador == 2){
@@ -1236,32 +1215,7 @@ public class InterfaceJogo extends JFrame {
 				}
 			} else {
 				if(contadorEmpate == 3){
-					
-					Component[] c1 = iaCimaPecas.getComponents();
-					for (Component j: c1){
-						JLabel m = (JLabel) j;
-						String nome = m.getName();
-						int v1 = Integer.parseInt("" + nome.charAt(0));
-						int v2 = Integer.parseInt("" + nome.charAt(1));
-						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-					}
-					Component[] c2 = iaDireitaPecas.getComponents();
-					for (Component j: c2){
-						JLabel m = (JLabel) j;
-						String nome = m.getName();
-						int v1 = Integer.parseInt("" + nome.charAt(0));
-						int v2 = Integer.parseInt("" + nome.charAt(1));
-						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-					}
-					Component[] c3 = iaEsquerdaPecas.getComponents();
-					for (Component j: c3){
-						JLabel m = (JLabel) j;
-						String nome = m.getName();
-						int v1 = Integer.parseInt("" + nome.charAt(0));
-						int v2 = Integer.parseInt("" + nome.charAt(1));
-						m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-					}
-					
+					mostraPecas();
 					tabuleiro.updateUI();
 					jogadorPecas.updateUI();
 					iaCimaPecas.updateUI();
@@ -1378,8 +1332,10 @@ public class InterfaceJogo extends JFrame {
 					return;
 				}
 			} else {
-				String mensagem = "";
 				Som.somPerdeuPartida();
+				mostraPecas();
+
+				String mensagem = "";
 				if (x == 1 || x/part.multiplicador == 1){
 					mensagem = vencedor.getNome() + " venceu a partida com uma batida simples e ganhou " + x + " pontos!\n\n";
 				} else if (x == 2 || x/part.multiplicador == 2){
@@ -1403,32 +1359,7 @@ public class InterfaceJogo extends JFrame {
 			}
 		} else {
 			if(contadorEmpate == 3){
-				
-				Component[] c1 = iaCimaPecas.getComponents();
-				for (Component j: c1){
-					JLabel m = (JLabel) j;
-					String nome = m.getName();
-					int v1 = Integer.parseInt("" + nome.charAt(0));
-					int v2 = Integer.parseInt("" + nome.charAt(1));
-					m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-				}
-				Component[] c2 = iaDireitaPecas.getComponents();
-				for (Component j: c2){
-					JLabel m = (JLabel) j;
-					String nome = m.getName();
-					int v1 = Integer.parseInt("" + nome.charAt(0));
-					int v2 = Integer.parseInt("" + nome.charAt(1));
-					m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-				}
-				Component[] c3 = iaEsquerdaPecas.getComponents();
-				for (Component j: c3){
-					JLabel m = (JLabel) j;
-					String nome = m.getName();
-					int v1 = Integer.parseInt("" + nome.charAt(0));
-					int v2 = Integer.parseInt("" + nome.charAt(1));
-					m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
-				}
-				
+				mostraPecas();
 				tabuleiro.updateUI();
 				jogadorPecas.updateUI();
 				iaCimaPecas.updateUI();
@@ -1483,6 +1414,41 @@ public class InterfaceJogo extends JFrame {
 					return;
 				}
 			}
+		}
+	}
+	
+	public void mostraPecas(){		
+		Component[] c0 = jogadorPecas.getComponents();
+		for (Component j: c0){
+			JLabel m = (JLabel) j;
+			String nome = m.getName();
+			int v1 = Integer.parseInt("" + nome.charAt(0));
+			int v2 = Integer.parseInt("" + nome.charAt(1));
+			m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+		}
+		Component[] c1 = iaCimaPecas.getComponents();
+		for (Component j: c1){
+			JLabel m = (JLabel) j;
+			String nome = m.getName();
+			int v1 = Integer.parseInt("" + nome.charAt(0));
+			int v2 = Integer.parseInt("" + nome.charAt(1));
+			m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+		}
+		Component[] c2 = iaDireitaPecas.getComponents();
+		for (Component j: c2){
+			JLabel m = (JLabel) j;
+			String nome = m.getName();
+			int v1 = Integer.parseInt("" + nome.charAt(0));
+			int v2 = Integer.parseInt("" + nome.charAt(1));
+			m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
+		}
+		Component[] c3 = iaEsquerdaPecas.getComponents();
+		for (Component j: c3){
+			JLabel m = (JLabel) j;
+			String nome = m.getName();
+			int v1 = Integer.parseInt("" + nome.charAt(0));
+			int v2 = Integer.parseInt("" + nome.charAt(1));
+			m.setIcon(new ImageIcon(".\\image\\peca\\peca" + v1 + v2 + ".png"));
 		}
 	}
 }
