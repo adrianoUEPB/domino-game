@@ -26,11 +26,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
 
 import controle.DAO;
+import controle.Som;
+
 import java.awt.Cursor;
 
 public class InterfaceInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
+	Som som = new Som();
 	boolean loginFlag;
 	JTextField nome;
 	JPasswordField senha;
@@ -157,6 +160,7 @@ public class InterfaceInicial extends JFrame {
 		// actions listeners
 		botaoLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				som.somClick();
 				loginFlag = true;
 				informacoes.setVisible(true);
 				botaoCadastro.setEnabled(false);
@@ -176,6 +180,7 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				som.somClick();
 				loginFlag = false;
 				informacoes.setVisible(true);
 				iconeLabel.setVisible(true);
@@ -195,6 +200,7 @@ public class InterfaceInicial extends JFrame {
 
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				som.somClick();
 				informacoes.setVisible(false);
 				iconeLabel.setVisible(false);
 				iconeCombobox.setVisible(false);
@@ -209,6 +215,7 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				som.somClick();
 				Jogador jogador = new Jogador();
 				DAO dao = new DAO();
 				String senhaTxt = String.valueOf(senha.getPassword());
@@ -266,6 +273,7 @@ public class InterfaceInicial extends JFrame {
 		
 		botaoSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				som.somClick();
 				System.exit(0);
 			}
 		});
