@@ -7,6 +7,7 @@ import modelo.*;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -28,6 +30,7 @@ import controle.Som;
 import java.awt.Font;
 
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.itextpdf.text.DocumentException;
 
@@ -433,8 +436,20 @@ public class InterfaceRanking extends JFrame {
 		pdfBt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Som.somClick();
+				
 				try {
-					PDFRanking.gerarPDFRanking();
+					JFileChooser janela = new JFileChooser(new File("teste"));
+					janela.setFileFilter(new FileNameExtensionFilter("pdf", "pdf"));
+					janela.setAcceptAllFileFilterUsed(false);
+					
+					if (janela.showSaveDialog(null) != JFileChooser.APPROVE_OPTION)
+						return;
+					
+					File path = janela.getSelectedFile();
+					if (!path.getAbsolutePath().endsWith(".pdf")) {
+						path = new File(path.getAbsolutePath() + ".pdf");
+						new PDFRanking().gerarPDFRanking(path, jogador_logado);
+					}
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Erro ao criar PDF, verifique se o documento já está aberto");					
 				} catch (DocumentException e) {
