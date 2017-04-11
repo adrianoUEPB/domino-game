@@ -3,9 +3,8 @@ package controle;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
+import java.io.File;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -21,13 +20,13 @@ import modelo.Jogador;
 
 public class PDFRanking {
 
-		public static void gerarPDFRanking() throws IOException, DocumentException {
+		public void gerarPDFRanking(File path) throws IOException, DocumentException {
 		
 			DAO dao = new DAO();
 			ArrayList<Jogador> listaJogadores = dao.pdfDAO();
 	
 			Document document = new Document();
-			PdfWriter.getInstance(document, new FileOutputStream("C:\\teste.pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(path));
 			
 			document.open();
 			document.setPageSize(PageSize.A4);
@@ -116,10 +115,10 @@ public class PDFRanking {
 		
 			document.add(tabela);
 			document.close();	
-			JOptionPane.showMessageDialog(null, "PDF gerado em C:/teste.pdf");
+			JOptionPane.showMessageDialog(null, "PDF gerado em " + path);
 	}
 		
-	private static String transformarTempo(int num) {
+	private String transformarTempo(int num) {
 		int hora, min, seg;
 		seg = num % 60;
 		min = num / 60;
