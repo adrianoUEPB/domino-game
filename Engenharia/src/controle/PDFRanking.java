@@ -2,7 +2,11 @@ package controle;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.JOptionPane;
 import java.io.File;
 import com.itextpdf.text.BaseColor;
@@ -20,7 +24,7 @@ import modelo.Jogador;
 
 public class PDFRanking {
 
-		public void gerarPDFRanking(File path) throws IOException, DocumentException {
+		public void gerarPDFRanking(File path, Jogador emissor) throws IOException, DocumentException {
 		
 			DAO dao = new DAO();
 			ArrayList<Jogador> listaJogadores = dao.pdfDAO();
@@ -31,16 +35,27 @@ public class PDFRanking {
 			document.open();
 			document.setPageSize(PageSize.A4);
 			Image topo = Image.getInstance("C:\\Domino\\domino-game\\Engenharia\\image\\graphics\\domino_pdf.png");
-//			topo.scalePercent(60, 60);
 			topo.scaleToFit(420, 420);
 			topo.setAlignment(Element.ALIGN_CENTER);
 			document.add(topo);
 			
 			document.add(new Paragraph(" "));
 			
+			DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			java.util.Date hoje = new java.util.Date();	
+			Paragraph info = new Paragraph("Documento gerado em " + String.valueOf(formato.format(hoje)));
+			info.setAlignment(Element.ALIGN_CENTER);
+			Paragraph jogador_logado = new Paragraph("Por " + emissor.getNome());
+			jogador_logado.setAlignment(Element.ALIGN_CENTER);
+			
+			document.add(info);
+			document.add(jogador_logado);
+			
+			document.add(new Paragraph(" "));
+			
 			PdfPTable tabela = new PdfPTable(7);
 			tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
-			float[] tams = {0.05f, 0.05f, 0.4f, 0.08f, 0.05f, 0.13f, 0.17f}; 
+			float[] tams = {0.05f, 0.05f, 0.4f, 0.06f, 0.06f, 0.13f, 0.17f}; 
 			tabela.setWidths(tams);
 			
 			PdfPCell C = new PdfPCell(new Paragraph("C"));
@@ -58,12 +73,12 @@ public class PDFRanking {
 			nome.setBackgroundColor(BaseColor.GRAY);
 			tabela.addCell(nome);
 			
-			PdfPCell pont = new PdfPCell(new Paragraph("Pont"));
+			PdfPCell pont = new PdfPCell(new Paragraph("P"));
 			pont.setHorizontalAlignment(Element.ALIGN_CENTER);
 			pont.setBackgroundColor(BaseColor.GRAY);
 			tabela.addCell(pont);
 			
-			PdfPCell PV = new PdfPCell(new Paragraph("PV"));
+			PdfPCell PV = new PdfPCell(new Paragraph("V"));
 			PV.setHorizontalAlignment(Element.ALIGN_CENTER);
 			PV.setBackgroundColor(BaseColor.GRAY);
 			tabela.addCell(PV);
@@ -112,6 +127,7 @@ public class PDFRanking {
 				tabela.addCell(ult_partida);
 			}
 			
+
 		
 			document.add(tabela);
 			document.close();	

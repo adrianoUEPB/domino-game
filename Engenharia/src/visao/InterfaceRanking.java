@@ -448,7 +448,7 @@ public class InterfaceRanking extends JFrame {
 					File path = janela.getSelectedFile();
 					if (!path.getAbsolutePath().endsWith(".pdf")) {
 						path = new File(path.getAbsolutePath() + ".pdf");
-						new PDFRanking().gerarPDFRanking(path);
+						new PDFRanking().gerarPDFRanking(path, jogador_logado);
 					}
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Erro ao criar PDF, verifique se o documento já está aberto");					
