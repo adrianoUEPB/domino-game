@@ -11,6 +11,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -31,23 +32,31 @@ public class PDFRanking {
 			
 			document.open();
 			document.setPageSize(PageSize.A4);
+			
 			Image topo = Image.getInstance("C:\\Domino\\domino-game\\Engenharia\\image\\graphics\\domino_pdf.png");
 			topo.scaleToFit(420, 420);
 			topo.setAlignment(Element.ALIGN_CENTER);
 			document.add(topo);
 			
-			document.add(new Paragraph(" "));
+			String information = "\nDesenvolvido em 2017 para a disciplina de Engenharia de Software\n"
+					+ "UEPB - 2016.2\n"
+					+ "Adriano Araujo Felisberto\n"
+					+ "Eleonilia Monteiro Rodrigues\n"
+					+ "Maria José Oliveira Costa\n"
+					+ "Wendell Gomes Silva";
+			
+			Paragraph p = new Paragraph(information);
+			p.setAlignment(Element.ALIGN_CENTER);
+			document.add(p);
 			
 			DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			java.util.Date hoje = new java.util.Date();	
-			Paragraph info = new Paragraph("Documento gerado em " + String.valueOf(formato.format(hoje)));
+			Paragraph info = new Paragraph("\nDocumento gerado em " + String.valueOf(formato.format(hoje) + 
+					" por " + emissor.getNome()));
 			info.setAlignment(Element.ALIGN_CENTER);
-			Paragraph jogador_logado = new Paragraph("Por " + emissor.getNome());
-			jogador_logado.setAlignment(Element.ALIGN_CENTER);
 			
 			document.add(info);
-			document.add(jogador_logado);
-			
+				
 			document.add(new Paragraph(" "));
 			
 			PdfPTable tabela = new PdfPTable(7);
@@ -125,7 +134,7 @@ public class PDFRanking {
 			}
 			
 
-		
+			
 			document.add(tabela);
 			document.close();	
 			JOptionPane.showMessageDialog(null, "PDF gerado em " + path);
