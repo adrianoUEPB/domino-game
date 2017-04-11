@@ -436,7 +436,8 @@ public class InterfaceRanking extends JFrame {
 				try {
 					PDFRanking.gerarPDFRanking();
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "Erro ao criar PDF, verifique se o documento já está aberto");					
+					e.printStackTrace();
+//					JOptionPane.showMessageDialog(null, "Erro ao criar PDF, verifique se o documento já está aberto");					
 				} catch (DocumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

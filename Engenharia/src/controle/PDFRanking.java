@@ -31,40 +31,89 @@ public class PDFRanking {
 			
 			document.open();
 			document.setPageSize(PageSize.A4);
-			Paragraph paragrafo = new Paragraph("Relatório PDF jogo dominó");
-			document.add(paragrafo);
+			Image topo = Image.getInstance("C:\\Domino\\domino-game\\Engenharia\\image\\graphics\\domino_pdf.png");
+//			topo.scalePercent(60, 60);
+			topo.scaleToFit(420, 420);
+			topo.setAlignment(Element.ALIGN_CENTER);
+			document.add(topo);
 			
+			document.add(new Paragraph(" "));
 			
+			PdfPTable tabela = new PdfPTable(7);
+			tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
+			float[] tams = {0.05f, 0.05f, 0.4f, 0.08f, 0.05f, 0.13f, 0.17f}; 
+			tabela.setWidths(tams);
 			
-			PdfPTable tabela = new PdfPTable(6);
-			PdfPCell cabecalho = new PdfPCell(new Paragraph("Ranking geral"));
-			cabecalho.setColspan(6);
-			cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
-			cabecalho.setBackgroundColor(BaseColor.RED);
-			tabela.addCell(cabecalho);
-			tabela.addCell("Icone");
-			tabela.addCell("Nome");
-			tabela.addCell("Pontuação");
-			tabela.addCell("Vitórias");
-			tabela.addCell("Tempo");
-			tabela.addCell("Data");
+			PdfPCell C = new PdfPCell(new Paragraph("C"));
+			C.setHorizontalAlignment(Element.ALIGN_CENTER);
+			C.setBackgroundColor(BaseColor.GRAY);
+			tabela.addCell(C);
+			
+			PdfPCell I = new PdfPCell(new Paragraph("I"));
+			I.setHorizontalAlignment(Element.ALIGN_CENTER);
+			I.setBackgroundColor(BaseColor.GRAY);
+			tabela.addCell(I);
+			
+			PdfPCell nome = new PdfPCell(new Paragraph("Nome"));
+			nome.setHorizontalAlignment(Element.ALIGN_CENTER);
+			nome.setBackgroundColor(BaseColor.GRAY);
+			tabela.addCell(nome);
+			
+			PdfPCell pont = new PdfPCell(new Paragraph("Pont"));
+			pont.setHorizontalAlignment(Element.ALIGN_CENTER);
+			pont.setBackgroundColor(BaseColor.GRAY);
+			tabela.addCell(pont);
+			
+			PdfPCell PV = new PdfPCell(new Paragraph("PV"));
+			PV.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PV.setBackgroundColor(BaseColor.GRAY);
+			tabela.addCell(PV);
+			
+			PdfPCell Tempo = new PdfPCell(new Paragraph("Tempo"));
+			Tempo.setHorizontalAlignment(Element.ALIGN_CENTER);
+			Tempo.setBackgroundColor(BaseColor.GRAY);
+			tabela.addCell(Tempo);
+			
+			PdfPCell Data = new PdfPCell(new Paragraph("Data"));
+			Data.setHorizontalAlignment(Element.ALIGN_CENTER);
+			Data.setBackgroundColor(BaseColor.GRAY);
+			tabela.addCell(Data);
 			
 			String pathIcon = null;
-			
-			for (Jogador jogador : listaJogadores) {
+			int posicao = 0;
+			for (Jogador jogador : listaJogadores) {				
+				
+				posicao++;
+				PdfPCell pos = new PdfPCell(new Paragraph(String.valueOf(posicao)));
+				pos.setHorizontalAlignment(Element.ALIGN_CENTER);
+				tabela.addCell(pos);
 				
 				pathIcon = jogador.getIcone();
 				pathIcon = pathIcon.replace("\\","/").substring(0, pathIcon.length());
-				Image img = Image.getInstance(pathIcon);				
+				Image img = Image.getInstance(pathIcon);
+				
 				tabela.addCell(img);
 				
 				tabela.addCell(jogador.getNome());
-				tabela.addCell(String.valueOf(jogador.getPontuacao()));
-				tabela.addCell(String.valueOf(jogador.getPartidas_vencidas()));
-				tabela.addCell(transformarTempo(jogador.getTempo_rodadas()));
-				tabela.addCell(jogador.getUltima_partida());
+				
+				PdfPCell pontuacao = new PdfPCell(new Paragraph(String.valueOf(jogador.getPontuacao())));
+				pontuacao.setHorizontalAlignment(Element.ALIGN_CENTER);
+				tabela.addCell(pontuacao);
+				
+				PdfPCell partidas_vencidas = new PdfPCell(new Paragraph(String.valueOf(String.valueOf(jogador.getPartidas_vencidas()))));
+				partidas_vencidas.setHorizontalAlignment(Element.ALIGN_CENTER);
+				tabela.addCell(partidas_vencidas);
+				
+				PdfPCell tempo = new PdfPCell(new Paragraph(transformarTempo(jogador.getTempo_rodadas())));
+				tempo.setHorizontalAlignment(Element.ALIGN_CENTER);
+				tabela.addCell(tempo);
+				
+				PdfPCell ult_partida = new PdfPCell(new Paragraph(jogador.getUltima_partida()));
+				ult_partida.setHorizontalAlignment(Element.ALIGN_CENTER);
+				tabela.addCell(ult_partida);
 			}
 			
+		
 			document.add(tabela);
 			document.close();	
 			JOptionPane.showMessageDialog(null, "PDF gerado em C:/teste.pdf");
